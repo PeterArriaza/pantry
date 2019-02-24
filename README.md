@@ -26,7 +26,7 @@ Users of Pantry will be able to use the app to perform functions like:
 
 ### A. Sign Up Page
 * enter email and password to login -> go to your account Pantry page (B)
-* create new account -> new account sign up page (A1.)
+* create new account -> new account sign up page (A1)
 * try out app without signing up -> go to Pantry page with mock data (B)
 
 ##### A1. New Account Sign Up Page
