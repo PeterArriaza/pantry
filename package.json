@@ -2,7 +2,7 @@
     "name": "pantry",
     "version": "1.0.0",
     "description": "Keep track of food items in your household with this handy app!",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
         "test": "mocha --exit"
     },
@@ -17,7 +17,12 @@
     },
     "homepage": "https://github.com/PeterArriaza/pantry#readme",
     "dependencies": {
-        "express": "^4.16.4"
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "mongoose": "^5.4.15",
+        "morgan": "^1.9.1"
     },
     "devDependencies": {
         "chai": "^4.2.0",

@@ -1,5 +1,11 @@
 # Pantry
 
+## NEED TO CREATE NEW GITHUB REPO AND HEROKU
+### pantry-food-management-node-capstone 
+
+## Live Preview
+https://pantry-food-management.herokuapp.com/
+
 ## The Idea
 
 This app will help you keep track of what food you have in your home - who put it there, when they put it there, how much is left, and some insights about your food use and spending. Users will create a "Pantry", which can be a specific refrigerator, cabinent, shelf, or location that you store food.
