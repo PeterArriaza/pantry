@@ -1,0 +1,27 @@
+{
+    "name": "pantry",
+    "version": "1.0.0",
+    "description": "Keep track of food items in your household with this handy app!",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha --exit"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PeterArriaza/pantry.git"
+    },
+    "author": "Peter Arriaza",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/PeterArriaza/pantry/issues"
+    },
+    "homepage": "https://github.com/PeterArriaza/pantry#readme",
+    "dependencies": {
+        "express": "^4.16.4"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-http": "^4.2.1",
+        "mocha": "^6.0.1"
+    }
+}
