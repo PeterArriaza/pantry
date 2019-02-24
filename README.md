@@ -22,5 +22,60 @@ Users of Pantry will be able to use the app to perform functions like:
   * Who ate most of the eggs from this carton?
   * View who drank the last of the milk so you can *kindly* ask them to get more!
 
+## User Flows
 
+### A. Sign Up Page
+* enter email and password to login -> go to your account Pantry page (B)
+* create new account -> new account sign up page (A1.)
+* try out app without signing up -> go to Pantry page with mock data (B)
+
+##### A1. New Account Sign Up Page
+User enters following information:
+* First name
+* Last Name
+* Email
+* Password
+* Confirm password
+* Existing household to join (optional)
+
+
+### B. View your Pantries with option to create, leave/remove Pantry
+* List of Pantries 
+   * Click "Add" -> new Pantry creation page (B1)
+   * Click "Remove" -> modal to confirm removal of Pantry
+      * If Pantry no longer has any members, it is removed from the database in the background
+      * Other people that belong to Pantry still see Pantry if a member leaves
+   
+##### B1. New Pantry creation
+* Name of Pantry
+* Other members to include in Pantry
+* Location of Pantry
+   * Combination of name and location has to be unique i.e. "My House" (location) cannot have two Pantries named "Refrigerator" and "Refrigerator". "Upstairs refrigerator" and "downstairs refrigerator" would be a valid name combination in "My House".
+
+### C. View Items within the Pantry
+* List of all items within Pantry
+   * Displays quantity in line and date of addition to Pantry
+* Click to expand details
+   * Which household member added this item
+   * Price of item (optional)
+   * Expiration date (optional)
+   * Description (optional)
+
+### D. Edit items of Pantry
+* Click on existing item to expand details
+   * Remove button -> modal for confirmation of item removal. Pantry history updated with event (timestamp and user)
+   * Click Update quantity -> field shows inline to update manually or "-"/"+" buttons to either side.  Has to be integer value.
+* Button at top to add new item -> new item screen (D1)
+   * App keeps track of user and timestamp for new item creation
+   
+#### D1. New Item Screen
+Input fields:
+* Name of item
+* Quantity (value and units) e.g. 2 lbs or 12 ea (for discrete divisions like eggs)
+* Price (optional)
+* Expiration date (optional)
+* Description (optional)
+   
+### E. Pantry History
+Static log of Pantry name, actions taken within pantry, and users/timestamp of when each action was taken
 
