@@ -15,6 +15,7 @@ app.get('/', function (req, res) {
 });
 
 let server;
+// test8
 
 function runServer(databaseUrl) {
     return new Promise((resolve, reject) => {
