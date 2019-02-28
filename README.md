@@ -12,13 +12,9 @@ This app will help you keep track of what food you have in your home - who put i
 
 ## User Stories
 
-Users of Pantry will be able to use the app to perform functions like:
-
-* Create an account to login into the app and view up your saved data or tryout the app with a mock user profile
-* Join a household along with your roommates, family members, or co-workers
-  * Keep track of multiple Pantries 
-* Keep track of your food in your house(s)
-  * Add individual items into your Pantry
+* As a user, I can create an account to login into the app and view saved data or tryout the app with a mock user profile
+* As a user, I can keep track of your food in my house
+  * Add individual items into my Pantry
   * Input information about items like quantity, price, expiration date, etc.
   * Reduce the quantity of an item as you use it, e.g. update a dozen eggs to eleven eggs
   * Remove an item from your Pantry when it is gone
@@ -44,7 +40,6 @@ User enters following information:
 * Email
 * Password
 * Confirm password
-* Existing household to join (optional)
 
 ![New Account Page](img/readme/sign-up.png)
 
@@ -60,19 +55,17 @@ User enters following information:
 ##### B1. New Pantry creation
 * Name of Pantry
 * Other members to include in Pantry
-* Location of Pantry
-   * Combination of name and location has to be unique i.e. "My House" (location) cannot have two Pantries named "Refrigerator" and "Refrigerator". "Upstairs refrigerator" and "downstairs refrigerator" would be a valid name combination in "My House".
 
 ![New Pantry Page](img/readme/new-pantry.png)
 
 ### C. View Items within the Pantry
 * List of all items within Pantry
-   * Displays quantity in line and date of addition to Pantry
-* Click to expand details
-   * Which household member added this item
+   * Displays quantity, description, who added the item inline
+* Click to expand and edit details
    * Price of item (optional)
    * Expiration date (optional)
    * Description (optional)
+   * Update quantity
 
 ### D. Edit items of Pantry
 * Click on existing item to expand details
