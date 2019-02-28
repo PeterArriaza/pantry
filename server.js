@@ -18,6 +18,8 @@ app.get('/login', function (req, res) {
     res.sendFile(__dirname + '/public/login.html');
 });
 
+// =========================== Run/Close Server ==============================
+
 let server;
 // test8
 
@@ -39,12 +41,6 @@ function runServer(databaseUrl) {
     });
 }
 
-
-if (require.main === module) {
-    runServer(config.DATABASE_URL).catch(err => console.error(err));
-}
-
-
 function closeServer() {
     return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
         console.log('Closing server');
@@ -57,10 +53,26 @@ function closeServer() {
     }));
 }
 
+if (require.main === module) {
+    runServer(config.DATABASE_URL).catch(err => console.error(err));
+}
+
+// =========================== Endpoints ====================================
+
+
+
+// =========================== Catch-all endpoint ===========================
+
+app.use('*', (req, res) => {
+    res.status(404).json({
+        message: 'Not Found'
+    });
+});
+
+// =========================== Exports ======================================
+
 module.exports = {
     app,
     runServer,
     closeServer
 };
-
-//test
