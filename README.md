@@ -63,7 +63,7 @@ User enters following information:
 * Location of Pantry
    * Combination of name and location has to be unique i.e. "My House" (location) cannot have two Pantries named "Refrigerator" and "Refrigerator". "Upstairs refrigerator" and "downstairs refrigerator" would be a valid name combination in "My House".
 
-![New Pantry Page](img/readme/new-pantry.img)
+![New Pantry Page](img/readme/new-pantry.png)
 
 ### C. View Items within the Pantry
 * List of all items within Pantry
