@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    household: {
+    pantryId: {
         type: String,
         required: false
     }

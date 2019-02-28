@@ -6,17 +6,9 @@ const pantrySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    },
-    household: {
-        type: String,
-        required: true
-    },
-    memberList: {
-        type: [String],
-        required: false
     }
 })
 
-const User = mongoose.model('User', userSchema);
+const Pantry = mongoose.model('Pantry', pantrySchema);
 
-module.exports = User;
+module.exports = Pantry;

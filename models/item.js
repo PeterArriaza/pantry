@@ -8,7 +8,7 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-        type: Number,
+        type: String,
         required: true
     },
     units: {
@@ -19,12 +19,25 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    addedBy: {
+    addedByUserId: {
         type: String,
         required: true,
-    }
+    },
+    addedTimestamp: {
+        type: Date,
+        required: true
+    },
+    updatedTimestamp: {
+    type: Date,
+    default: Date.now
+}
 })
 
-const Item = mongoose.model('Item', userSchema);
 
-module.exports = Item;
+const Item = mongoose.model('Item', itemSchema);
+const Pantry = mongoose.model('Pantry', pantrySchema);
+
+module.exports = {
+    Item,
+    Pantry
+};
