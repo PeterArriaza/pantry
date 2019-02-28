@@ -28,12 +28,14 @@ Users of Pantry will be able to use the app to perform functions like:
   * Who ate most of the eggs from this carton?
   * View who drank the last of the milk so you can *kindly* ask them to get more!
 
-## User Flows
+## User Flows/Wireframes
 
-### A. Sign Up Page
+### A. Landing Page
 * enter email and password to login -> go to your account Pantry page (B)
 * create new account -> new account sign up page (A1)
 * try out app without signing up -> go to Pantry page with mock data (B)
+
+![Landing Page](img/readme/login.png)
 
 ##### A1. New Account Sign Up Page
 User enters following information:
@@ -44,6 +46,7 @@ User enters following information:
 * Confirm password
 * Existing household to join (optional)
 
+![New Account Page](img/readme/sign-up.png)
 
 ### B. View your Pantries with option to create, leave/remove Pantry
 * List of Pantries 
@@ -51,12 +54,16 @@ User enters following information:
    * Click "Remove" -> modal to confirm removal of Pantry
       * If Pantry no longer has any members, it is removed from the database in the background
       * Other people that belong to Pantry still see Pantry if a member leaves
+      
+![Pantry Inventory](img/readme/inventory-list.png)
    
 ##### B1. New Pantry creation
 * Name of Pantry
 * Other members to include in Pantry
 * Location of Pantry
    * Combination of name and location has to be unique i.e. "My House" (location) cannot have two Pantries named "Refrigerator" and "Refrigerator". "Upstairs refrigerator" and "downstairs refrigerator" would be a valid name combination in "My House".
+
+![New Pantry Page](img/readme/new-pantry.img)
 
 ### C. View Items within the Pantry
 * List of all items within Pantry
