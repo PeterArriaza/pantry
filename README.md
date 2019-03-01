@@ -12,18 +12,15 @@ This app will help you keep track of what food you have in your home - who put i
 
 ## User Stories
 
-Users of Pantry will be able to use the app to perform functions like:
-
-* Create an account to login into the app and view up your saved data or tryout the app with a mock user profile
-* Join a household along with your roommates, family members, or co-workers
-  * Keep track of multiple Pantries 
-* Keep track of your food in your house(s)
-  * Add individual items into your Pantry
+* As a user, I can create an account to login into the app and view saved data or tryout the app with a mock user profile
+* As a user, I can keep track of your food in my house
+  * Add individual items into my Pantry
   * Input information about items like quantity, price, expiration date, etc.
   * Reduce the quantity of an item as you use it, e.g. update a dozen eggs to eleven eggs
   * Remove an item from your Pantry when it is gone
   * View which of your household put the item there and view its cost for proper compensation
-* Look at usage history
+* As a user, I can join an existing Pantry or other members can join my Pantry
+* As a user, I can view the history of activity within my Pantry
   * How much money did I spend on food this month?
   * Who ate most of the eggs from this carton?
   * View who drank the last of the milk so you can *kindly* ask them to get more!
@@ -44,35 +41,26 @@ User enters following information:
 * Email
 * Password
 * Confirm password
-* Existing household to join (optional)
+* Existing Pantry to join.  If left blank, user is taken to new Pantry creation page (B)
 
 ![New Account Page](img/readme/sign-up.png)
 
-### B. View your Pantries with option to create, leave/remove Pantry
-* List of Pantries 
-   * Click "Add" -> new Pantry creation page (B1)
-   * Click "Remove" -> modal to confirm removal of Pantry
-      * If Pantry no longer has any members, it is removed from the database in the background
-      * Other people that belong to Pantry still see Pantry if a member leaves
-      
-![Pantry Inventory](img/readme/inventory-list.png)
-   
-##### B1. New Pantry creation
+##### B. New Pantry creation
 * Name of Pantry
 * Other members to include in Pantry
-* Location of Pantry
-   * Combination of name and location has to be unique i.e. "My House" (location) cannot have two Pantries named "Refrigerator" and "Refrigerator". "Upstairs refrigerator" and "downstairs refrigerator" would be a valid name combination in "My House".
 
 ![New Pantry Page](img/readme/new-pantry.png)
 
 ### C. View Items within the Pantry
 * List of all items within Pantry
-   * Displays quantity in line and date of addition to Pantry
-* Click to expand details
-   * Which household member added this item
+   * Displays quantity, description, who added the item inline
+* Click to expand and edit details
    * Price of item (optional)
    * Expiration date (optional)
    * Description (optional)
+   * Update quantity
+   
+![Pantry Inventory](img/readme/inventory-list.png)
 
 ### D. Edit items of Pantry
 * Click on existing item to expand details
@@ -88,6 +76,8 @@ Input fields:
 * Price (optional)
 * Expiration date (optional)
 * Description (optional)
+   
+![New Item Page](img/readme/new-item.png)
    
 ### E. Pantry History
 Static log of Pantry name, actions taken within pantry, and users/timestamp of when each action was taken
