@@ -11,20 +11,33 @@
 
 <body>
 
-    <main role="main" id="login-wrapper">
+    <main role="main" class="wrapper">
         <!--        <div id="login-div">-->
         <h1>Welcome to Pantry!</h1>
         <h2>Don't have an account? <a href="new-account.html">Sign up for one!</a></h2>
         <!--        should there be a validation page for the form action tag?-->
-        <form role="form" action="#" id="login-form">
+        <form role="form" action="#" class="email-form">
             <input type="email" placeholder="email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <input type="password" id="password" placeholder="password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" placeholder="password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
 
             <input type="checkbox" onclick="togglePasswordVisibility()">
             <label for="checkbox">Show Password</label>
             <input type="button" value="Login">
         </form>
         <!--</div>-->
+    </main>
+
+    <main role="main" class="wrapper">
+        <h1>Welcome to Pantry!</h1>
+        <h2>New Account Sign Up</h2>
+        <form role="form" action="#" class="email-form">
+            <input type="text" placeholder="first name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')">
+            <input type="text" placeholder="last name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" id="new-password" placeholder="password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" id="confirm-new-password" placeholder="confirm password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <span id='password-validation-message'></span>
+            <input type="button" value="Sign Up">
+        </form>
     </main>
 
 
