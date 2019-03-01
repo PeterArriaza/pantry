@@ -5,20 +5,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Pantry</title>
-    <!--
-    <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
--->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400" rel="stylesheet">
     <link href="index.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <nav>
 
-    </nav>
-    <main>
+    <main role="main" id="login-wrapper">
+        <!--        <div id="login-div">-->
+        <h1>Welcome to Pantry!</h1>
+        <h2>Don't have an account? <a href="new-account.html">Sign up for one!</a></h2>
+        <!--        should there be a validation page for the form action tag?-->
+        <form role="form" action="#" id="login-form">
+            <input type="email" placeholder="email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" id="password" placeholder="password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
 
+            <input type="checkbox" onclick="togglePasswordVisibility()">
+            <label for="checkbox">Show Password</label>
+            <input type="button" value="Login">
+        </form>
+        <!--</div>-->
     </main>
+
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
