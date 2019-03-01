@@ -17,7 +17,7 @@ h1 {
     font-size: 2.5em;
 }
 
-#login-wrapper {
+.wrapper {
     text-align: center;
 }
 
@@ -27,7 +27,7 @@ h2 {
     font-size: 1em;
 }
 
-#login-form {
+.email-form {
     display: inline-block;
     width: 50%;
     margin-left: auto;
@@ -35,24 +35,30 @@ h2 {
     margin-top: 50px;
 }
 
-#login-form > * {
+.email-form > * {
     display: inline-block;
     padding: 10px;
     margin: 5px;
     font-family: 'Roboto Mono', monospace;
     border-color: #8F5D2A;
     border-width: medium;
+    background-color: white;
 }
 
-#login-form > input[type=email],
+.email-form > input[type=email],
 input[type=password],
 input[type=text] {
     width: 100%;
 }
 
-#login-form > input[type=button] {
+.email-form > input[type=button] {
     display: block;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
+
+.email-form > label {
+    background-color: #FFF8F1;
+}
+
