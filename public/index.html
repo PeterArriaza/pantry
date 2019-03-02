@@ -11,7 +11,7 @@
 
 <body>
 
-    <main role="main" class="wrapper">
+    <main role="main" id="login-page" class="wrapper">
         <!--        <div id="login-div">-->
         <h1>Welcome to Pantry!</h1>
         <h2>Don't have an account? <a href="new-account.html">Sign up for one!</a></h2>
@@ -22,22 +22,49 @@
 
             <input type="checkbox" onclick="togglePasswordVisibility()">
             <label for="checkbox">Show Password</label>
-            <input type="button" value="Login">
+            <input type="button" class="submit-button" value="Login">
         </form>
+        <h2 id="tryout">Not sure if you want to sign up just yet? <a href="new-account.html">Try out Pantry</a> with a mock account!</h2>
+
         <!--</div>-->
     </main>
 
-    <main role="main" class="wrapper">
+    <main role="main" id="sign-up-page" class="wrapper">
         <h1>Welcome to Pantry!</h1>
         <h2>New Account Sign Up</h2>
         <form role="form" action="#" class="email-form">
             <input type="text" placeholder="first name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')">
             <input type="text" placeholder="last name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')">
+            <input type="email" placeholder="email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
             <input type="password" id="new-password" placeholder="password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
             <input type="password" id="confirm-new-password" placeholder="confirm password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
             <span id='password-validation-message'></span>
-            <input type="button" value="Sign Up">
+            <p>If you would like to join an existing Pantry, enter the name of the Pantry below. Otherwise, leave this blank.</p>
+            <input type="text" placeholder="name of pantry">
+            <input type="button" class="submit-button" value="Sign Up">
         </form>
+    </main>
+
+    <main role="main" id="new-pantry-page" class="wrapper">
+        <h1>Add a new Pantry</h1>
+        <h2>We just need a few details!</h2>
+        <form role="form" action="#" class="email-form">
+            <input type="text" placeholder="name of pantry" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
+
+            <p>Add other members to Pantry? (optional)</p>
+            <input type="email" placeholder="member email">
+            <input type="button" class="submit-button" value="Create Pantry">
+        </form>
+    </main>
+
+    <main role="main" id="inventory-page">
+        <div class="nav">
+            <div id="nav-logo">
+                <p>Pantry Logo</p>
+            </div>
+            <button id="history">History</button>
+        </div>
+        <h1>Pantry Inventory</h1>
     </main>
 
 

@@ -27,6 +27,10 @@ h2 {
     font-size: 1em;
 }
 
+#tryout {
+    margin-bottom: 100px;
+}
+
 .email-form {
     display: inline-block;
     width: 50%;
@@ -42,6 +46,11 @@ h2 {
     font-family: 'Roboto Mono', monospace;
     border-color: #8F5D2A;
     border-width: medium;
+    /*    background-color: #FFF8F1;
+    */
+}
+
+.email-form > input {
     background-color: white;
 }
 
@@ -58,7 +67,57 @@ input[type=text] {
     margin-right: auto;
 }
 
-.email-form > label {
-    background-color: #FFF8F1;
+.submit-button {
+    margin-top: 50px;
+    margin-bottom: 100px;
 }
 
+.email-form > fieldset {
+    margin-top: 50px;
+    width: 100%;
+
+}
+
+input[type=button]:hover {
+    background-color: #E3A465;
+}
+
+.nav {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    background-color: #502800;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#nav-logo {
+    background-color: #E3A465;
+    width: 150px;
+    height: 80%;
+    margin-left: 20px;
+}
+
+#history {
+    height: 80%;
+    width: 80px;
+    background-color: #8F5D2A;
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+    border: none;
+    margin-right: 20px;
+}
+
+#history:hover {
+    background-color: #E3A465;
+}
+
+
+
+
+
+@media only screen and (max-width: 450px) {
+    .email-form {
+        width: 80%;
+    }
+}
