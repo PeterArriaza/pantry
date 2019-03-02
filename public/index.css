@@ -112,8 +112,53 @@ input[type=button]:hover {
     background-color: #E3A465;
 }
 
+.inventory-table {
+    min-height: 400px;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    /*    align-items: center;*/
+    align-content: flex-start;
+    font-family: 'Roboto Mono', monospace;
 
+}
 
+.item-row:nth-child(even),
+.item-row:nth-child(even) > * {
+    background-color: #E3A465;
+}
+
+.item-row:nth-child(odd),
+.item-row:nth-child(odd) > * {
+    background-color: #8F5D2A;
+    color: white;
+}
+
+.item-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.item-detail {
+    width: 15%;
+    overflow: hidden;
+    /*    text-align: center*/
+}
+
+.item-qty,
+.item-unit {
+    width: 7%;
+}
+
+.item-description {
+    width: 40%
+}
+
+.item-name {}
 
 
 @media only screen and (max-width: 450px) {
