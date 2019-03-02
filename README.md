@@ -82,3 +82,39 @@ Input fields:
 ### E. Pantry History
 Static log of Pantry name, actions taken within pantry, and users/timestamp of when each action was taken
 
+## Business Objects (database structure)
+
+* User (collection)
+   * First name
+   * Last name
+   * Email
+   * Password
+   * Pantry they belong to
+* Pantry (collection)
+   * Name
+   * List of users associated to Pantry
+   * List of actions taken within Pantry history
+* Item (collection)
+   * Name
+   * Quantity
+   * Description
+   * Price
+   * Expiration Date 
+   * Added by User
+   * Last updated by User
+   
+## Technologies Used
+
+* HTML5
+* CSS3
+* JS ES6
+* jQuery
+* Node.js
+* Express.js
+* Mocha
+* Chai
+* MongoDB
+* Mongoose
+* TravisCI
+* Heroku
+
