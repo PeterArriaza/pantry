@@ -1,3 +1,26 @@
+'use strict';
+
+$(document).ready(function () {
+    $('#login-page').show();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    $(loginSubmit);
+})
+
+// get values of email and password
+function loginSubmit() {
+    $('#login-sumbit').on('click', function (event) {
+        event.preventDefault();
+        let email = $('#login-email').val();
+        let password = $('#login-password').val();
+        $('#login-email').val("");
+        $('#login-password').val("");
+        validateUser(email, password);
+    });
+}
+
 // on #login-page, if checkbox is checked, will toggle 
 // password visibility
 function togglePasswordVisibility() {
@@ -7,6 +30,15 @@ function togglePasswordVisibility() {
     } else {
         x.type = "password";
     }
+}
+
+function showSignUpPage() {
+    $('#login-page').hide();
+    $('#sign-up-page').show();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    $(signUpSubmit);
 }
 
 // dynamically tells user if password and confirmation password 
@@ -19,16 +51,21 @@ $('#new-password, #confirm-new-password').on('keyup', function () {
         $('#password-validation-message').html('Passwords do not match.').css('color', 'red');
 });
 
-function loginSubmit() {
-    $('#login-sumbit').on('click', function (event) {
+// get values from new user sign up form
+function signUpSubmit() {
+    $('#sign-up-submit').on('click', function (event) {
         event.preventDefault();
-        let email = $('#login-email').val();
-        let password = $('#password').val();
-        console.log(email);
-        console.log(password);
-        $('#login-email').val("");
-        $('#password').val("");
+        let firstName = $('#sign-up-first-name').val();
+        let lastName = $('#sign-up-last-name').val();
+        let email = $('#sign-up-email').val();
+        let password = $('#new-password').val();
+        let pantry = $('#sign-up-pantry').val();
+        $('#sign-up-first-name').val("");
+        $('#sign-up-last-name').val("");
+        $('#sign-up-email').val("");
+        $('#new-password').val("");
+        $('#confirm-new-password').val("");
+        $('#sign-up-pantry').val("");
+        registerUser(firstName, lastName, email, password, pantry);
     });
 }
-
-$(loginSubmit);

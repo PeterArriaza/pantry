@@ -12,13 +12,20 @@
     font-family: 'Roboto Mono', monospace;
 }
 
+body,
+html {
+    margin: 0;
+    height: 100%;
+}
+
 h1 {
     font-size: 2.5em;
 }
 
 main {
     min-height: 500px;
-    position: relative;
+    /*    position: relative;
+    */
 }
 
 .wrapper {
@@ -26,8 +33,9 @@ main {
 }
 
 footer {
-    /*    position: absolute;*/
-    /*    bottom: 0;*/
+    position: fixed;
+    bottom: 0;
+    left: 0;
     display: flex;
     background-color: var(--darkbrown);
     width: 100%;
@@ -50,6 +58,10 @@ footer > div {
 }
 
 h2 {
+    font-size: 1em;
+}
+
+h3 {
     font-weight: 300;
     font-size: 1em;
 }
@@ -63,7 +75,7 @@ h2 {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .email-form > * {
@@ -93,8 +105,8 @@ input[type=number] {
 }
 
 .submit-button {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .email-form > fieldset {
@@ -111,7 +123,6 @@ input[type=button]:hover {
 }
 
 .inventory-table {
-    min-height: 300px;
     display: flex;
     display: -webkit-flex;
     flex-wrap: nowrap;
@@ -165,7 +176,8 @@ input[type=button]:hover {
     flex-direction: row;
     justify-content: flex-end;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    margin-top: 20px;
 }
 
 #edit-items-button {
