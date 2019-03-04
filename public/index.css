@@ -30,6 +30,7 @@ h1 {
 main {
     min-height: 500px;
     flex: 1 0 auto;
+    padding: 10px;
 }
 
 .wrapper {
@@ -41,8 +42,9 @@ footer {
     display: flex;
     background-color: var(--darkbrown);
     width: 100%;
-    justify-content: center;
-    height: 50px;
+    justify-content: space-between;
+    height: auto;
+    word-wrap: break-word;
 }
 
 footer > div {
@@ -51,12 +53,17 @@ footer > div {
     margin: 5px 20px 5px 20px;
 }
 
-.footer-copy {
-    margin-right: auto;
+.footer-element {
+    width: 33%;
+    overflow: visible;
+}
+
+.footer-name {
+    text-align: center;
 }
 
 .footer-links {
-    margin-left: auto;
+    text-align: right;
 }
 
 h2 {
