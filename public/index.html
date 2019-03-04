@@ -16,21 +16,25 @@
         <h1>Welcome to Pantry!</h1>
         <h2>Don't have an account? <a href="new-account.html">Sign up for one!</a></h2>
         <!--        should there be a validation page for the form action tag?-->
-        <form role="form" action="#" class="email-form">
-            <input type="email" placeholder="email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <input type="password" id="password" placeholder="password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+        <form role="form" method="post" action="#" id="login-form" class="email-form">
+            <label for="email">email:</label>
+            <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
+            <label for="password">password:</label>
+            <input required type="password" id="password" oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
 
             <input type="checkbox" onclick="togglePasswordVisibility()">
             <label for="checkbox">Show Password</label>
-            <input type="button" class="submit-button" value="Login">
+
+            <input type="submit" id="login-submit" class="submit-button" value="Login">
         </form>
+
         <h2 id="tryout">Not sure if you want to sign up just yet? <a href="new-account.html">Try out Pantry</a> with a mock account!</h2>
 
         <!--</div>-->
 
         <footer>
             <div class="footer-copy">&copy; 2019 Peter Arriaza</div>
-            <div class="footer-name">--- Pantry ---</div>
+            <div class="footer-name">Pantry</div>
             <div class="footer-links">img links</div>
         </footer>
     </main>
@@ -52,7 +56,7 @@
 
         <footer>
             <div class="footer-copy">&copy; 2019 Peter Arriaza</div>
-            <div class="footer-name">--- Pantry ---</div>
+            <div class="footer-name">Pantry</div>
             <div class="footer-links">img links</div>
         </footer>
     </main>
@@ -70,7 +74,7 @@
 
         <footer>
             <div class="footer-copy">&copy; 2019 Peter Arriaza</div>
-            <div class="footer-name">--- Pantry ---</div>
+            <div class="footer-name">Pantry</div>
             <div class="footer-links">img links</div>
         </footer>
     </main>
@@ -119,7 +123,7 @@
 
         <footer>
             <div class="footer-copy">&copy; 2019 Peter Arriaza</div>
-            <div class="footer-name">--- Pantry ---</div>
+            <div class="footer-name">Pantry</div>
             <div class="footer-links">img links</div>
         </footer>
     </main>
@@ -134,9 +138,9 @@
             <input type="button" class="submit-button" value="Add New Item">
         </form>
 
-        <footer>
+        <footer role="row">
             <div class="footer-copy">&copy; 2019 Peter Arriaza</div>
-            <div class="footer-name">--- Pantry ---</div>
+            <div class="footer-name">Pantry</div>
             <div class="footer-links">img links</div>
         </footer>
     </main>

@@ -26,12 +26,13 @@ main {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
+    /*    position: absolute;*/
+    /*    bottom: 0;*/
     display: flex;
     background-color: var(--darkbrown);
     width: 100%;
     justify-content: center;
+    margin-top: 20px;
 }
 
 footer > div {
@@ -39,7 +40,6 @@ footer > div {
     background-color: var(--darkbrown);
     margin: 5px 20px 5px 20px;
 }
-
 
 .footer-copy {
     margin-right: auto;
@@ -72,8 +72,6 @@ h2 {
     margin: 5px;
     border-color: var(--mediumbrown);
     border-width: medium;
-    /*    background-color: #FFF8F1;
-    */
 }
 
 .email-form > input {
@@ -87,7 +85,7 @@ input[type=number] {
     width: 100%;
 }
 
-.email-form > input[type=button] {
+.email-form > input[type=submit] {
     display: block;
     width: 50%;
     margin-left: auto;
@@ -102,7 +100,6 @@ input[type=number] {
 .email-form > fieldset {
     margin-top: 50px;
     width: 100%;
-
 }
 
 input[type=button]:hover {
@@ -114,7 +111,7 @@ input[type=button]:hover {
 }
 
 .inventory-table {
-    min-height: 200px;
+    min-height: 300px;
     display: flex;
     display: -webkit-flex;
     flex-wrap: nowrap;
@@ -150,7 +147,8 @@ input[type=button]:hover {
 
 .item-detail {
     width: 15%;
-    overflow: hidden;
+    /*    word-break: break-all;*/
+    overflow-wrap: break-word;
 }
 
 .item-qty,
@@ -167,6 +165,7 @@ input[type=button]:hover {
     flex-direction: row;
     justify-content: flex-end;
     padding: 5px;
+    margin-bottom: 20px;
 }
 
 #edit-items-button {
@@ -176,6 +175,7 @@ input[type=button]:hover {
     padding: 10px;
     margin-right: 20px;
     margin-left: 20px;
+    width: 135px;
 }
 
 #new-item-button,
@@ -184,10 +184,15 @@ input[type=button]:hover {
     background-color: var(--darkbrown);
     color: white;
     padding: 10px;
+    width: 135px;
 }
 
 @media only screen and (max-width: 450px) {
     .email-form {
         width: 80%;
+    }
+
+    footer {
+        margin-top: 30px;
     }
 }
