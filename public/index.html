@@ -56,10 +56,12 @@
         <h1>Add a new Pantry</h1>
         <h2>We just need a few details!</h2>
         <form role="form" action="#" class="email-form">
-            <input type="text" placeholder="name of pantry" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
+            <label for="name-of-pantry">name of pantry:</label>
+            <input type="text" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
 
             <p>Add other members to Pantry? (optional)</p>
-            <input type="email" placeholder="member email">
+            <label for="other-members">member email:</label>
+            <input type="email" multiple>
             <input type="button" class="submit-button" value="Create Pantry">
         </form>
     </main>

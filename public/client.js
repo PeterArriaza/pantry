@@ -66,6 +66,31 @@ function signUpSubmit() {
         $('#new-password').val("");
         $('#confirm-new-password').val("");
         $('#sign-up-pantry').val("");
-        registerUser(firstName, lastName, email, password, pantry);
+        //        registerUser(firstName, lastName, email, password, pantry);
+        showNewPantryPage();
+    });
+}
+
+function showNewPantryPage() {
+    $('#login-page').hide();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').show();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    $(newPantrySubmit);
+}
+
+// get values of email and password
+function newPantrySubmit() {
+    $('input[type=email]').mulitple = true;
+    $('input[type=submit]').on('click', function (event) {
+        event.preventDefault();
+        let pantryName = $('input[type=text]').val();
+        let memberEmail = $('input[type=email]').val();
+        // /\s/g = regex for global whitespace
+        let memberArray = memberEmail.replace(/\s/g, '').split(',');
+        $('input[type=text]').val("");
+        $('input[type=email]').val("");
+        createPantry(pantryName, memberArray);
     });
 }
