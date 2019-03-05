@@ -118,17 +118,21 @@ input[type=number] {
     margin-bottom: 50px;
 }
 
+.cancel-button {
+
+}
+
 .email-form > fieldset {
     margin-top: 50px;
     width: 100%;
 }
 
-input[type=button]:hover {
+input[type=button]:hover, input[type=submit]:hover {
     background-color: var(--lightbrown);
 }
 
-#history:hover {
-    background-color: #E3A465;
+#history:hover, #edit-items-button:hover, #new-item-button:hover {
+    background-color: var(--lightbrown);
 }
 
 .inventory-table {
@@ -192,7 +196,7 @@ input[type=button]:hover {
 #edit-items-button {
     border: 2px solid var(--darkbrown);
     color: var(--darkbrown);
-    background-color: var(--white);
+    background-color: white;
     padding: 10px;
     margin-right: 20px;
     margin-left: 20px;

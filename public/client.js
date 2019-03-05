@@ -21,10 +21,14 @@ function loginSubmit() {
     });
 }
 
+function validateUser(email, password) {
+    console.log('test passed');
+}
+
 // on #login-page, if checkbox is checked, will toggle 
 // password visibility
 function togglePasswordVisibility() {
-    let x = document.getElementById("password");
+    let x = document.getElementById("login-password");
     if (x.type === "password") {
         x.type = "text";
     } else {
@@ -66,9 +70,13 @@ function signUpSubmit() {
         $('#new-password').val("");
         $('#confirm-new-password').val("");
         $('#sign-up-pantry').val("");
-        //        registerUser(firstName, lastName, email, password, pantry);
+        registerUser(firstName, lastName, email, password, pantry);
         showNewPantryPage();
     });
+}
+
+function registerUser(firstName, lastName, email, password, pantry) {
+    console.log(firstName, lastName, email, password, pantry);
 }
 
 function showNewPantryPage() {
@@ -80,9 +88,7 @@ function showNewPantryPage() {
     $(newPantrySubmit);
 }
 
-// get values of email and password
 function newPantrySubmit() {
-    $('input[type=email]').mulitple = true;
     $('input[type=submit]').on('click', function (event) {
         event.preventDefault();
         let pantryName = $('input[type=text]').val();
@@ -92,5 +98,54 @@ function newPantrySubmit() {
         $('input[type=text]').val("");
         $('input[type=email]').val("");
         createPantry(pantryName, memberArray);
+    });
+}
+
+function createPantry(pantryName, memberArray) {
+    console.log(pantryName, memberArray);
+}
+
+function showNewItemPage() {
+    $('#login-page').hide();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').show();
+    $(newItemSubmit);
+}
+
+function newItemSubmit() {
+    $('#new-item-submit').on('click', function(event) {
+        event.preventDefault();
+        let itemName = $('#new-item-name').val();
+        let quantity = $('#new-item-quantity').val();
+        let units = $('#new-item-units').val();
+        let description = $('#new-item-description').val();
+        let price = $('#new-item-price').val();
+        $('#new-item-name').val("");
+        $('#new-item-quantity').val("");
+        $('#new-item-units').val("");
+        $('#new-item-description').val("");
+        $('#new-item-price').val("");
+        createNewItem(itemName,quantity,units,description,price);
+    });
+}
+
+function createNewItem(itemName,quantity,units,description,price) {
+    console.log(itemName,quantity,units,description,price);
+}
+
+function showInventoryPage() {
+    $('#login-page').hide();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').show();
+    $('#new-item-page').hide();
+    $(addNewItem);   
+}
+
+function addNewItem() {
+    $('#new-item-button').on('click', function() {
+        showNewItemPage();
     });
 }

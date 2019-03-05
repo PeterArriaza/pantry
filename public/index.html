@@ -17,10 +17,10 @@
         <h3>Don't have an account? <a href="#" onclick="showSignUpPage()">Sign up for one!</a></h3>
         <!--        should there be a validation page for the form action tag?-->
         <form role="form" method="post" action="#" id="login-form" class="email-form">
-            <label for="email">email:</label>
+            <label for="login-email">email:</label>
             <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <label for="password">password:</label>
-            <input required type="password" id="login-password" oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <label for="login-password">password:</label>
+            <input type="password" id="login-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
 
             <input type="checkbox" onclick="togglePasswordVisibility()">
             <label for="checkbox">Show Password</label>
@@ -28,22 +28,24 @@
             <input type="submit" id="login-submit" class="submit-button" value="Login">
         </form>
 
-        <h2 id="tryout">Not sure if you want to sign up just yet? <a href="new-account.html">Try out Pantry</a> with a mock account!</h2>
+        <h2 id="tryout">Not sure if you want to sign up just yet? <a href="#" onclick="showInventoryPage()">Try out Pantry</a> with a mock account!</h2>
     </main>
+
+<!-- console.log not working in validateUser and sign up page required fields not working -->
 
     <main role="main" id="sign-up-page" class="wrapper">
         <h1>Welcome to Pantry!</h1>
         <h2>New Account Sign Up</h2>
-        <form role="form" action="#" class="email-form">
+        <form role="sign-up-first-name" action="#" class="email-form">
             <label for="first name">first name:</label>
             <input type="text" id="sign-up-first-name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')">
-            <label for="last name">last name:</label>
+            <label for="sign-up-last-name">last name:</label>
             <input type="text" id="sign-up-last-name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')">
-            <label for="email">email:</label>
+            <label for="sign-up-email">email:</label>
             <input type="email" id="sign-up-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <label for="new passowrd">password:</label>
+            <label for="new-password">password:</label>
             <input type="password" id="new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
-            <label for="confirm password">confirm password:</label>
+            <label for="confirm-new-password">confirm password:</label>
             <input type="password" id="confirm-new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
             <span id='password-validation-message'></span>
             <p>If you would like to join an existing Pantry, enter the name of the Pantry below. Otherwise, leave this blank.</p>
@@ -57,12 +59,12 @@
         <h2>We just need a few details!</h2>
         <form role="form" action="#" class="email-form">
             <label for="name-of-pantry">name of pantry:</label>
-            <input type="text" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
+            <input type="text" id="name-of-pantry" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
 
             <p>Add other members to Pantry? (optional)</p>
             <label for="other-members">member email:</label>
-            <input type="email" multiple>
-            <input type="button" class="submit-button" value="Create Pantry">
+            <input type="email" id="other-members" multiple>
+            <input type="submit" id="new-pantry-submit" class="submit-button" value="Create Pantry">
         </form>
     </main>
 
@@ -112,11 +114,18 @@
     <main role="main" id="new-item-page" class="wrapper">
         <h1>Add a New Item</h1>
         <form role="form" action="#" class="email-form">
-            <input type="text" placeholder="item name" required oninvalid="this.setCustomValidity('Item Name is required.')" oninput="this.setCustomValidity('')">
-            <input type="number" placeholder="quantity" required oninvalid="this.setCustomValidity('Quantity is required.')" oninput="this.setCustomValidity('')">
-            <input type="text" placeholder="units" required oninvalid="this.setCustomValidity('Units is required.')" oninput="this.setCustomValidity('')">
-            <input type="text" placeholder="price">
-            <input type="button" class="submit-button" value="Add New Item">
+            <label for="new-item-name">item name:</label>
+            <input type="text" id="new-item-name" required oninvalid="this.setCustomValidity('Item Name is required.')" oninput="this.setCustomValidity('')">
+            <label for="new-item-quantity">quantity:</label>
+            <input type="number" id="new-item-quantity" required oninvalid="this.setCustomValidity('Quantity is required.')" oninput="this.setCustomValidity('')">
+            <label for="new-item-units">units:</label>
+            <input type="text" id="new-item-units" required oninvalid="this.setCustomValidity('Units is required.')" oninput="this.setCustomValidity('')">
+            <label for="new-item-description">price:</label>
+            <input type="text" id="new-item-description">
+            <label for="new-item-price">price:</label>
+            <input type="text" id="new-item-price">
+            <input type="submit" id="new-item-submit" class="submit-button" value="Add New Item">
+            <input type="button" id="new-item-cancel" class="cancel-button" value="Cancel">
         </form>
     </main>
 
