@@ -195,11 +195,12 @@ function addNewItem() {
 }
 
 function editItems() {
-    $('#edit-items-button').on('click', function (event) {
-        $('.inventory-table').attr('contenteditable', 'true');
-        $('.inventory-table').addClass('edit-items-border');
-        $('#edit-items-button').hide();
-        $('#save-changes-button').show();
+    $('.edit-items').on('click', function (event) {
+        $('.inventory-row').attr('contenteditable', 'true');
+        $('.inventory-row').addClass('edit-items-border');
+        $('.edit-items').hide();
+        $('.save-changes').show();
+        $('.edit-buttons-row').attr('display', 'flex');
         $(saveChanges);
     });
 }
