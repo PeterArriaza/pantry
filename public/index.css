@@ -106,7 +106,8 @@ input[type=number] {
     width: 100%;
 }
 
-.email-form > input[type=submit] {
+.email-form > input[type=submit],
+.email-form > input[type=button] {
     display: block;
     width: 50%;
     margin-left: auto;
@@ -119,19 +120,26 @@ input[type=number] {
 }
 
 .cancel-button {
-
+    display: block;
+    width: 25%;
+    padding: 10px;
+    border-color: white;
+    border-width: medium;
+    background-color: var(--darkbrown);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
 }
 
-.email-form > fieldset {
-    margin-top: 50px;
-    width: 100%;
-}
-
-input[type=button]:hover, input[type=submit]:hover {
+input[type=button]:hover,
+input[type=submit]:hover {
     background-color: var(--lightbrown);
 }
 
-#history:hover, #edit-items-button:hover, #new-item-button:hover {
+#history:hover,
+#edit-items-button:hover,
+#new-item-button:hover {
     background-color: var(--lightbrown);
 }
 
@@ -143,6 +151,10 @@ input[type=button]:hover, input[type=submit]:hover {
     justify-content: flex-start;
     align-content: flex-start;
     margin-top: 50px;
+}
+
+.edit-items-border {
+    border: 2px solid rgba(215, 74, 0, 0.9);
 }
 
 .item-row:nth-child(even),

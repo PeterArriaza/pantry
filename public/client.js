@@ -112,10 +112,11 @@ function showNewItemPage() {
     $('#inventory-page').hide();
     $('#new-item-page').show();
     $(newItemSubmit);
+    $(handleNewItemCancel);
 }
 
 function newItemSubmit() {
-    $('#new-item-submit').on('click', function(event) {
+    $('#new-item-submit').on('click', function (event) {
         event.preventDefault();
         let itemName = $('#new-item-name').val();
         let quantity = $('#new-item-quantity').val();
@@ -127,12 +128,18 @@ function newItemSubmit() {
         $('#new-item-units').val("");
         $('#new-item-description').val("");
         $('#new-item-price').val("");
-        createNewItem(itemName,quantity,units,description,price);
+        createNewItem(itemName, quantity, units, description, price);
     });
 }
 
-function createNewItem(itemName,quantity,units,description,price) {
-    console.log(itemName,quantity,units,description,price);
+function createNewItem(itemName, quantity, units, description, price) {
+    console.log(itemName, quantity, units, description, price);
+}
+
+function handleNewItemCancel() {
+    $('#new-item-cancel').on('click', function () {
+        showInventoryPage();
+    });
 }
 
 function showInventoryPage() {
@@ -141,11 +148,20 @@ function showInventoryPage() {
     $('#new-pantry-page').hide();
     $('#inventory-page').show();
     $('#new-item-page').hide();
-    $(addNewItem);   
+    $(addNewItem);
+    $(editItems);
 }
 
 function addNewItem() {
-    $('#new-item-button').on('click', function() {
+    $('#new-item-button').on('click', function () {
         showNewItemPage();
+    });
+}
+
+function editItems() {
+    $('#edit-items-button').on('click', function (event) {
+        $('.inventory-table').attr('contenteditable', 'true');
+        $('.inventory-table').addClass('edit-items-border');
+        $('#edit-items-button').val('Save Changes');
     });
 }
