@@ -18,9 +18,9 @@
         <!--        should there be a validation page for the form action tag?-->
         <form role="form" method="post" action="#" id="login-form" class="email-form">
             <label for="login-email">email:</label>
-            <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
+            <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')" value="peter@gmail.com">
             <label for="login-password">password:</label>
-            <input type="password" id="login-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" id="login-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')" value="password123">
 
             <input type="checkbox" onclick="togglePasswordVisibility()">
             <label for="checkbox">Show Password</label>
@@ -38,18 +38,18 @@
         <h2>New Account Sign Up</h2>
         <form role="sign-up-first-name" action="#" class="email-form">
             <label for="first name">first name:</label>
-            <input type="text" id="sign-up-first-name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')">
+            <input type="text" id="sign-up-first-name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')" value="Pete">
             <label for="sign-up-last-name">last name:</label>
-            <input type="text" id="sign-up-last-name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')">
+            <input type="text" id="sign-up-last-name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')" value="Arriaza">
             <label for="sign-up-email">email:</label>
-            <input type="email" id="sign-up-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
+            <input type="email" id="sign-up-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')" value="peter@gmail.com">
             <label for="new-password">password:</label>
-            <input type="password" id="new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" id="new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')" value="password123">
             <label for="confirm-new-password">confirm password:</label>
-            <input type="password" id="confirm-new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+            <input type="password" id="confirm-new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')" value="password123">
             <span id='password-validation-message'></span>
             <p>If you would like to join an existing Pantry, enter the name of the Pantry below. Otherwise, leave this blank.</p>
-            <input type="text" id="sign-up-pantry">
+            <input type="text" id="sign-up-pantry" value="My House">
             <input type="submit" id="sign-up-submit" class="submit-button" value="Sign Up">
         </form>
     </main>
@@ -107,6 +107,7 @@
         <div class="button-row">
             <button id="history">History</button>
             <button id="edit-items-button">Edit Items</button>
+            <button id="save-changes-button" style="display: none">Save Changes</button>
             <button id="new-item-button">+ Add New Item</button>
         </div>
     </main>

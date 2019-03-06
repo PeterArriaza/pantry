@@ -63,20 +63,56 @@ function signUpSubmit() {
         let lastName = $('#sign-up-last-name').val();
         let email = $('#sign-up-email').val();
         let password = $('#new-password').val();
+        let confirmPassword = $('#confirm-new-password').val();
         let pantry = $('#sign-up-pantry').val();
         $('#sign-up-first-name').val("");
         $('#sign-up-last-name').val("");
         $('#sign-up-email').val("");
         $('#new-password').val("");
         $('#confirm-new-password').val("");
+        $('#confirm-new-password').val("");
         $('#sign-up-pantry').val("");
-        registerUser(firstName, lastName, email, password, pantry);
+
+        if (firstName == "") {
+            alert('Please enter first name!');
+        } else if (lastName == "") {
+            alert('Please enter last name!');
+        } else if (email == "") {
+            alert('Please enter an email');
+        } else if (password == "") {
+            alert('Please enter a password');
+        } else if (password !== confirmPassword) {
+            alert('Passwords must match!');
+        } else {
+            const newUserObject = {
+                email: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                pantry: pantry
+            };
+            console.log(newUserObject);
+            $.ajax({
+                    type: 'POST',
+                    url: '/users/create',
+                    dataType: 'json',
+                    data: JSON.stringify(newUserObject),
+                    contentType: 'application/json'
+                })
+                .done(function (result) {
+                    $('.js-signin-success').html('Thanks for signing up! Please sign in.');
+                    $('.js-signin-success').addClass('change-status-success');
+                    showLogInScreen();
+                })
+                .fail(function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                });
+        };
+
         showNewPantryPage();
     });
-}
-
-function registerUser(firstName, lastName, email, password, pantry) {
-    console.log(firstName, lastName, email, password, pantry);
 }
 
 function showNewPantryPage() {
@@ -162,6 +198,17 @@ function editItems() {
     $('#edit-items-button').on('click', function (event) {
         $('.inventory-table').attr('contenteditable', 'true');
         $('.inventory-table').addClass('edit-items-border');
-        $('#edit-items-button').val('Save Changes');
+        $('#edit-items-button').hide();
+        $('#save-changes-button').show();
+        $(saveChanges);
     });
+}
+
+function saveChanges() {
+    $('#save-changes-button').on('click', function () {
+        $('.inventory-table').attr('contenteditable', 'false');
+        $('.inventory-table').removeClass('edit-items-border');
+        $('#edit-items-button').show();
+        $('#save-changes-button').hide();
+    })
 }
