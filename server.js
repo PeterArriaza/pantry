@@ -102,7 +102,68 @@ app.post('/users/create', (req, res) => {
 
 });
 
+// signing in a user
+app.post('/users/login', function (req, res) {
 
+    //take the username and the password from the ajax api call
+    const email = req.body.email;
+    const password = req.body.password;
+
+    //using the mongoose DB schema, connect to the database and the user with the same username as above
+    User.findOne({
+        email: email
+    }, function (err, items) {
+
+        //if the there is an error connecting to the DB
+        if (err) {
+
+            //display it
+            return res.status(500).json({
+                message: "Error connecting to the DB"
+            });
+        }
+
+        // if there are no users with this username
+        if (!items) {
+            //display it
+            return res.status(401).json({
+                message: "No users with this email"
+            });
+        }
+
+        //if the username is found
+        else {
+
+            //try to validate the password
+            items.validatePassword(password, function (err, isValid) {
+
+                //if the connection to the DB to validate the password is not working
+                if (err) {
+
+                    //display error
+                    return res.status(500).json({
+                        message: "Could not connect to the DB to validate the password."
+                    });
+                }
+
+                //if the password is not valid
+                if (!isValid) {
+
+                    //display error
+                    return res.status(401).json({
+                        message: "Password Invalid"
+                    });
+                }
+
+                //if the password is valid
+                else {
+                    //return the logged in user
+                    return res.json(items);
+                }
+            });
+        };
+    });
+});
 
 // =========================== Catch-all endpoint ===========================
 

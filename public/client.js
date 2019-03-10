@@ -1,5 +1,48 @@
 'use strict';
 
+// get values of email and password
+function loginSubmit() {
+    $('#login-submit').on('click', function (event) {
+        console.log('submitted')
+        event.preventDefault();
+        let email = $('#login-email').val();
+        let password = $('#login-password').val();
+        console.log(email, password);
+        $('#login-email').val("");
+        $('#login-password').val("");
+        // validate login credentials
+        if (email == "") {
+            alert('Please input email');
+        } else if (password == "") {
+            alert('Please input password');
+        } else {
+            console.log('user validated');
+            const loginUserObject = {
+                email: email,
+                password: password
+            };
+            $.ajax({
+                    type: 'POST',
+                    url: '/users/login',
+                    dataType: 'json',
+                    data: JSON.stringify(loginUserObject),
+                    contentType: 'application/json'
+                })
+                //if call is succefull
+                .done(function (result) {
+                    console.log(result);
+                })
+                //if the call is failing
+                .fail(function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                });
+        };
+
+    });
+}
+
 $(document).ready(function () {
     $('#login-page').show();
     $('#sign-up-page').hide();
@@ -7,23 +50,7 @@ $(document).ready(function () {
     $('#inventory-page').hide();
     $('#new-item-page').hide();
     $(loginSubmit);
-})
-
-// get values of email and password
-function loginSubmit() {
-    $('#login-sumbit').on('click', function (event) {
-        event.preventDefault();
-        let email = $('#login-email').val();
-        let password = $('#login-password').val();
-        $('#login-email').val("");
-        $('#login-password').val("");
-        validateUser(email, password);
-    });
-}
-
-function validateUser(email, password) {
-    console.log('test passed');
-}
+});
 
 // on #login-page, if checkbox is checked, will toggle 
 // password visibility
@@ -126,90 +153,138 @@ function showNewPantryPage() {
 
 function newPantrySubmit() {
     $('input[type=submit]').on('click', function (event) {
-        event.preventDefault();
-        let pantryName = $('input[type=text]').val();
-        let memberEmail = $('input[type=email]').val();
-        // /\s/g = regex for global whitespace
-        let memberArray = memberEmail.replace(/\s/g, '').split(',');
-        $('input[type=text]').val("");
-        $('input[type=email]').val("");
-        createPantry(pantryName, memberArray);
-    });
-}
+            event.preventDefault();
+            let pantryName = $('input[type=text]').val();
+            let memberEmail = $('input[type=email]').val();
+            // /\s/g = regex for global whitespace
+            let memberArray = memberEmail.replace(/\s/g, '').split(',');
+            $('input[type=text]').val("");
+            $('input[type=email]').val("");
 
-function createPantry(pantryName, memberArray) {
-    console.log(pantryName, memberArray);
-}
+            // validate pantry credentials
+            if (pantryName == "") {
+                alert('Please input Pantry name');
+            } else {
+                console.log('pantry validated');
+                const pantryObject = {
+                    pantryName: pantryName,
+                    memberEmail: memberEmail;
+                };
+                $.ajax({
+                        type: 'POST',
+                        url: '/users/login',
+                        dataType: 'json',
+                        data: JSON.stringify(loginUserObject),
+                        contentType: 'application/json'
+                    })
+                    //if call is succefull
+                    .done(function (result) {
+                        console.log(result);
+                    })
+                    //if the call is failing
+                    .fail(function (jqXHR, error, errorThrown) {
+                        console.log(jqXHR);
+                        console.log(error);
+                        console.log(errorThrown);
+                    });
+            });
+    }
 
-function showNewItemPage() {
-    $('#login-page').hide();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').hide();
-    $('#new-item-page').show();
-    $(newItemSubmit);
-    $(handleNewItemCancel);
-}
+    function createPantry(pantryName, memberArray) {
+        console.log(pantryName, memberArray);
+    }
 
-function newItemSubmit() {
-    $('#new-item-submit').on('click', function (event) {
-        event.preventDefault();
-        let itemName = $('#new-item-name').val();
-        let quantity = $('#new-item-quantity').val();
-        let units = $('#new-item-units').val();
-        let description = $('#new-item-description').val();
-        let price = $('#new-item-price').val();
-        $('#new-item-name').val("");
-        $('#new-item-quantity').val("");
-        $('#new-item-units').val("");
-        $('#new-item-description').val("");
-        $('#new-item-price').val("");
-        createNewItem(itemName, quantity, units, description, price);
-    });
-}
+    function showNewItemPage() {
+        $('#login-page').hide();
+        $('#sign-up-page').hide();
+        $('#new-pantry-page').hide();
+        $('#inventory-page').hide();
+        $('#new-item-page').show();
+        $(newItemSubmit);
+        $(handleNewItemCancel);
+    }
 
-function createNewItem(itemName, quantity, units, description, price) {
-    console.log(itemName, quantity, units, description, price);
-}
+    function newItemSubmit() {
+        $('#new-item-submit').on('click', function (event) {
+            event.preventDefault();
+            let itemName = $('#new-item-name').val();
+            let quantity = $('#new-item-quantity').val();
+            let units = $('#new-item-units').val();
+            let description = $('#new-item-description').val();
+            let price = $('#new-item-price').val();
+            $('#new-item-name').val("");
+            $('#new-item-quantity').val("");
+            $('#new-item-units').val("");
+            $('#new-item-description').val("");
+            $('#new-item-price').val("");
+            createNewItem(itemName, quantity, units, description, price);
+        });
+    }
 
-function handleNewItemCancel() {
-    $('#new-item-cancel').on('click', function () {
-        showInventoryPage();
-    });
-}
+    function createNewItem(itemName, quantity, units, description, price) {
+        console.log(itemName, quantity, units, description, price);
+    }
 
-function showInventoryPage() {
-    $('#login-page').hide();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').show();
-    $('#new-item-page').hide();
-    $(addNewItem);
-    $(editItems);
-}
+    function handleNewItemCancel() {
+        $('#new-item-cancel').on('click', function () {
+            showInventoryPage();
+        });
+    }
 
-function addNewItem() {
-    $('#new-item-button').on('click', function () {
-        showNewItemPage();
-    });
-}
-
-function editItems() {
-    $('.edit-items').on('click', function (event) {
-        $('.inventory-row').attr('contenteditable', 'true');
-        $('.inventory-row').addClass('edit-items-border');
-        $('.edit-items').hide();
-        $('.save-changes').show();
-        $('.edit-buttons-row').attr('display', 'flex');
+    function showInventoryPage() {
+        $('#login-page').hide();
+        $('#sign-up-page').hide();
+        $('#new-pantry-page').hide();
+        $('#inventory-page').show();
+        $('#new-item-page').hide();
+        $(addNewItem);
+        $(editItems);
         $(saveChanges);
-    });
-}
+        //    $('.edit-buttons-row').hide();
+    }
 
-function saveChanges() {
-    $('#save-changes-button').on('click', function () {
-        $('.inventory-table').attr('contenteditable', 'false');
-        $('.inventory-table').removeClass('edit-items-border');
-        $('#edit-items-button').show();
-        $('#save-changes-button').hide();
-    })
-}
+    function addNewItem() {
+        $('#new-item-button').on('click', function () {
+            showNewItemPage();
+        });
+    }
+
+    function editItems() {
+        //    $('.mydiv').addClass('hover').click(function () {
+        //        $(this).addClass('hover').fadeOut();
+        //    });
+        //
+        //    $('a.mybutton').click(function () {
+        //        $('.mydiv').toggleClass('hover').show();
+        //    }).hover(function () {
+        //        $('.mydiv.hover').fadeIn();
+        //    }, function () {
+        //        $('.mydiv.hover').fadeOut();
+        //    });
+        //    $('.item-row').addClass('hover').click(function () {
+        //        $(this).addClass('hover').fadeOut();
+        //    });
+        $('.edit-items').on('click', function () {
+            $(this).closest('.item-row').attr('contenteditable', 'true');
+            $(this).closest('.item-row').addClass('edit-items-border');
+            //        $(this).closest('.edit-buttons-row').attr('display', 'flex');
+            $(this).closest('.item-row').toggleClass('hover').show();
+            $('.edit-items').hide();
+            $('.save-changes').show();
+            //        $('.edit-buttons-row').attr('display', 'flex');
+        });
+        //        .hover(function () {
+        //        $(this).closest('.item-row.hover').fadeIn();
+        //    }, function () {
+        //        $(this).closest('.item-row.hover').fadeOut();
+        //    });
+    }
+
+    function saveChanges() {
+        $('.save-changes').on('click', function () {
+            $(this).closest('.item-row').attr('contenteditable', 'false');
+            $(this).closest('.item-row').removeClass('edit-items-border');
+            $('.edit-items').show();
+            $('.save-changes').hide();
+        })
+    }

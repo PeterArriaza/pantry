@@ -15,8 +15,8 @@
         <h1>Welcome to Pantry!</h1>
         <h2>Pantry is a food management system that tracks the food items in your household.</h2>
         <h3>Don't have an account? <a href="#" onclick="showSignUpPage()">Sign up for one!</a></h3>
-        <!--        should there be a validation page for the form action tag?-->
-        <form role="form" method="post" action="#" id="login-form" class="email-form">
+
+        <form role="form" id="login-form" class="email-form">
             <label for="login-email">email:</label>
             <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')" value="peter@gmail.com">
             <label for="login-password">password:</label>

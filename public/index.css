@@ -197,6 +197,11 @@ input[type=submit]:hover {
     width: 35%
 }
 
+.edit-buttons-row-display {
+    display: flex;
+    align-self: stretch;
+}
+
 .edit-buttons-row {
     display: none;
     width: 100%;
