@@ -1,4 +1,5 @@
 const User = require('./models/user');
+const Pantry = require('./models/pantry');
 const express = require('express');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -102,7 +103,27 @@ app.post('/users/create', (req, res) => {
 
 });
 
-// signing in a user
+// Check for duplicate email in database for user sign up
+app.get('/check-duplicate-email/:inputEmail', (req, res) => {
+    let inputEmail = req.params.inputEmail;
+    User
+        .find({
+            "email": inputEmail
+        })
+        .then(function (entries) {
+            res.json({
+                entries
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
+})
+
+// loggin in user
 app.post('/users/login', function (req, res) {
 
     //take the username and the password from the ajax api call
@@ -162,6 +183,33 @@ app.post('/users/login', function (req, res) {
                 }
             });
         };
+    });
+});
+
+// create new pantry
+app.post('/pantry/create', function (req, res) {
+
+    //take the username and the password from the ajax api call
+    const pantryName = req.body.pantryName;
+    const memberArray = req.body.memberArray;
+
+    //using the mongoose DB schema, connect to the database and the user with the same username as above
+    Pantry.create({
+        email,
+        password: hash,
+        firstName,
+        lastName,
+        pantry
+    }, (err, item) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Error Creating Pantry'
+            });
+        }
+        if (item) {
+            console.log(`New user with pantry ${pantryName} was created`);
+            return res.status(200).json(item);
+        }
     });
 });
 
