@@ -140,7 +140,6 @@ function signUpSubmit() {
         $('#new-password').val("");
         $('#confirm-new-password').val("");
         $('#confirm-new-password').val("");
-        $('#sign-up-pantry').val("");
 
         if (firstName == "") {
             alert('Please enter first name!');
@@ -152,6 +151,8 @@ function signUpSubmit() {
             alert('Please enter a password');
         } else if (password !== confirmPassword) {
             alert('Passwords must match!');
+        } else if (pantry == 'select') {
+            alert('Please create a new pantry or create an existing one');
         } else {
             const newUserObject = {
                 email: email,
@@ -173,7 +174,7 @@ function signUpSubmit() {
                     $('#loggedInUser').val(result.email);
                     let user = $('#loggedInUser').val();
                     console.log(user);
-                    if (pantry) {
+                    if (pantry != 'create') {
                         alert('Thank you for signing up!');
                         // show existing pantry page that user signed up for
                         showInventoryPage(user);

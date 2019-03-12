@@ -51,7 +51,12 @@
             <input type="password" id="confirm-new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')" value="password123">
             <span id='password-validation-message'></span>
             <p>If you would like to join an existing Pantry, enter the name of the Pantry below. Otherwise, leave this blank.</p>
-            <input type="text" id="sign-up-pantry" value="My House">
+            <!--            <input type="text" id="sign-up-pantry" value="My House">-->
+            <select id="sign-up-pantry">
+                <option value="create">Create New Pantry</option>
+                <option value="select" selected>Select Existing Pantry</option>
+                <option value="myHouse">My House</option>
+            </select>
             <input type="submit" id="sign-up-submit" class="submit-button" value="Sign Up">
         </form>
     </main>
