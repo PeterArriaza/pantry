@@ -31,7 +31,11 @@ function loginSubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
+                    $('#loggedInUser').val(result.email);
+                    let user = $('#loggedInUser').val();
+                    console.log(user);
 
+                    showInventoryPage(user);
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
@@ -165,9 +169,14 @@ function signUpSubmit() {
                     contentType: 'application/json'
                 })
                 .done(function (result) {
+                    console.log(result);
+                    $('#loggedInUser').val(result.email);
+                    let user = $('#loggedInUser').val();
+                    console.log(user);
                     if (pantry) {
                         alert('Thank you for signing up!');
                         // show existing pantry page that user signed up for
+                        showInventoryPage(user);
                     } else {
                         alert('Thank you for signing up! Now please create a new Pantry to keep track of your food items.');
                         showNewPantryPage();
@@ -192,14 +201,15 @@ function showNewPantryPage() {
 }
 
 function newPantrySubmit() {
-    $('input[type=submit]').on('click', function (event) {
+    $('#new-pantry-submit').on('click', function (event) {
         event.preventDefault();
-        let pantryName = $('input[type=text]').val();
-        let memberEmail = $('input[type=email]').val();
-        // /\s/g = regex for global whitespace
-        let memberArray = memberEmail.replace(/\s/g, '').split(',');
-        $('input[type=text]').val("");
-        $('input[type=email]').val("");
+        let pantryName = $('#name-of-pantry').val();
+        let user = $('#loggedInUser').val();
+        //        let memberEmail = $('input[type=email]').val();
+        //        // /\s/g = regex for global whitespace
+        //        let memberArray = memberEmail.replace(/\s/g, '').split(',');
+        $('#name-of-pantry').val("");
+        //        $('input[type=email]').val("");
 
         // validate pantry credentials
         if (pantryName == "") {
@@ -208,13 +218,14 @@ function newPantrySubmit() {
             console.log('pantry validated');
             const pantryObject = {
                 pantryName: pantryName,
-                memberEmail: memberArray
+                memberEmail: user
             };
+            console.log(pantryObject);
             $.ajax({
                     type: 'POST',
                     url: '/pantry/create',
                     dataType: 'json',
-                    data: JSON.stringify(loginUserObject),
+                    data: JSON.stringify(pantryObject),
                     contentType: 'application/json'
                 })
                 //if call is succefull
@@ -231,10 +242,6 @@ function newPantrySubmit() {
         };
     })
 };
-
-function createPantry(pantryName, memberArray) {
-    console.log(pantryName, memberArray);
-}
 
 function showNewItemPage() {
     $('#login-page').hide();
@@ -273,15 +280,27 @@ function handleNewItemCancel() {
     });
 }
 
-function showInventoryPage() {
-    $('#login-page').hide();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').show();
-    $('#new-item-page').hide();
-    $(addNewItem);
-    $(editItems);
-    $(saveChanges);
+function showInventoryPage(user) {
+    // perform ajax call to get user's inventory
+    $.ajax({
+        type: 'GET',
+        url: '/pantry/' + user
+    }).done(function (res) {
+        console.log(res);
+        $('#login-page').hide();
+        $('#sign-up-page').hide();
+        $('#new-pantry-page').hide();
+        $('#inventory-page').show();
+        $('#new-item-page').hide();
+        $(saveChanges);
+        $(addNewItem);
+        $(editItems);
+    }).fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+
     //    $('.edit-buttons-row').hide();
 }
 

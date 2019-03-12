@@ -11,6 +11,8 @@
 
 <body>
 
+    <input type="hidden" value="" id="loggedInUser">
+
     <main role="main" id="login-page" class="wrapper">
         <h1>Welcome to Pantry!</h1>
         <h2>Pantry is a food management system that tracks the food items in your household.</h2>
@@ -61,9 +63,11 @@
             <label for="name-of-pantry">name of pantry:</label>
             <input type="text" id="name-of-pantry" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
 
+            <!--
             <p>Add other members to Pantry? (optional)</p>
             <label for="other-members">member email:</label>
             <input type="email" id="other-members" multiple>
+-->
             <input type="submit" id="new-pantry-submit" class="submit-button" value="Create Pantry">
         </form>
     </main>

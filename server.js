@@ -191,15 +191,12 @@ app.post('/pantry/create', function (req, res) {
 
     //take the username and the password from the ajax api call
     const pantryName = req.body.pantryName;
-    const memberArray = req.body.memberArray;
+    const memberEmail = req.body.memberEmail;
 
     //using the mongoose DB schema, connect to the database and the user with the same username as above
     Pantry.create({
-        email,
-        password: hash,
-        firstName,
-        lastName,
-        pantry
+        pantryName,
+        memberEmail
     }, (err, item) => {
         if (err) {
             return res.status(500).json({
@@ -207,11 +204,26 @@ app.post('/pantry/create', function (req, res) {
             });
         }
         if (item) {
-            console.log(`New user with pantry ${pantryName} was created`);
             return res.status(200).json(item);
         }
     });
 });
+
+// get user's pantry data
+app.get('/pantry/:email', function (req, res) {
+    Pantry.find({
+            memberEmail: req.params.email
+        }).then((pantry) => {
+            res.json(pantry);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal Server Error getting Pantry'
+            });
+        });
+});
+
 
 // =========================== Catch-all endpoint ===========================
 
