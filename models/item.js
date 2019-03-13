@@ -19,6 +19,10 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    price: {
+        type: String,
+        required: false
+    },
     addedByUserId: {
         type: String,
         required: true,
@@ -28,16 +32,12 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     updatedTimestamp: {
-    type: Date,
-    default: Date.now
-}
+        type: Date,
+        default: Date.now
+    }
 })
 
 
 const Item = mongoose.model('Item', itemSchema);
-const Pantry = mongoose.model('Pantry', pantrySchema);
 
-module.exports = {
-    Item,
-    Pantry
-};
+module.exports = Item;

@@ -1,5 +1,6 @@
 const User = require('./models/user');
 const Pantry = require('./models/pantry');
+const Item = require('./models/item');
 const express = require('express');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(express.static('img'));
 mongoose.Promise = global.Promise;
 
 app.get('/', function (req, res) {
@@ -132,7 +134,7 @@ app.post('/users/login', function (req, res) {
 
     //using the mongoose DB schema, connect to the database and the user with the same username as above
     User.findOne({
-        email: email
+        "email": email
     }, function (err, items) {
 
         //if the there is an error connecting to the DB
@@ -210,20 +212,67 @@ app.post('/pantry/create', function (req, res) {
 });
 
 // get user's pantry data
-app.get('/pantry/:email', function (req, res) {
-    Pantry.find({
-            memberEmail: req.params.email
-        }).then((pantry) => {
-            res.json(pantry);
+app.get('/users/:_id', function (req, res) {
+    console.log(req.params._id);
+    User.findOne({
+            _id: req.params._id
+        }).then(user => {
+            let pantryName = user.pantry;
+            res.json(pantryName);
         })
         .catch(err => {
             console.error(err);
             res.status(500).json({
-                message: 'Internal Server Error getting Pantry'
+                message: 'Internal Server Error getting users pantry'
             });
         });
 });
 
+// update user's pantry details after new pantry creation
+app.put('/users/:_id', function (req, res) {
+    User.findByIdAndUpdate(req.params._id, {
+        pantry: req.body.pantry
+    }).then(updatedUser =>
+        res.status(204).end()
+    ).catch(err => {
+        console.error(err);
+        res.status(500).json({
+            message: 'Internal Server Error getting users pantry'
+        });
+    });
+});
+
+app.post('/users/:_id/items', function (req, res) {
+
+    //take the parameters from the ajax api call
+    const name = req.body.name;
+    const quantity = req.body.quantity;
+    const units = req.body.units;
+    const description = req.body.description;
+    const price = req.body.price;
+    const addedByUserId = req.body.addedByUserId;
+    const addedTimestamp = req.body.addedTimestamp;
+
+    //using the mongoose DB schema, connect to the database and the user with the same username as above
+    Item.create({
+        name,
+        quantity,
+        units,
+        description,
+        price,
+        addedByUserId,
+        addedTimestamp
+    }, (err, item) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Error Creating Pantry'
+            });
+        }
+        if (item) {
+            return res.status(200).json(item);
+        }
+    });
+});
 
 // =========================== Catch-all endpoint ===========================
 

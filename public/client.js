@@ -31,7 +31,7 @@ function loginSubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
-                    $('#loggedInUser').val(result.email);
+                    $('#loggedInUser').val(result._id);
                     let user = $('#loggedInUser').val();
                     console.log(user);
 
@@ -134,13 +134,17 @@ function signUpSubmit() {
         let password = $('#new-password').val();
         let confirmPassword = $('#confirm-new-password').val();
         let pantry = $('#sign-up-pantry').val();
+        if (pantry == null) {
+            alert('Please create a new pantry or create an existing one');
+            return;
+        };
         $('#sign-up-first-name').val("");
         $('#sign-up-last-name').val("");
         $('#sign-up-email').val("");
         $('#new-password').val("");
         $('#confirm-new-password').val("");
         $('#confirm-new-password').val("");
-
+        console.log(pantry);
         if (firstName == "") {
             alert('Please enter first name!');
         } else if (lastName == "") {
@@ -151,8 +155,6 @@ function signUpSubmit() {
             alert('Please enter a password');
         } else if (password !== confirmPassword) {
             alert('Passwords must match!');
-        } else if (pantry == 'select') {
-            alert('Please create a new pantry or create an existing one');
         } else {
             const newUserObject = {
                 email: email,
@@ -170,35 +172,59 @@ function signUpSubmit() {
                     contentType: 'application/json'
                 })
                 .done(function (result) {
-                    console.log(result);
-                    $('#loggedInUser').val(result.email);
+                    $('#loggedInUser').val(result._id);
                     let user = $('#loggedInUser').val();
-                    console.log(user);
                     if (pantry != 'create') {
+                        console.log(result);
                         alert('Thank you for signing up!');
                         // show existing pantry page that user signed up for
                         showInventoryPage(user);
                     } else {
                         alert('Thank you for signing up! Now please create a new Pantry to keep track of your food items.');
                         showNewPantryPage();
-                    }
+                    };
                 })
                 .fail(function (jqXHR, error, errorThrown) {
                     console.log(jqXHR);
                     console.log(error);
                     console.log(errorThrown);
                 });
-        };
+        }
     });
 }
 
-function showNewPantryPage() {
+function showNewPantryPage(user) {
     $('#login-page').hide();
     $('#sign-up-page').hide();
     $('#new-pantry-page').show();
     $('#inventory-page').hide();
     $('#new-item-page').hide();
     $(newPantrySubmit);
+}
+
+function addPantryToUser(user, pantry) {
+    console.log(user);
+    const updateObject = {
+        pantry: pantry,
+        _id: user
+    };
+    $.ajax({
+            type: 'PUT',
+            url: '/users/' + user,
+            dataType: 'json',
+            data: JSON.stringify(updateObject),
+            contentType: 'application/json'
+        })
+        //if call is succefull
+        .done(function (result) {
+            console.log(result);
+        })
+        //if the call is failing
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
 }
 
 function newPantrySubmit() {
@@ -219,7 +245,7 @@ function newPantrySubmit() {
             console.log('pantry validated');
             const pantryObject = {
                 pantryName: pantryName,
-                memberEmail: user
+                memberIds: user
             };
             console.log(pantryObject);
             $.ajax({
@@ -232,6 +258,8 @@ function newPantrySubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
+                    addPantryToUser(user, pantryName);
+                    showInventoryPage(user);
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
@@ -243,6 +271,55 @@ function newPantrySubmit() {
         };
     })
 };
+
+function getUserPantryName(user) {
+    const userObject = {
+        _id: user
+    };
+    $.ajax({
+        type: 'GET',
+        url: '/users/' + user,
+        dataType: 'json',
+        data: JSON.stringify(userObject),
+        contentType: 'application/json'
+    }).done(function (res) {
+        console.log(res);
+    }).fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+}
+
+function showInventoryPage(user) {
+    // perform ajax call to get user's inventory
+    const userObject = {
+        _id: user
+    };
+    $.ajax({
+        type: 'GET',
+        url: '/users/' + user,
+        dataType: 'json',
+        data: JSON.stringify(userObject),
+        contentType: 'application/json'
+    }).done(function (res) {
+        console.log(res);
+        $('#login-page').hide();
+        $('#sign-up-page').hide();
+        $('#new-pantry-page').hide();
+        $('#inventory-page').show();
+        $('#new-item-page').hide();
+        $(saveChanges);
+        $(addNewItem);
+        $(editItems);
+    }).fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+
+    //    $('.edit-buttons-row').hide();
+}
 
 function showNewItemPage() {
     $('#login-page').hide();
@@ -262,47 +339,56 @@ function newItemSubmit() {
         let units = $('#new-item-units').val();
         let description = $('#new-item-description').val();
         let price = $('#new-item-price').val();
+        let date = new Date();
         $('#new-item-name').val("");
         $('#new-item-quantity').val("");
         $('#new-item-units').val("");
         $('#new-item-description').val("");
         $('#new-item-price').val("");
-        createNewItem(itemName, quantity, units, description, price);
-    });
-}
+        if (itemName == "") {
+            alert('Please input item name');
+        } else if (quantity == "") {
+            alert('Please input quantity');
+        } else if (units == "") {
+            alert('Please input units');
+        } else {
+            let user = $('#loggedInUser').val();
+            console.log('item validated');
+            const newItemObject = {
+                name: itemName,
+                quantity: quantity,
+                units: units,
+                description: description,
+                price: price,
+                addedByUserId: user,
+                addedTimestamp: date
+            };
+            $.ajax({
+                    type: 'POST',
+                    url: '/users/' + user + '/items',
+                    dataType: 'json',
+                    data: JSON.stringify(newItemObject),
+                    contentType: 'application/json'
+                })
+                //if call is succefull
+                .done(function (result) {
+                    console.log(result);
 
-function createNewItem(itemName, quantity, units, description, price) {
-    console.log(itemName, quantity, units, description, price);
+                })
+                //if the call is failing
+                .fail(function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                });
+        };
+    });
 }
 
 function handleNewItemCancel() {
     $('#new-item-cancel').on('click', function () {
         showInventoryPage();
     });
-}
-
-function showInventoryPage(user) {
-    // perform ajax call to get user's inventory
-    $.ajax({
-        type: 'GET',
-        url: '/pantry/' + user
-    }).done(function (res) {
-        console.log(res);
-        $('#login-page').hide();
-        $('#sign-up-page').hide();
-        $('#new-pantry-page').hide();
-        $('#inventory-page').show();
-        $('#new-item-page').hide();
-        $(saveChanges);
-        $(addNewItem);
-        $(editItems);
-    }).fail(function (jqXHR, error, errorThrown) {
-        console.log(jqXHR);
-        console.log(error);
-        console.log(errorThrown);
-    });
-
-    //    $('.edit-buttons-row').hide();
 }
 
 function addNewItem() {
@@ -348,5 +434,5 @@ function saveChanges() {
         $(this).closest('.item-row').removeClass('edit-items-border');
         $('.edit-items').show();
         $('.save-changes').hide();
-    })
+    });
 }

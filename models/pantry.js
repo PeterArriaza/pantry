@@ -7,7 +7,7 @@ const pantrySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    memberEmail: {
+    memberIds: {
         type: String,
     }
 })
