@@ -362,7 +362,7 @@ function showInventoryPage(user) {
     };
     $.ajax({
         type: 'GET',
-        url: '/users/' + user,
+        url: '/get-pantry/' + user,
         dataType: 'json',
         data: JSON.stringify(userObject),
         contentType: 'application/json'
@@ -481,13 +481,16 @@ function editItems() {
     //    $('.item-row').addClass('hover').click(function () {
     //        $(this).addClass('hover').fadeOut();
     //    });
-    $('.edit-items').on('click', function () {
+    $('.edit-items').on('click', function (event) {
         $(this).closest('.item-row').attr('contenteditable', 'true');
         $(this).closest('.item-row').addClass('edit-items-border');
         //        $(this).closest('.edit-buttons-row').attr('display', 'flex');
-        $(this).closest('.item-row').toggleClass('hover').show();
         $('.edit-items').hide();
-        $('.save-changes').show();
+        $('.save-changes').hide();
+        $(this).closest('.item-row').toggleClass('hover').show();
+        $(this).hide();
+        $(this).parent().find('.save-changes').show();
+
         //        $('.edit-buttons-row').attr('display', 'flex');
     });
     //        .hover(function () {
@@ -502,6 +505,8 @@ function saveChanges() {
         $(this).closest('.item-row').attr('contenteditable', 'false');
         $(this).closest('.item-row').removeClass('edit-items-border');
         $('.edit-items').show();
-        $('.save-changes').hide();
+        $(this).hide();
+
+        //        get values of items row content
     });
 }

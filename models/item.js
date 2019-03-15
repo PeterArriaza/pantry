@@ -34,6 +34,10 @@ const itemSchema = new mongoose.Schema({
     updatedTimestamp: {
         type: Date,
         default: Date.now
+    },
+    pantryId: {
+        type: String,
+        required: true
     }
 })
 

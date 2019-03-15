@@ -212,7 +212,7 @@ app.post('/pantry/create', function (req, res) {
 });
 
 // get user's pantry data
-app.get('/users/:_id', function (req, res) {
+app.get('/get-pantry/:_id', function (req, res) {
     console.log(req.params._id);
     Item.find().then(item => {
             res.json(item);
