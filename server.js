@@ -214,11 +214,8 @@ app.post('/pantry/create', function (req, res) {
 // get user's pantry data
 app.get('/users/:_id', function (req, res) {
     console.log(req.params._id);
-    User.findOne({
-            _id: req.params._id
-        }).then(user => {
-            let pantryName = user.pantry;
-            res.json(pantryName);
+    Item.find().then(item => {
+            res.json(item);
         })
         .catch(err => {
             console.error(err);
@@ -272,6 +269,37 @@ app.post('/users/:_id/items', function (req, res) {
             return res.status(200).json(item);
         }
     });
+});
+
+// get item added by userid
+app.get('/items/:_id', function (req, res) {
+    console.log(req.params._id);
+    Item.findById(req.params._id, function (err, item) {
+            res.json(item.added);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal Server Error getting item owner'
+            });
+        });
+});
+
+// get item added by userid
+app.get('/users/:_id/name', function (req, res) {
+    console.log(req.params._id);
+    User.findById(req.params._id, function (err, user) {
+            let na = user.firstName;
+            let me = user.lastName;
+            let fullname = na + "" + me;
+            res.json(fullname);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal Server Error getting item owner'
+            });
+        });
 });
 
 // =========================== Catch-all endpoint ===========================

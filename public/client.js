@@ -32,6 +32,8 @@ function loginSubmit() {
                 .done(function (result) {
                     console.log(result);
                     $('#loggedInUser').val(result._id);
+                    $('#loggedInUserFirstName').val(result.firstName);
+                    $('#loggedInUserLastName').val(result.lastName);
                     let user = $('#loggedInUser').val();
                     console.log(user);
 
@@ -107,9 +109,8 @@ function checkDuplicateEmail(inputEmail) {
             contentType: 'application/json'
         })
         .done(function (result) {
-            if (result.entries.length !== 0) {
-                alert("Sorry, that email is already in use")
-            }
+            console.log(result);
+            $('#emailDuplicated').val(result.entries.length)
         })
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
@@ -118,11 +119,11 @@ function checkDuplicateEmail(inputEmail) {
         });
 }
 
-$('#sign-up-email').on('blur', function (event) {
-    event.preventDefault();
-    let email = $('#sign-up-email').val();
-    checkDuplicateEmail(email);
-})
+//$('#sign-up-email').on('blur', function (event) {
+//    event.preventDefault();
+//    let email = $('#sign-up-email').val();
+//    checkDuplicateEmail(email);
+//})
 
 // get values from new user sign up form
 function signUpSubmit() {
@@ -145,12 +146,16 @@ function signUpSubmit() {
         $('#confirm-new-password').val("");
         $('#confirm-new-password').val("");
         console.log(pantry);
+        checkDuplicateEmail(email);
+        let emailLength = $('#emailDuplicated').val()
         if (firstName == "") {
             alert('Please enter first name!');
         } else if (lastName == "") {
             alert('Please enter last name!');
         } else if (email == "") {
             alert('Please enter an email');
+        } else if (emailLength !== 0) {
+            alert('Email is already in use');
         } else if (password == "") {
             alert('Please enter a password');
         } else if (password !== confirmPassword) {
@@ -173,6 +178,8 @@ function signUpSubmit() {
                 })
                 .done(function (result) {
                     $('#loggedInUser').val(result._id);
+                    $('#loggedInUserFirstName').val(result.firstName);
+                    $('#loggedInUserLastName').val(result.lastName);
                     let user = $('#loggedInUser').val();
                     if (pantry != 'create') {
                         console.log(result);
@@ -217,7 +224,7 @@ function addPantryToUser(user, pantry) {
         })
         //if call is succefull
         .done(function (result) {
-            console.log(result);
+            console.log('Pantry added to User');
         })
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
@@ -291,6 +298,63 @@ function getUserPantryName(user) {
     });
 }
 
+function getItemOwner(item) {
+    const itemObject = {
+        _id: item._id
+    };
+    const id = item._id;
+    $.ajax({
+        type: 'GET',
+        url: '/items/' +
+            id,
+        dataType: 'json',
+        data: JSON.stringify(itemObject),
+        contentType: 'application/json'
+    }).done(function (res) {
+        console.log(res);
+        convertUserIdToName(res);
+    }).fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+}
+
+function convertUserIdToName(id) {
+    console.log(id);
+    const userObject = {
+        _id: id._id
+    };
+    $.ajax({
+        type: 'GET',
+        url: '/users/' +
+            id + '/name',
+        dataType: 'json',
+        data: JSON.stringify(userObject),
+        contentType: 'application/json'
+    }).done(function (res) {
+        console.log(res);
+    }).fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+
+}
+
+
+function displayItem(item) {
+
+    return `<div class="item-row item-header">
+                <div class="item-detail item-name">${item.name}</div>
+                <div class="item-detail item-qty">${item.quantity}</div>
+                <div class="item-detail item-unit">${item.units}</div>
+                <div class="item-detail item-description">${item.description}</div>
+                <div class="item-detail item-price">${item.price}</div>
+                <div class="item-detail item-added-by"></div>
+            </div>`
+}
+
 function showInventoryPage(user) {
     // perform ajax call to get user's inventory
     const userObject = {
@@ -309,6 +373,11 @@ function showInventoryPage(user) {
         $('#new-pantry-page').hide();
         $('#inventory-page').show();
         $('#new-item-page').hide();
+
+        $.each(res, function (key, value) {
+            getItemOwner(value)
+            //            console.log(value._id);
+        });
         $(saveChanges);
         $(addNewItem);
         $(editItems);
@@ -373,7 +442,7 @@ function newItemSubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
-
+                    showInventoryPage($('#loggedInUser').val());
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
