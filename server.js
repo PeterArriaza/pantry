@@ -212,7 +212,7 @@ app.post('/pantry/create', function (req, res) {
 });
 
 // get user's pantry data
-app.get('/get-pantry/:_id', function (req, res) {
+app.get('/show-pantry/:_id', function (req, res) {
     console.log(req.params._id);
     Item.find().then(item => {
             res.json(item);
@@ -226,7 +226,7 @@ app.get('/get-pantry/:_id', function (req, res) {
 });
 
 // update user's pantry details after new pantry creation
-app.put('/users/:_id', function (req, res) {
+app.put('/add-user-pantry/:_id', function (req, res) {
     User.findByIdAndUpdate(req.params._id, {
         pantry: req.body.pantry
     }).then(updatedUser =>

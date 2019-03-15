@@ -109,8 +109,12 @@ function checkDuplicateEmail(inputEmail) {
             contentType: 'application/json'
         })
         .done(function (result) {
-            console.log(result);
-            $('#emailDuplicated').val(result.entries.length)
+            console.log(result.entries.length);
+            $('#emailDuplicated').val(result.entries.length);
+            let emailLength = result.entries.length;
+            if (emailLength !== 0) {
+                alert('Email is already in use');
+            };
         })
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
@@ -119,15 +123,10 @@ function checkDuplicateEmail(inputEmail) {
         });
 }
 
-//$('#sign-up-email').on('blur', function (event) {
-//    event.preventDefault();
-//    let email = $('#sign-up-email').val();
-//    checkDuplicateEmail(email);
-//})
-
 // get values from new user sign up form
 function signUpSubmit() {
     $('#sign-up-submit').on('click', function (event) {
+        let checkEmailStatus = true;
         event.preventDefault();
         let firstName = $('#sign-up-first-name').val();
         let lastName = $('#sign-up-last-name').val();
@@ -145,62 +144,76 @@ function signUpSubmit() {
         $('#new-password').val("");
         $('#confirm-new-password').val("");
         $('#confirm-new-password').val("");
-        console.log(pantry);
-        checkDuplicateEmail(email);
-        let emailLength = $('#emailDuplicated').val()
-        if (firstName == "") {
-            alert('Please enter first name!');
-        } else if (lastName == "") {
-            alert('Please enter last name!');
-        } else if (email == "") {
-            alert('Please enter an email');
-        } else if (emailLength !== 0) {
-            alert('Email is already in use');
-        } else if (password == "") {
-            alert('Please enter a password');
-        } else if (password !== confirmPassword) {
-            alert('Passwords must match!');
-        } else {
-            const newUserObject = {
-                email: email,
-                password: password,
-                firstName: firstName,
-                lastName: lastName,
-                pantry: pantry
-            };
-            console.log(newUserObject);
-            $.ajax({
-                    type: 'POST',
-                    url: '/users/create',
-                    dataType: 'json',
-                    data: JSON.stringify(newUserObject),
-                    contentType: 'application/json'
-                })
-                .done(function (result) {
-                    $('#loggedInUser').val(result._id);
-                    $('#loggedInUserFirstName').val(result.firstName);
-                    $('#loggedInUserLastName').val(result.lastName);
-                    let user = $('#loggedInUser').val();
-                    if (pantry != 'create') {
-                        console.log(result);
-                        alert('Thank you for signing up!');
-                        // show existing pantry page that user signed up for
-                        showInventoryPage(user);
-                    } else {
-                        alert('Thank you for signing up! Now please create a new Pantry to keep track of your food items.');
-                        showNewPantryPage();
+        $.ajax({
+                type: 'GET',
+                url: `/check-duplicate-email/${email}`,
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+            .done(function (users) {
+                console.log(users.entries.length);
+                //        checkDuplicateEmail(email);
+                //         $('#emailDuplicated').val();
+                //        console.log(emailLength);        
+                if (firstName == "") {
+                    alert('Please enter first name!');
+                } else if (lastName == "") {
+                    alert('Please enter last name!');
+                } else if (email == "") {
+                    alert('Please enter an email');
+                } else if (password == "") {
+                    alert('Please enter a password');
+                } else if (password !== confirmPassword) {
+                    alert('Passwords must match!');
+                } else if (users.entries.length !== 0) {
+                    alert('Email is already in use');
+                } else {
+                    const newUserObject = {
+                        email: email,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName,
+                        pantry: pantry
                     };
-                })
-                .fail(function (jqXHR, error, errorThrown) {
-                    console.log(jqXHR);
-                    console.log(error);
-                    console.log(errorThrown);
-                });
-        }
+                    console.log(newUserObject);
+                    $.ajax({
+                            type: 'POST',
+                            url: '/users/create',
+                            dataType: 'json',
+                            data: JSON.stringify(newUserObject),
+                            contentType: 'application/json'
+                        })
+                        .done(function (result) {
+                            $('#loggedInUser').val(result._id);
+                            $('#loggedInUserFirstName').val(result.firstName);
+                            $('#loggedInUserLastName').val(result.lastName);
+                            let user = $('#loggedInUser').val();
+                            if (pantry != 'create') {
+                                console.log(result);
+                                alert('Thank you for signing up!');
+                                // show existing pantry page that user signed up for
+                                $('#userPantry').val(result.pantry);
+                                showInventoryPage(user);
+                            } else {
+                                alert('Thank you for signing up! Now please create a new Pantry to keep track of your food items.');
+                                showNewPantryPage();
+                            };
+                        })
+                        .fail(function (jqXHR, error, errorThrown) {
+                            console.log(jqXHR);
+                            console.log(error);
+                            console.log(errorThrown);
+                        });
+                }
+            }).fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
     });
 }
 
-function showNewPantryPage(user) {
+function showNewPantryPage() {
     $('#login-page').hide();
     $('#sign-up-page').hide();
     $('#new-pantry-page').show();
@@ -212,12 +225,12 @@ function showNewPantryPage(user) {
 function addPantryToUser(user, pantry) {
     console.log(user);
     const updateObject = {
-        pantry: pantry,
+        pantry: $('#userPantry').val(),
         _id: user
     };
     $.ajax({
             type: 'PUT',
-            url: '/users/' + user,
+            url: '/add-user-pantry/' + user,
             dataType: 'json',
             data: JSON.stringify(updateObject),
             contentType: 'application/json'
@@ -265,6 +278,7 @@ function newPantrySubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
+                    $('#userPantry').val(result._id);
                     addPantryToUser(user, pantryName);
                     showInventoryPage(user);
                 })
@@ -362,7 +376,7 @@ function showInventoryPage(user) {
     };
     $.ajax({
         type: 'GET',
-        url: '/get-pantry/' + user,
+        url: '/show-pantry/' + user,
         dataType: 'json',
         data: JSON.stringify(userObject),
         contentType: 'application/json'
@@ -467,20 +481,6 @@ function addNewItem() {
 }
 
 function editItems() {
-    //    $('.mydiv').addClass('hover').click(function () {
-    //        $(this).addClass('hover').fadeOut();
-    //    });
-    //
-    //    $('a.mybutton').click(function () {
-    //        $('.mydiv').toggleClass('hover').show();
-    //    }).hover(function () {
-    //        $('.mydiv.hover').fadeIn();
-    //    }, function () {
-    //        $('.mydiv.hover').fadeOut();
-    //    });
-    //    $('.item-row').addClass('hover').click(function () {
-    //        $(this).addClass('hover').fadeOut();
-    //    });
     $('.edit-items').on('click', function (event) {
         $(this).closest('.item-row').attr('contenteditable', 'true');
         $(this).closest('.item-row').addClass('edit-items-border');
@@ -490,14 +490,7 @@ function editItems() {
         $(this).closest('.item-row').toggleClass('hover').show();
         $(this).hide();
         $(this).parent().find('.save-changes').show();
-
-        //        $('.edit-buttons-row').attr('display', 'flex');
     });
-    //        .hover(function () {
-    //        $(this).closest('.item-row.hover').fadeIn();
-    //    }, function () {
-    //        $(this).closest('.item-row.hover').fadeOut();
-    //    });
 }
 
 function saveChanges() {
