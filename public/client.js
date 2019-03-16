@@ -34,6 +34,7 @@ function loginSubmit() {
                     $('#loggedInUser').val(result._id);
                     $('#loggedInUserFirstName').val(result.firstName);
                     $('#loggedInUserLastName').val(result.lastName);
+                    $('#userPantry').val(result.pantry);
                     let user = $('#loggedInUser').val();
                     console.log(user);
 
@@ -444,7 +445,8 @@ function newItemSubmit() {
                 description: description,
                 price: price,
                 addedByUserId: user,
-                addedTimestamp: date
+                addedTimestamp: date,
+                pantryId: $('#userPantry');
             };
             $.ajax({
                     type: 'POST',
