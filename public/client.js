@@ -438,6 +438,7 @@ function newItemSubmit() {
         } else {
             let user = $('#loggedInUser').val();
             console.log('item validated');
+            console.log(date);
             const newItemObject = {
                 name: itemName,
                 quantity: quantity,
@@ -446,11 +447,12 @@ function newItemSubmit() {
                 price: price,
                 addedByUserId: user,
                 addedTimestamp: date,
-                pantryId: $('#userPantry');
+                updatedTimestamp: date,
+                pantryId: $('#userPantry').val()
             };
             $.ajax({
                     type: 'POST',
-                    url: '/users/' + user + '/items',
+                    url: '/add-new-item/' + user,
                     dataType: 'json',
                     data: JSON.stringify(newItemObject),
                     contentType: 'application/json'

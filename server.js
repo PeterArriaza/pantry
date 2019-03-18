@@ -239,7 +239,8 @@ app.put('/add-user-pantry/:_id', function (req, res) {
     });
 });
 
-app.post('/users/:_id/items', function (req, res) {
+// add new item to user pantry
+app.post('/add-new-item/:user', function (req, res) {
 
     //take the parameters from the ajax api call
     const name = req.body.name;
@@ -249,6 +250,8 @@ app.post('/users/:_id/items', function (req, res) {
     const price = req.body.price;
     const addedByUserId = req.body.addedByUserId;
     const addedTimestamp = req.body.addedTimestamp;
+    const updatedTimestamp = req.body.updatedTimestamp;
+    const pantryId = req.body.pantryId;
 
     //using the mongoose DB schema, connect to the database and the user with the same username as above
     Item.create({
@@ -258,7 +261,9 @@ app.post('/users/:_id/items', function (req, res) {
         description,
         price,
         addedByUserId,
-        addedTimestamp
+        addedTimestamp,
+        updatedTimestamp,
+        pantryId
     }, (err, item) => {
         if (err) {
             return res.status(500).json({
