@@ -212,9 +212,14 @@ app.post('/pantry/create', function (req, res) {
 });
 
 // get user's pantry data
-app.get('/show-pantry/:_id', function (req, res) {
-    console.log(req.params._id);
-    Item.find().then(item => {
+app.get('/show-pantry/:pantryId', function (req, res) {
+    let pantry = req.params.pantryId;
+    console.log(pantry);
+    Item.find({
+            "pantryId": pantry
+        }).then(item => {
+            console.log('items in pantry');
+            console.log(item);
             res.json(item);
         })
         .catch(err => {

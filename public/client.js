@@ -35,10 +35,9 @@ function loginSubmit() {
                     $('#loggedInUserFirstName').val(result.firstName);
                     $('#loggedInUserLastName').val(result.lastName);
                     $('#userPantry').val(result.pantry);
-                    let user = $('#loggedInUser').val();
-                    console.log(user);
-
-                    showInventoryPage(user);
+                    let pantry = $('#userPantry').val();
+                    console.log(pantry);
+                    showInventoryPage(pantry);
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
@@ -359,27 +358,27 @@ function convertUserIdToName(id) {
 
 
 function displayItem(item) {
-
-    return `<div class="item-row item-header">
+    $('.inventory-table').append(
+        `<div class="item-row">
                 <div class="item-detail item-name">${item.name}</div>
                 <div class="item-detail item-qty">${item.quantity}</div>
                 <div class="item-detail item-unit">${item.units}</div>
                 <div class="item-detail item-description">${item.description}</div>
                 <div class="item-detail item-price">${item.price}</div>
                 <div class="item-detail item-added-by"></div>
-            </div>`
+            </div>`);
 }
 
-function showInventoryPage(user) {
+function showInventoryPage(pantry) {
     // perform ajax call to get user's inventory
-    const userObject = {
-        _id: user
+    const itemObject = {
+        pantryId: pantry
     };
     $.ajax({
         type: 'GET',
-        url: '/show-pantry/' + user,
+        url: '/show-pantry/' + pantry,
         dataType: 'json',
-        data: JSON.stringify(userObject),
+        data: JSON.stringify(itemObject),
         contentType: 'application/json'
     }).done(function (res) {
         console.log(res);
@@ -390,8 +389,7 @@ function showInventoryPage(user) {
         $('#new-item-page').hide();
 
         $.each(res, function (key, value) {
-            getItemOwner(value)
-            //            console.log(value._id);
+            displayItem(value);
         });
         $(saveChanges);
         $(addNewItem);
@@ -424,6 +422,7 @@ function newItemSubmit() {
         let description = $('#new-item-description').val();
         let price = $('#new-item-price').val();
         let date = new Date();
+        let pantryId = $('#userPantry').val();
         $('#new-item-name').val("");
         $('#new-item-quantity').val("");
         $('#new-item-units').val("");
@@ -448,7 +447,7 @@ function newItemSubmit() {
                 addedByUserId: user,
                 addedTimestamp: date,
                 updatedTimestamp: date,
-                pantryId: $('#userPantry').val()
+                pantryId: pantryId
             };
             $.ajax({
                     type: 'POST',
@@ -460,7 +459,7 @@ function newItemSubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
-                    showInventoryPage($('#loggedInUser').val());
+                    showInventoryPage(pantryId);
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
