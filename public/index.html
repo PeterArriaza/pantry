@@ -86,7 +86,8 @@
     <main role="main" id="inventory-page">
         <h1>Pantry Inventory</h1>
         <div class="inventory-table">
-            <div class="item-row item-header">
+
+            <div class="item-header">
                 <div class="item-detail item-name">Name</div>
                 <div class="item-detail item-qty">Qty</div>
                 <div class="item-detail item-unit">Units</div>
@@ -94,7 +95,7 @@
                 <div class="item-detail item-price">Price</div>
                 <div class="item-detail item-added-by">Added By</div>
             </div>
-
+            <div id="pantryContent"></div>
             <!--
             <div class="item-row">
                 <div class="item-detail item-name">Eggs</div>
@@ -136,7 +137,7 @@
 
         </div>
         <div class="button-row">
-            <button id="history">History</button>
+            <button id="delete-item-button">- Delete Items</button>
             <button id="new-item-button">+ Add New Item</button>
         </div>
     </main>

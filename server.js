@@ -245,7 +245,7 @@ app.put('/add-user-pantry/:_id', function (req, res) {
 });
 
 // add new item to user pantry
-app.post('/add-new-item/:user', function (req, res) {
+app.post('/add-new-item/:pantryId', function (req, res) {
 
     //take the parameters from the ajax api call
     const name = req.body.name;
@@ -311,6 +311,29 @@ app.get('/users/:_id/name', function (req, res) {
             });
         });
 });
+
+// update item on save changes click
+app.put('/update-item/:pantryId', function (req, res) {
+    let toUpdate = {};
+    //    let updateableFields = ['achieveWhat', 'achieveHow', 'achieveWhen', 'achieveWhy']; //<--Marius? 'entryType
+    let updateableFields = ['itemName', 'quantity', 'units', 'description', 'price', 'updatedTimestamp'];
+    updateableFields.forEach(function (field) {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+    Item.findByIdAndUpdate(req.params._id, {
+        $set: toUpdate
+    }).then(item => {
+        console.log(item);
+        res.status(204).end();
+    }).catch(err => {
+        console.error(err);
+        res.status(500).json({
+            message: 'Internal Server Error getting users pantry'
+        });
+    });
+})
 
 // =========================== Catch-all endpoint ===========================
 

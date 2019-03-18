@@ -153,6 +153,7 @@ input[type=submit]:hover {
     margin-top: 50px;
 }
 
+
 .edit-items-border {
     border: 2px solid rgba(215, 74, 0, 0.9);
 }
@@ -168,13 +169,21 @@ input[type=submit]:hover {
     color: white;
 }
 
+/*
 .item-row:nth-child(1),
 .item-row:nth-child(1) > * {
     background-color: var(--white);
     color: black;
 }
+*/
 
-.item-row {
+.item-header {
+    background-color: var(--white);
+    color: black;
+}
+
+.item-row,
+.item-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -188,9 +197,12 @@ input[type=submit]:hover {
     overflow-wrap: break-word;
 }
 
-.item-qty,
-.item-unit {
+.item-qty {
     width: 6%;
+}
+
+.item-unit {
+    width: 9%;
 }
 
 .item-description {
@@ -236,14 +248,21 @@ input[type=submit]:hover {
     margin-top: 20px;
 }
 
-#new-item-button,
-#history {
+#new-item-button {
     border: none;
     background-color: var(--darkbrown);
     color: white;
     padding: 10px;
     width: 135px;
     margin-left: 20px;
+}
+
+#delete-item-button {
+    border: 2px solid var(--darkbrown);
+    color: var(--darkbrown);
+    background-color: var(--white);
+    padding: 5px;
+    width: 135px;
 }
 
 @media only screen and (max-width: 450px) {

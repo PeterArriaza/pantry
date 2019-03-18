@@ -358,18 +358,27 @@ function convertUserIdToName(id) {
 
 
 function displayItem(item) {
-    $('.inventory-table').append(
+    let username = $('#loggedInUserFirstName').val() + " " + $('#loggedInUserLastName').val();
+    let itemId = item._id;
+
+    $('#pantryContent').append(
         `<div class="item-row">
+    <input type="hidden" value="${itemId}" class="itemId">
                 <div class="item-detail item-name">${item.name}</div>
                 <div class="item-detail item-qty">${item.quantity}</div>
                 <div class="item-detail item-unit">${item.units}</div>
                 <div class="item-detail item-description">${item.description}</div>
                 <div class="item-detail item-price">${item.price}</div>
-                <div class="item-detail item-added-by"></div>
-            </div>`);
+<div class="item-detail item-added-by">${username}</div>
+<div class="edit-buttons-row">
+                    <button class="edit edit-items">Edit Items</button>
+                    <button class="edit save-changes">Save Changes</button>
+                </div>`);
+
 }
 
 function showInventoryPage(pantry) {
+    $('#pantryContent').empty();
     // perform ajax call to get user's inventory
     const itemObject = {
         pantryId: pantry
@@ -504,5 +513,44 @@ function saveChanges() {
         $(this).hide();
 
         //        get values of items row content
+        let itemName = $(this).prev('.item-name').val();
+        let quantity = $(this).closest('.item-qty').val();
+        let units = $(this).closest('.item-unit').val();
+        let description = $(this).closest('.item-description').val();
+        let price = $(this).closest('.item-price').val();
+        let date = new Date();
+        let itemId = $(this).closest('.itemId').val();
+        let pantryId = $('#userPantry').val();
+
+        const newItemObject = {
+            name: itemName,
+            quantity: quantity,
+            units: units,
+            description: description,
+            price: price,
+            addedTimestamp: date,
+            updatedTimestamp: date,
+            _id: itemId
+        };
+        console.log(newItemObject);
+        $.ajax({
+                type: 'PUT',
+                url: '/update-item/' + pantryId,
+                dataType: 'json',
+                data: JSON.stringify(newItemObject),
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done(function (result) {
+                console.log(result);
+                //                showInventoryPage(pantryId);
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+
     });
 }
