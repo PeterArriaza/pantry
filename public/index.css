@@ -75,6 +75,15 @@ h3 {
     font-size: 1em;
 }
 
+#myWelcomeMessage {
+    display: inline-block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px 2%;
+}
+
 #tryout {
     margin-bottom: 100px;
 }
@@ -107,7 +116,8 @@ input[type=number] {
 }
 
 .email-form > input[type=submit],
-.email-form > input[type=button] {
+.email-form > input[type=button],
+#closeWelcomeMessage {
     display: block;
     width: 50%;
     margin-left: auto;
@@ -264,6 +274,7 @@ input[type=submit]:hover {
     padding: 5px;
     width: 135px;
 }
+
 
 @media only screen and (max-width: 450px) {
     .email-form {

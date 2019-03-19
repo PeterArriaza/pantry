@@ -51,24 +51,35 @@ function loginSubmit() {
 }
 
 $(document).ready(function () {
+    $('#welcomeModal').show();
+    $('#login-page').hide();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    let isshow = localStorage.getItem('isshow');
+    if (isshow == null) {
+        localStorage.setItem('isshow', 1);
+
+        // Show popup here
+        $('#myWelcomeMessage').show();
+        $('#closeWelcomeMessage').on('click', function (event) {
+            showLoginScreen();
+        });
+    } else {
+        showLoginScreen();
+    }
+});
+
+function showLoginScreen() {
+    $('#welcomeModal').hide();
     $('#login-page').show();
     $('#sign-up-page').hide();
     $('#new-pantry-page').hide();
     $('#inventory-page').hide();
     $('#new-item-page').hide();
     $(loginSubmit);
-});
-
-function showLoginScreen() {
-    $(document).ready(function () {
-        $('#login-page').show();
-        $('#sign-up-page').hide();
-        $('#new-pantry-page').hide();
-        $('#inventory-page').hide();
-        $('#new-item-page').hide();
-        $(loginSubmit);
-    });
-}
+};
 
 // on #login-page, if checkbox is checked, will toggle 
 // password visibility
@@ -82,6 +93,7 @@ function togglePasswordVisibility() {
 }
 
 function showSignUpPage() {
+    $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').show();
     $('#new-pantry-page').hide();
@@ -214,6 +226,7 @@ function signUpSubmit() {
 }
 
 function showNewPantryPage() {
+    $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').hide();
     $('#new-pantry-page').show();
@@ -416,6 +429,7 @@ function showInventoryPage(pantry) {
 }
 
 function showNewItemPage() {
+    $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').hide();
     $('#new-pantry-page').hide();
@@ -558,45 +572,21 @@ function saveChanges() {
 
 function deleteItem() {
     $('.delete-item').on('click', function () {
-        let itemName = $(this).parent().find('.item-name').val();
-        confirm(`Are you sure you want to delete ${itemName}`);
+        let itemId = $(this).parent().parent().find('.itemId').val();
 
+        let itemName = $(this).parent().parent().find('.item-name').text();
+        console.log(itemId, itemName);
+        confirm(`Are you sure you want to delete ${itemName}?`);
+        handleDeleteItem(itemId);
     });
 }
 
-function handleDeleteItem() {
+function handleDeleteItem(itemId) {
 
-    $(this).closest('.item-row').attr('contenteditable', 'false');
-    $(this).closest('.item-row').removeClass('edit-items-border');
-    $('.edit-items').show();
-    $(this).hide();
-
-    //        get values of items row content
-    let itemName = $(this).prev('.item-name').val();
-    let quantity = $(this).closest('.item-qty').val();
-    let units = $(this).closest('.item-unit').val();
-    let description = $(this).closest('.item-description').val();
-    let price = $(this).closest('.item-price').val();
-    let date = new Date();
-    let itemId = $(this).closest('.itemId').val();
-    let pantryId = $('#userPantry').val();
-
-    const newItemObject = {
-        name: itemName,
-        quantity: quantity,
-        units: units,
-        description: description,
-        price: price,
-        addedTimestamp: date,
-        updatedTimestamp: date,
-        _id: itemId
-    };
-    console.log(newItemObject);
     $.ajax({
-            type: 'PUT',
-            url: '/update-item/' + pantryId,
+            type: 'DELETE',
+            url: '/delete-item/' + itemId,
             dataType: 'json',
-            data: JSON.stringify(newItemObject),
             contentType: 'application/json'
         })
         //if call is succefull

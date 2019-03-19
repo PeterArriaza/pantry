@@ -333,7 +333,9 @@ app.put('/update-item/:itemId', function (req, res) {
             message: 'Internal Server Error getting users pantry'
         });
     });
-})
+});
+
+
 
 // =========================== Catch-all endpoint ===========================
 
