@@ -335,7 +335,21 @@ app.put('/update-item/:itemId', function (req, res) {
     });
 });
 
-
+app.delete('/delete-item/:itemId', (req, res) => {
+    Item
+        .findByIdAndRemove(req.params.itemId)
+        .then(() => {
+            res.status(204).json({
+                message: 'success'
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                error: 'something went terribly wrong deleting this item'
+            });
+        });
+});
 
 // =========================== Catch-all endpoint ===========================
 

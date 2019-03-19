@@ -375,7 +375,7 @@ function displayItem(item) {
     let itemId = item._id;
 
     $('#pantryContent').append(
-        `<div class="item-row">
+        `<div class="item-row" onclick="">
                 <input type="hidden" value="${itemId}" class="itemId">
                 <div class="item-detail item-name">${item.name}</div>
                 <div class="item-detail item-qty">${item.quantity}</div>
@@ -499,7 +499,7 @@ function newItemSubmit() {
 
 function handleNewItemCancel() {
     $('#new-item-cancel').on('click', function () {
-        showInventoryPage();
+        showInventoryPage($('#userPantry').val());
     });
 }
 
@@ -592,7 +592,7 @@ function handleDeleteItem(itemId) {
         //if call is succefull
         .done(function (result) {
             console.log(result);
-            //                showInventoryPage(pantryId);
+            showInventoryPage($('#userPantry').val());
         })
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
