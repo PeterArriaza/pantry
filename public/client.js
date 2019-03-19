@@ -363,17 +363,19 @@ function displayItem(item) {
 
     $('#pantryContent').append(
         `<div class="item-row">
-    <input type="hidden" value="${itemId}" class="itemId">
+                <input type="hidden" value="${itemId}" class="itemId">
                 <div class="item-detail item-name">${item.name}</div>
                 <div class="item-detail item-qty">${item.quantity}</div>
                 <div class="item-detail item-unit">${item.units}</div>
                 <div class="item-detail item-description">${item.description}</div>
                 <div class="item-detail item-price">${item.price}</div>
-<div class="item-detail item-added-by">${username}</div>
-<div class="edit-buttons-row">
-                    <button class="edit edit-items">Edit Items</button>
+                <div class="item-detail item-added-by">${username}</div>
+                <div class="edit-buttons-row">
+                    <button class="edit edit-items">Edit Item</button>
                     <button class="edit save-changes">Save Changes</button>
-                </div>`);
+                    <button class="edit delete-item">- Delete Item</button>
+                </div>
+        </div>`);
 
 }
 
@@ -403,6 +405,7 @@ function showInventoryPage(pantry) {
         $(saveChanges);
         $(addNewItem);
         $(editItems);
+        $(deleteItem);
     }).fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
         console.log(error);
@@ -513,36 +516,34 @@ function saveChanges() {
         $(this).hide();
 
         //        get values of items row content
-        let itemName = $(this).prev('.item-name').val();
-        let quantity = $(this).closest('.item-qty').val();
-        let units = $(this).closest('.item-unit').val();
-        let description = $(this).closest('.item-description').val();
-        let price = $(this).closest('.item-price').val();
+        let itemName = $(this).parent().parent().find('.item-name').text();
+        let quantity = $(this).parent().parent().find('.item-qty').text();
+        let units = $(this).parent().parent().find('.item-unit').text();
+        let description = $(this).parent().parent().find('.item-description').text();
+        let price = $(this).parent().parent().find('.item-price').text();
         let date = new Date();
-        let itemId = $(this).closest('.itemId').val();
-        let pantryId = $('#userPantry').val();
-
+        //        let itemId = $(this).parent().parent().find('.itemId').val();
+        let itemId = $(this).parent().parent().find('.itemId').val();
+        //        let pantryId = $('#userPantry').val();
+        console.log(itemId);
         const newItemObject = {
             name: itemName,
             quantity: quantity,
             units: units,
             description: description,
             price: price,
-            addedTimestamp: date,
-            updatedTimestamp: date,
-            _id: itemId
+            updatedTimestamp: date
         };
         console.log(newItemObject);
         $.ajax({
                 type: 'PUT',
-                url: '/update-item/' + pantryId,
+                url: '/update-item/' + itemId,
                 dataType: 'json',
                 data: JSON.stringify(newItemObject),
                 contentType: 'application/json'
             })
             //if call is succefull
             .done(function (result) {
-                console.log(result);
                 //                showInventoryPage(pantryId);
             })
             //if the call is failing
@@ -553,4 +554,61 @@ function saveChanges() {
             });
 
     });
+}
+
+function deleteItem() {
+    $('.delete-item').on('click', function () {
+        let itemName = $(this).parent().find('.item-name').val();
+        confirm(`Are you sure you want to delete ${itemName}`);
+
+    });
+}
+
+function handleDeleteItem() {
+
+    $(this).closest('.item-row').attr('contenteditable', 'false');
+    $(this).closest('.item-row').removeClass('edit-items-border');
+    $('.edit-items').show();
+    $(this).hide();
+
+    //        get values of items row content
+    let itemName = $(this).prev('.item-name').val();
+    let quantity = $(this).closest('.item-qty').val();
+    let units = $(this).closest('.item-unit').val();
+    let description = $(this).closest('.item-description').val();
+    let price = $(this).closest('.item-price').val();
+    let date = new Date();
+    let itemId = $(this).closest('.itemId').val();
+    let pantryId = $('#userPantry').val();
+
+    const newItemObject = {
+        name: itemName,
+        quantity: quantity,
+        units: units,
+        description: description,
+        price: price,
+        addedTimestamp: date,
+        updatedTimestamp: date,
+        _id: itemId
+    };
+    console.log(newItemObject);
+    $.ajax({
+            type: 'PUT',
+            url: '/update-item/' + pantryId,
+            dataType: 'json',
+            data: JSON.stringify(newItemObject),
+            contentType: 'application/json'
+        })
+        //if call is succefull
+        .done(function (result) {
+            console.log(result);
+            //                showInventoryPage(pantryId);
+        })
+        //if the call is failing
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+
 }

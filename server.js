@@ -313,16 +313,16 @@ app.get('/users/:_id/name', function (req, res) {
 });
 
 // update item on save changes click
-app.put('/update-item/:pantryId', function (req, res) {
+app.put('/update-item/:itemId', function (req, res) {
     let toUpdate = {};
     //    let updateableFields = ['achieveWhat', 'achieveHow', 'achieveWhen', 'achieveWhy']; //<--Marius? 'entryType
-    let updateableFields = ['itemName', 'quantity', 'units', 'description', 'price', 'updatedTimestamp'];
+    let updateableFields = ['name', 'quantity', 'units', 'description', 'price', 'updatedTimestamp'];
     updateableFields.forEach(function (field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    Item.findByIdAndUpdate(req.params._id, {
+    Item.findByIdAndUpdate(req.params.itemId, {
         $set: toUpdate
     }).then(item => {
         console.log(item);
