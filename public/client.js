@@ -576,8 +576,12 @@ function deleteItem() {
 
         let itemName = $(this).parent().parent().find('.item-name').text();
         console.log(itemId, itemName);
-        confirm(`Are you sure you want to delete ${itemName}?`);
-        handleDeleteItem(itemId);
+        let confirmDelete = confirm(`Are you sure you want to delete ${itemName}?`);
+        if (confirmDelete == true) {
+            handleDeleteItem(itemId);
+        } else {
+            showInventoryPage($('#userPantry').val());
+        }
     });
 }
 
@@ -591,7 +595,6 @@ function handleDeleteItem(itemId) {
         })
         //if call is succefull
         .done(function (result) {
-            console.log(result);
             showInventoryPage($('#userPantry').val());
         })
         //if the call is failing

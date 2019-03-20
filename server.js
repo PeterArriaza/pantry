@@ -336,6 +336,7 @@ app.put('/update-item/:itemId', function (req, res) {
 });
 
 app.delete('/delete-item/:itemId', (req, res) => {
+    console.log(req.params.itemId);
     Item
         .findByIdAndRemove(req.params.itemId)
         .then(() => {
