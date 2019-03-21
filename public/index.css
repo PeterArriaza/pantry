@@ -56,6 +56,8 @@ footer > div {
 .footer-element {
     width: 33%;
     overflow: visible;
+    align-items: center;
+
 }
 
 .footer-name {
@@ -64,6 +66,11 @@ footer > div {
 
 .footer-links {
     text-align: right;
+}
+
+.fa-github-square {
+    color: var(--white);
+    background-color: var(--darkbrown);
 }
 
 h2 {
@@ -274,7 +281,6 @@ input[type=submit]:hover {
     padding: 5px;
     width: 135px;
 }
-
 
 @media only screen and (max-width: 450px) {
     .email-form {
