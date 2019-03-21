@@ -123,6 +123,22 @@ app.get('/check-duplicate-email/:inputEmail', (req, res) => {
                 message: 'Internal server error'
             });
         });
+});
+
+app.get('/get-pantries', (req, res) => {
+    Pantry
+        .find()
+        .then(function (pantries) {
+            res.json({
+                pantries
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
 })
 
 // loggin in user

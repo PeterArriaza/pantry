@@ -92,7 +92,35 @@ function togglePasswordVisibility() {
     }
 }
 
+function populatePantries(pantries) {
+    for (let i = 0; i < pantries.length; i++) {
+        let pantry = pantries[i];
+        let name = pantries[i].pantryName;
+        console.log(name);
+        $('#sign-up-pantry').append(
+            `<option value="${pantries[i]._id}">${pantries[i].pantryName}</option>`
+        );
+    };
+
+}
+
+
 function showSignUpPage() {
+    $.ajax({
+            type: 'GET',
+            url: `/get-pantries`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function (result) {
+            console.log(result.pantries);
+            populatePantries(result.pantries);
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
     $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').show();
