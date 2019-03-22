@@ -24,7 +24,6 @@ app.get('/', function (req, res) {
 // =========================== Run/Close Server ==============================
 
 let server;
-// test8
 
 function runServer(databaseUrl) {
     return new Promise((resolve, reject) => {

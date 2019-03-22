@@ -109,32 +109,33 @@ describe('pantry api resource', function () {
         return seedUserData();
     });
 
-    afterEach(function () {
-        return tearDownDb();
+    it('should create a new user', function () {
+        const newUser = generateUser();
+        return chai.request(app)
+            .post('/users/create')
+            .send(newUser)
+            .then(function (res) {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.include.keys('firstName', 'lastName',
+                    'email', 'password', 'pantry');
+                res.body.email.should.equal(newUser.email);
+                res.body.password.should.not.equal(newUser.password);
+                res.body.firstName.should.equal(newUser.firstName);
+                res.body.lastName.should.equal(newUser.lastName);
+                res.body.pantry.should.equal(newUser.pantry);
+                res.body._id.should.not.be.null;
+            });
     });
+
+    // test every endpoint
+    // test every test one at a time
+
+        afterEach(function () {
+            return tearDownDb();
+        });
 
     after(function () {
         return closeServer();
-    });
-
-    describe('user endpoint tests', function () {
-        it('should create a new user', function () {
-            const newUser = generateUser();
-            return chai.request(app)
-                .post('/users/create')
-                .send(newUser)
-                .then(function (res) {
-                    res.should.have.status(200);
-                    res.should.be.json;
-                    res.body.should.include.keys('firstName', 'lastName',
-                        'email', 'password', 'pantry');
-                    res.body.email.should.equal(newUser.email);
-                    res.body.password.should.not.equal(newUser.password);
-                    res.body.firstName.should.equal(newUser.firstName);
-                    res.body.lastName.should.equal(newUser.lastName);
-                    res.body.pantry.should.equal(newUser.pantry);
-                    res.body._id.should.not.be.null;
-                });
-        });
     });
 });
