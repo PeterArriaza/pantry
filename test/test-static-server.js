@@ -128,12 +128,76 @@ describe('pantry api resource', function () {
             });
     });
 
+    it('should check for duplicate emails', function () {
+        const email = faker.internet.email();
+        return chai.request(app)
+            .get('/check-duplicate-email/${email}')
+            .then(function (res) {
+                res.should.have.status(200);
+                //                res.should.have.length(0);
+            });
+    });
+
+    it('should return a list of pantries', function () {
+        return chai.request(app)
+            .get('/get-pantries')
+            .then(function (res) {
+                res.should.have.status(200);
+                res.should.not.be.empty;
+            });
+    });
+
+    it('should return a user if login credentials are valid', function () {
+        const newUser = generateUser();
+        return chai.request(app)
+            .post('/users/login')
+            .send(newUser)
+            .then(function (res) {
+                res.should.have.status(401);
+                res.should.be.json;
+            });
+    });
+
+    it('should create a new pantry', function () {
+        const newPantry = generatePantry();
+        return chai.request(app)
+            .post('/pantry/create')
+            .send(newPantry)
+            .then(function (res) {
+                res.should.have.status(200);
+                res.should.be.json;
+            });
+    });
+
+    it('should return a pantry', function () {
+        return Pantry
+            .findOne()
+            .then(pantry => {
+            console.log(pantry);
+//                return chai.request(app)
+ //                    .get('/show-pantry/' + pantry._id)
+ //                    .then(function (res) {
+ //                        res.should.have.status(200);
+ //                        res.should.be.json;
+ //                    });
+            });
+    });
+
+    it('should update a pantry with a user id', function () {
+        return chai.request(app)
+            .get('/show-pantry/:pantryId')
+            .then(function (res) {
+                res.should.have.status(200);
+                res.should.be.json;
+            });
+    });
+
     // test every endpoint
     // test every test one at a time
 
-        afterEach(function () {
-            return tearDownDb();
-        });
+    afterEach(function () {
+        return tearDownDb();
+    });
 
     after(function () {
         return closeServer();
