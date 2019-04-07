@@ -103,6 +103,18 @@ Static log of Pantry name, actions taken within pantry, and users/timestamp of w
    * Added by User
    * Last updated by User
    
+## Screenshots
+### Login
+Appears when user first visits Pantry.  The user can login to their existing account, sign up for a new one, or try out the app with a mock account.
+
+![Login Page](img/readme/screenshots/login.png)
+
+### Sign Up
+If the user does not have an account, they can sign up for a new account here.  Here they can enter their account details and choose to either join an existing Pantry or sign up for a new one.
+
+![Login Page](img/readme/screenshots/sign-up.png)
+
+   
 ## Technologies Used
 
 * HTML5
