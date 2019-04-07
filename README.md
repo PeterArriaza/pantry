@@ -112,7 +112,26 @@ Appears when user first visits Pantry.  The user can login to their existing acc
 ### Sign Up
 If the user does not have an account, they can sign up for a new account here.  Here they can enter their account details and choose to either join an existing Pantry or sign up for a new one.
 
-![Login Page](img/readme/screenshots/sign-up.png)
+![Sign Up Page](img/readme/screenshots/sign-up.png)
+
+### Pantry Homepage
+This will show the user's Pantry of items and details about those items.  
+
+![Pantry Homepage](img/readme/screenshots/homepage.png)
+
+### Add Items
+Clicking the "+ Add New Item" button will bring up the form to add a new item into the user's Pantry.
+
+![Add New Item Page](img/readme/screenshots/add-item.png)
+
+### Edit Items
+Hovering over an item row in the pantry will show buttons to edit and delete that item.  Clicking edit will make the row type editable.
+
+![Edit Items](img/readme/screenshots/edit-item.png)
+
+Clicking delete will show a modal to confirm the item deletion.
+
+![Delete Item](img/readme/screenshots/delete-item.png)
 
    
 ## Technologies Used
