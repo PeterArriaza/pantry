@@ -60,7 +60,6 @@ function seedPantryData() {
         pantryName: "newPantry",
         memberIds: "12345"
     });
-    //    console.log('seed data is:', seedData)
     return Pantry.insertMany(seedData);
 }
 
@@ -88,16 +87,6 @@ function seedItemData() {
     return Item.insertMany(seedData);
 }
 
-// Tear down Database after each test
-function tearDownDb() {
-    return new Promise((resolve, reject) => {
-        console.warn('Deleting database');
-        mongoose.connection.dropDatabase()
-            .then(result => resolve(result))
-            .catch(err => reject(err));
-    });
-}
-
 // --------------------------------------------------------- //
 
 describe('pantry api resource', function () {
@@ -110,7 +99,6 @@ describe('pantry api resource', function () {
             }));
     });
 
-    // passing
     it('should create a new user ', function () {
         seedUserData();
         const newUser = generateUser();
@@ -130,7 +118,7 @@ describe('pantry api resource', function () {
                 res.body._id.should.not.be.null;
             });
     });
-    //timeout error
+
     it('should check for duplicate emails', function () {
         seedUserData();
         const email = faker.internet.email();
@@ -138,10 +126,9 @@ describe('pantry api resource', function () {
             .get(`/check-duplicate-email/${email}`)
             .then(function (res) {
                 res.should.have.status(200);
-                //                res.should.have.length(0);
             });
     });
-    //    // time out error
+
     it('should return a list of pantries', function () {
         seedPantryData();
         return chai.request(app)
@@ -151,7 +138,7 @@ describe('pantry api resource', function () {
                 res.should.not.be.empty;
             });
     });
-    // timeout error
+
     it('should return a user if login credentials are valid', function () {
         seedUserData();
         const newUser = generateUser();
@@ -163,8 +150,7 @@ describe('pantry api resource', function () {
                 res.should.be.json;
             });
     });
-    //
-    //    // timeout error
+
     it('should create a new pantry', function () {
         seedPantryData();
         const newPantry = generatePantry();
@@ -185,7 +171,6 @@ describe('pantry api resource', function () {
                 pantryName: "newPantry"
             })
             .then(function (pantry) {
-                //                console.log(pantry);
                 pantryId = pantry._id;
             });
         return chai.request(app)
@@ -209,7 +194,7 @@ describe('pantry api resource', function () {
                 });
         });
     });
-    //
+
     it('should add a new item to a pantry', function () {
         let pantryId;
         return Pantry
@@ -259,15 +244,7 @@ describe('pantry api resource', function () {
             });
     });
 
-    //     test every endpoint
-    //     test every test one at a time
-
-    //    afterEach(function () {
-    //        return tearDownDb();
-    //    });
-
     after(function () {
-        //        return tearDownDb();        
         return closeServer();
     });
 });
