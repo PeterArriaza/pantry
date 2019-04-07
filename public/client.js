@@ -133,7 +133,7 @@ function showSignUpPage() {
 // dynamically tells user if password and confirmation password 
 // match during new account sign up. Will show that password does not 
 // match before confirmation password is typed
-$('#new-password, #confirm-new-password').on('keyup', function () {
+$('#confirm-new-password').on('keyup', function () {
     if ($('#new-password').val() == $('#confirm-new-password').val()) {
         $('#password-validation-message').html('Passwords match!').css('color', 'green');
     } else
@@ -353,49 +353,49 @@ function getUserPantryName(user) {
     });
 }
 
-function getItemOwner(item) {
-    const itemObject = {
-        _id: item._id
-    };
-    const id = item._id;
-    $.ajax({
-        type: 'GET',
-        url: '/items/' +
-            id,
-        dataType: 'json',
-        data: JSON.stringify(itemObject),
-        contentType: 'application/json'
-    }).done(function (res) {
-        console.log(res);
-        convertUserIdToName(res);
-    }).fail(function (jqXHR, error, errorThrown) {
-        console.log(jqXHR);
-        console.log(error);
-        console.log(errorThrown);
-    });
-}
+//function getItemOwner(item) {
+//    const itemObject = {
+//        _id: item._id
+//    };
+//    const id = item._id;
+//    $.ajax({
+//        type: 'GET',
+//        url: '/items/' +
+//            id,
+//        dataType: 'json',
+//        data: JSON.stringify(itemObject),
+//        contentType: 'application/json'
+//    }).done(function (res) {
+//        console.log(res);
+//        convertUserIdToName(res);
+//    }).fail(function (jqXHR, error, errorThrown) {
+//        console.log(jqXHR);
+//        console.log(error);
+//        console.log(errorThrown);
+//    });
+//}
 
-function convertUserIdToName(id) {
-    console.log(id);
-    const userObject = {
-        _id: id._id
-    };
-    $.ajax({
-        type: 'GET',
-        url: '/users/' +
-            id + '/name',
-        dataType: 'json',
-        data: JSON.stringify(userObject),
-        contentType: 'application/json'
-    }).done(function (res) {
-        console.log(res);
-    }).fail(function (jqXHR, error, errorThrown) {
-        console.log(jqXHR);
-        console.log(error);
-        console.log(errorThrown);
-    });
-
-}
+//function convertUserIdToName(id) {
+//    console.log(id);
+//    const userObject = {
+//        _id: id._id
+//    };
+//    $.ajax({
+//        type: 'GET',
+//        url: '/users/' +
+//            id + '/name',
+//        dataType: 'json',
+//        data: JSON.stringify(userObject),
+//        contentType: 'application/json'
+//    }).done(function (res) {
+//        console.log(res);
+//    }).fail(function (jqXHR, error, errorThrown) {
+//        console.log(jqXHR);
+//        console.log(error);
+//        console.log(errorThrown);
+//    });
+//
+//}
 
 
 function displayItem(item) {
@@ -544,7 +544,7 @@ function editItems() {
         //        $(this).closest('.edit-buttons-row').attr('display', 'flex');
         $('.edit-items').hide();
         $('.save-changes').hide();
-        $(this).closest('.item-row').toggleClass('hover').show();
+        $(this).closestz('.item-row').toggleClass('hover').show();
         $(this).hide();
         $(this).parent().find('.save-changes').show();
     });

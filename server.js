@@ -233,8 +233,6 @@ app.get('/show-pantry/:pantryId', function (req, res) {
     Item.find({
             "pantryId": pantry
         }).then(item => {
-            console.log('items in pantry');
-            console.log(item);
             res.json(item);
         })
         .catch(err => {
@@ -297,35 +295,35 @@ app.post('/add-new-item/:pantryId', function (req, res) {
 });
 
 // get item added by userid
-app.get('/items/:_id', function (req, res) {
-    console.log(req.params._id);
-    Item.findById(req.params._id, function (err, item) {
-            res.json(item.added);
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal Server Error getting item owner'
-            });
-        });
-});
+//app.get('/items/:_id', function (req, res) {
+//    console.log(req.params._id);
+//    Item.findById(req.params._id, function (err, item) {
+//            res.json(item.added);
+//        })
+//        .catch(err => {
+//            console.error(err);
+//            res.status(500).json({
+//                message: 'Internal Server Error getting item owner'
+//            });
+//        });
+//});
 
 // get item added by userid
-app.get('/users/:_id/name', function (req, res) {
-    console.log(req.params._id);
-    User.findById(req.params._id, function (err, user) {
-            let na = user.firstName;
-            let me = user.lastName;
-            let fullname = na + "" + me;
-            res.json(fullname);
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal Server Error getting item owner'
-            });
-        });
-});
+//app.get('/users/:_id/name', function (req, res) {
+//    console.log(req.params._id);
+//    User.findById(req.params._id, function (err, user) {
+//            let na = user.firstName;
+//            let me = user.lastName;
+//            let fullname = na + "" + me;
+//            res.json(fullname);
+//        })
+//        .catch(err => {
+//            console.error(err);
+//            res.status(500).json({
+//                message: 'Internal Server Error getting item owner'
+//            });
+//        });
+//});
 
 // update item on save changes click
 app.put('/update-item/:itemId', function (req, res) {
@@ -357,7 +355,7 @@ app.delete('/delete-item/:itemId', (req, res) => {
         .then(() => {
             res.status(204).json({
                 message: 'success'
-            });
+            }).end();
         })
         .catch(err => {
             console.error(err);

@@ -56,6 +56,11 @@ function seedPantryData() {
     for (let i = 1; i < 10; i++) {
         seedData.push(generatePantry());
     }
+    seedData.push({
+        pantryName: "newPantry",
+        memberIds: "12345"
+    });
+    //    console.log('seed data is:', seedData)
     return Pantry.insertMany(seedData);
 }
 
@@ -105,11 +110,9 @@ describe('pantry api resource', function () {
             }));
     });
 
-    beforeEach(function () {
-        return seedUserData();
-    });
-
-    it('should create a new user', function () {
+    // passing
+    it('should create a new user ', function () {
+        seedUserData();
         const newUser = generateUser();
         return chai.request(app)
             .post('/users/create')
@@ -127,18 +130,20 @@ describe('pantry api resource', function () {
                 res.body._id.should.not.be.null;
             });
     });
-
+    //timeout error
     it('should check for duplicate emails', function () {
+        seedUserData();
         const email = faker.internet.email();
         return chai.request(app)
-            .get('/check-duplicate-email/${email}')
+            .get(`/check-duplicate-email/${email}`)
             .then(function (res) {
                 res.should.have.status(200);
                 //                res.should.have.length(0);
             });
     });
-
+    //    // time out error
     it('should return a list of pantries', function () {
+        seedPantryData();
         return chai.request(app)
             .get('/get-pantries')
             .then(function (res) {
@@ -146,8 +151,9 @@ describe('pantry api resource', function () {
                 res.should.not.be.empty;
             });
     });
-
+    // timeout error
     it('should return a user if login credentials are valid', function () {
+        seedUserData();
         const newUser = generateUser();
         return chai.request(app)
             .post('/users/login')
@@ -157,8 +163,10 @@ describe('pantry api resource', function () {
                 res.should.be.json;
             });
     });
-
+    //
+    //    // timeout error
     it('should create a new pantry', function () {
+        seedPantryData();
         const newPantry = generatePantry();
         return chai.request(app)
             .post('/pantry/create')
@@ -170,36 +178,96 @@ describe('pantry api resource', function () {
     });
 
     it('should return a pantry', function () {
+        seedPantryData();
+        let pantryId;
         return Pantry
-            .findOne()
-            .then(pantry => {
-            console.log(pantry);
-//                return chai.request(app)
- //                    .get('/show-pantry/' + pantry._id)
- //                    .then(function (res) {
- //                        res.should.have.status(200);
- //                        res.should.be.json;
- //                    });
+            .findOne({
+                pantryName: "newPantry"
+            })
+            .then(function (pantry) {
+                //                console.log(pantry);
+                pantryId = pantry._id;
             });
-    });
-
-    it('should update a pantry with a user id', function () {
         return chai.request(app)
-            .get('/show-pantry/:pantryId')
+            .get(`/show-pantry/${pantryId}`)
             .then(function (res) {
                 res.should.have.status(200);
                 res.should.be.json;
             });
     });
 
-    // test every endpoint
-    // test every test one at a time
-
-    afterEach(function () {
-        return tearDownDb();
+    it('should update a pantry with a user id', function () {
+        let newPantry = generatePantry();
+        let newUser = generateUser();
+        return User.findOneAndUpdate(newUser._id, {
+            pantry: `${newPantry.pantryName}`
+        }).then(user => {
+            return chai.request(app)
+                .put('/add-user-pantry/' + user._id)
+                .then(function (res) {
+                    res.should.have.status(204);
+                });
+        });
+    });
+    //
+    it('should add a new item to a pantry', function () {
+        let pantryId;
+        return Pantry
+            .findOne({
+                pantryName: "newPantry"
+            })
+            .then(function (pantry) {
+                pantryId = pantry._id;
+            });
+        return chai.request(app)
+            .get('/add-new-item/' + pantryId)
+            .then(function (res) {
+                res.should.have.status(200);
+                res.should.be.json;
+            });
     });
 
+    it('should return update an item record', function () {
+        seedItemData();
+        let itemId;
+        return Item
+            .findOne()
+            .then(item => {
+                itemId = item._id;
+                return chai.request(app)
+                    .put('/update-item/' + itemId)
+                    .send(item)
+            })
+
+            .then(function (res) {
+                res.should.have.status(204);
+            });
+    });
+
+    it('should delete an item', function () {
+        seedItemData();
+        let delItem;
+        return Item
+            .findOne()
+            .then(item => {
+                delItem = item;
+                return chai.request(app)
+                    .delete('/delete-item/' + delItem._id)
+            })
+            .then(res => {
+                res.should.have.status(204);
+            });
+    });
+
+    //     test every endpoint
+    //     test every test one at a time
+
+    //    afterEach(function () {
+    //        return tearDownDb();
+    //    });
+
     after(function () {
+        //        return tearDownDb();        
         return closeServer();
     });
 });
