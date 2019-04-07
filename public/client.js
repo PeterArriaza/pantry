@@ -192,9 +192,6 @@ function signUpSubmit() {
             })
             .done(function (users) {
                 console.log(users.entries.length);
-                //        checkDuplicateEmail(email);
-                //         $('#emailDuplicated').val();
-                //        console.log(emailLength);        
                 if (firstName == "") {
                     alert('Please enter first name!');
                 } else if (lastName == "") {
@@ -293,12 +290,7 @@ function newPantrySubmit() {
         event.preventDefault();
         let pantryName = $('#name-of-pantry').val();
         let user = $('#loggedInUser').val();
-        //        let memberEmail = $('input[type=email]').val();
-        //        // /\s/g = regex for global whitespace
-        //        let memberArray = memberEmail.replace(/\s/g, '').split(',');
         $('#name-of-pantry').val("");
-        //        $('input[type=email]').val("");
-
         // validate pantry credentials
         if (pantryName == "") {
             alert('Please input Pantry name');
@@ -351,52 +343,7 @@ function getUserPantryName(user) {
         console.log(error);
         console.log(errorThrown);
     });
-}
-
-//function getItemOwner(item) {
-//    const itemObject = {
-//        _id: item._id
-//    };
-//    const id = item._id;
-//    $.ajax({
-//        type: 'GET',
-//        url: '/items/' +
-//            id,
-//        dataType: 'json',
-//        data: JSON.stringify(itemObject),
-//        contentType: 'application/json'
-//    }).done(function (res) {
-//        console.log(res);
-//        convertUserIdToName(res);
-//    }).fail(function (jqXHR, error, errorThrown) {
-//        console.log(jqXHR);
-//        console.log(error);
-//        console.log(errorThrown);
-//    });
-//}
-
-//function convertUserIdToName(id) {
-//    console.log(id);
-//    const userObject = {
-//        _id: id._id
-//    };
-//    $.ajax({
-//        type: 'GET',
-//        url: '/users/' +
-//            id + '/name',
-//        dataType: 'json',
-//        data: JSON.stringify(userObject),
-//        contentType: 'application/json'
-//    }).done(function (res) {
-//        console.log(res);
-//    }).fail(function (jqXHR, error, errorThrown) {
-//        console.log(jqXHR);
-//        console.log(error);
-//        console.log(errorThrown);
-//    });
-//
-//}
-
+};
 
 function displayItem(item) {
     let username = $('#loggedInUserFirstName').val() + " " + $('#loggedInUserLastName').val();
