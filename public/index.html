@@ -104,32 +104,9 @@
                 <div class="item-detail item-added-by">Added By</div>
             </div>
             <div id="pantryContent"></div>
+
             <!--
-            <div class="item-row">
-                <div class="item-detail item-name">Eggs</div>
-                <div class="item-detail item-qty">12</div>
-                <div class="item-detail item-unit">EA</div>
-                <div class="item-detail item-description">brown, organic</div>
-                <div class="item-detail item-price">$3.28</div>
-                <div class="item-detail item-added-by">Pete</div>
-                <div class="edit-buttons-row">
-                    <button class="edit edit-items">Edit Items</button>
-                    <button class="edit save-changes">Save Changes</button>
-                </div>
-            </div>
-            <div class="item-row">
-                <div class="item-detail item-name">Milk</div>
-                <div class="item-detail item-qty">64</div>
-                <div class="item-detail item-unit">oz</div>
-                <div class="item-detail item-description">2%</div>
-                <div class="item-detail item-price">$2.12</div>
-                <div class="item-detail item-added-by">Bryan</div>
-                <div class="edit-buttons-row">
-                    <button class="edit edit-items">Edit Items</button>
-                    <button class="edit save-changes">Save Changes</button>
-                </div>
-            </div>
-            <div class="item-row">
+    <div class="item-row">
                 <div class="item-detail item-name">Parmesean reggiano</div>
                 <div class="item-detail item-qty">12</div>
                 <div class="item-detail item-unit">oz</div>
@@ -142,7 +119,6 @@
                 </div>
             </div>
 -->
-
         </div>
         <div class="button-row">
             <!--            <button id="delete-item-button">- Delete Items</button>-->
@@ -153,11 +129,16 @@
     <main role="main" id="new-item-page" class="wrapper">
         <h1>Add a New Item</h1>
         <form role="form" action="#" class="email-form">
-            <label for="new-item-name">item name:</label>
+            <label for="new-item-name">item name <span>(required)</span></label>
+            <span class="error" id="itemNameError"></span>
             <input type="text" id="new-item-name" required oninvalid="this.setCustomValidity('Item Name is required.')" oninput="this.setCustomValidity('')">
-            <label for="new-item-quantity">quantity:</label>
+
+            <label for="new-item-quantity">quantity <span>(required)</span></label>
+            <span class="error" id="qtyNameError"></span>
             <input type="number" id="new-item-quantity" required oninvalid="this.setCustomValidity('Quantity is required.')" oninput="this.setCustomValidity('')">
-            <label for="new-item-units">units:</label>
+            <label for="new-item-units">units <span>(required)</span></label>
+            <span class="error" id="unitsError"></span>
+
             <input type="text" id="new-item-units" required oninvalid="this.setCustomValidity('Units is required.')" oninput="this.setCustomValidity('')">
             <label for="new-item-description">description:</label>
             <input type="text" id="new-item-description">

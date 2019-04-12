@@ -282,6 +282,14 @@ input[type=submit]:hover {
     width: 135px;
 }
 
+label > span {
+    color: lightslategray;
+}
+
+.error {
+    color: red;
+}
+
 @media only screen and (max-width: 450px) {
     .email-form {
         width: 80%;

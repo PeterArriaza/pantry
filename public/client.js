@@ -368,6 +368,7 @@ function displayItem(item) {
 }
 
 function showInventoryPage(pantry) {
+    console.log('showInventory page called');
     $('#pantryContent').empty();
     // perform ajax call to get user's inventory
     const itemObject = {
@@ -414,6 +415,14 @@ function showNewItemPage() {
     $(handleNewItemCancel);
 }
 
+function clearError(input, span) {
+    $(input).keyup(function (event) {
+        //        $(`#${span}`).empty()
+        $(span).empty();
+        return;
+    });
+}
+
 function newItemSubmit() {
     $('#new-item-submit').on('click', function (event) {
         event.preventDefault();
@@ -424,17 +433,16 @@ function newItemSubmit() {
         let price = $('#new-item-price').val();
         let date = new Date();
         let pantryId = $('#userPantry').val();
-        $('#new-item-name').val("");
-        $('#new-item-quantity').val("");
-        $('#new-item-units').val("");
-        $('#new-item-description').val("");
-        $('#new-item-price').val("");
         if (itemName == "") {
-            alert('Please input item name');
+            $('#itemNameError').text('Item name is required');
+            clearError('#new-item-name', '#itemNameError');
+            return;
         } else if (quantity == "") {
-            alert('Please input quantity');
+            $('#qtyNameError').text('Quantity is required');
+            return;
         } else if (units == "") {
-            alert('Please input units');
+            $('#unitsError').text('Units are required');
+            return;
         } else {
             let user = $('#loggedInUser').val();
             console.log('item validated');
@@ -469,12 +477,18 @@ function newItemSubmit() {
                     console.log(errorThrown);
                 });
         };
+        $('#new-item-name').val("");
+        $('#new-item-quantity').val("");
+        $('#new-item-units').val("");
+        $('#new-item-description').val("");
+        $('#new-item-price').val("");
     });
 }
 
 function handleNewItemCancel() {
     $('#new-item-cancel').on('click', function () {
-        showInventoryPage($('#userPantry').val());
+        $('#new-item-page').hide();
+        $('#inventory-page').show();
     });
 }
 
