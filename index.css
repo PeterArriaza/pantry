@@ -1,0 +1,403 @@
+/*variables for colors*/
+:root {
+    --white: #FFF8F1;
+    --lightbrown: #E3A465;
+    --mediumbrown: #8F5D2A;
+    --darkbrown: #502800;
+}
+
+* {
+    box-sizing: border-box;
+    /* background-color: #FFF8F1; */
+    font-family: 'Roboto Mono', monospace;
+}
+
+body,
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    display: inline;
+    font-size: 2.5em;
+}
+
+main {
+    min-height: 500px;
+    /* flex: 1 0 auto; */
+    /* padding: 10px; */
+}
+
+.nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    word-wrap: break-word;
+    width: 100%;
+    margin: 0 auto;
+    color: white;
+    background-color: var(--darkbrown);
+    justify-content: space-between;
+    z-index: 999;
+    height: 60px;
+}
+
+.navLinks {
+    list-style: none;
+    display: flex;
+}
+
+.navItem {
+    padding: 5px;
+    margin: 0px 30px 0 30px;
+    display: flex;
+    align-self: center;
+}
+
+.navPantry {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 50px;
+}
+
+/* #welcomeModal {
+    margin-top: 60px;
+} */
+
+.welcome {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.welcomeWrapper {
+    position: relative;
+    background-color: rgba(128, 128, 128, 0.8);
+    color: white;
+    padding: 10px;
+    width: 50%;
+    align-self: center;
+}
+
+/* .welcomeWrapper > h2 {
+    color: white;
+    opacity: 1;
+} */
+
+.welcome1 > h1 {
+    margin-top: 40px;
+}
+
+.welcome1 > .welcomeWrapper {
+    padding: 40px;
+    background-color: rgba(92, 167, 111, 0.8);
+}
+
+.welcome1 {
+    background-image: url('../img/background/annie-spratt-kitchen-tools-on-table.jpg');
+    background-position: 50% 75%;
+    padding: 40px;
+}
+
+.welcome2 {
+    background-image: url('../img/background/katie-smith-veggies-on-table.jpg');
+}
+
+.welcome3 {
+    background-image: url('../img/background/becca-tapert-kitchen.jpg');
+}
+
+.welcome4 {
+    background-image: url('../img/background/maddi-bazzocco-random-groceries.jpg');
+    margin-bottom: 0;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+footer {
+    flex-shrink: 0;
+    display: flex;
+    background-color: var(--darkbrown);
+    width: 100%;
+    justify-content: space-between;
+    height: auto;
+    word-wrap: break-word;
+    bottom: 0;
+}
+
+footer > div {
+    color: var(--white);
+    background-color: var(--darkbrown);
+    margin: 5px 20px 5px 20px;
+}
+
+.footer-element {
+    width: 33%;
+    overflow: visible;
+    align-items: center;
+
+}
+
+.footer-name {
+    text-align: center;
+}
+
+.footer-links {
+    text-align: right;
+}
+
+.fa-github-square {
+    color: var(--white);
+    background-color: var(--darkbrown);
+}
+
+h2 {
+    font-size: 1em;
+}
+
+h3 {
+    font-weight: 300;
+    font-size: 1em;
+}
+
+#myWelcomeMessage {
+    display: inline-block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px 2%;
+}
+
+#tryout {
+    margin-bottom: 100px;
+}
+
+.email-form {
+    display: inline-block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.email-form > * {
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    border-color: var(--mediumbrown);
+    border-width: medium;
+}
+
+.email-form > input {
+    background-color: white;
+}
+
+.email-form > input[type=email],
+input[type=password],
+input[type=text],
+input[type=number] {
+    width: 100%;
+}
+
+.email-form > input[type=submit],
+.email-form > input[type=button],
+#closeWelcomeMessage {
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-button {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.cancel-button {
+    display: block;
+    width: 25%;
+    padding: 10px;
+    border-color: white;
+    border-width: medium;
+    background-color: var(--darkbrown);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover {
+    background-color: var(--lightbrown);
+}
+
+#history:hover,
+#edit-items-button:hover,
+#new-item-button:hover {
+    background-color: var(--lightbrown);
+}
+
+.inventory-table {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    margin-top: 50px;
+}
+
+
+.edit-items-border {
+    border: 2px solid rgba(215, 74, 0, 0.9);
+}
+
+.item-row:nth-child(even),
+.item-row:nth-child(even) > * {
+    background-color: var(--lightbrown);
+}
+
+.item-row:nth-child(odd),
+.item-row:nth-child(odd) > * {
+    background-color: var(--mediumbrown);
+    color: white;
+}
+
+/*
+.item-row:nth-child(1),
+.item-row:nth-child(1) > * {
+    background-color: var(--white);
+    color: black;
+}
+*/
+
+.item-header {
+    background-color: var(--white);
+    color: black;
+}
+
+.item-row,
+.item-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    flex-wrap: wrap;
+}
+
+.item-detail {
+    width: 15%;
+    /*    word-break: break-all;*/
+    overflow-wrap: break-word;
+}
+
+.item-qty {
+    width: 6%;
+}
+
+.item-unit {
+    width: 9%;
+}
+
+.item-description {
+    width: 35%
+}
+
+.edit-buttons-row-display {
+    display: flex;
+    align-self: stretch;
+}
+
+.edit-buttons-row {
+    display: none;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.item-row:hover .edit-buttons-row {
+    display: flex;
+    align-self: stretch;
+}
+
+.edit {
+    border: 2px solid var(--darkbrown);
+    color: var(--darkbrown);
+    background-color: var(--white);
+    padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 135px;
+}
+
+.save-changes {
+    display: none;
+}
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 5px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+#new-item-button {
+    border: none;
+    background-color: var(--darkbrown);
+    color: white;
+    padding: 10px;
+    width: 135px;
+    margin-left: 20px;
+}
+
+#delete-item-button {
+    border: 2px solid var(--darkbrown);
+    color: var(--darkbrown);
+    background-color: var(--white);
+    padding: 5px;
+    width: 135px;
+}
+
+label > span {
+    color: lightslategray;
+}
+
+.error {
+    color: red;
+}
+
+@media only screen and (max-width: 450px) {
+    .email-form {
+        width: 80%;
+    }
+
+    /* .welcome {
+        height: 50%;
+    }  */
+
+    .welcomeWrapper { 
+        width: 100%;
+    }
+  
+    /* footer {
+        margin-top: 30px;
+    } */
+}
+
+
+/*decrease text size at breakpoint*/
