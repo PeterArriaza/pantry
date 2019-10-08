@@ -1,5 +1,5 @@
 # Pantry
-## pantry-food-management-node-capstone 
+### Thinkful Node Capstone
 
 ## Live Preview
 https://pantry-food-management.herokuapp.com/
