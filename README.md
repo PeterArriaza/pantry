@@ -1,7 +1,5 @@
 # Pantry
-
-## NEED TO CREATE NEW GITHUB REPO AND HEROKU
-### pantry-food-management-node-capstone 
+## pantry-food-management-node-capstone 
 
 ## Live Preview
 https://pantry-food-management.herokuapp.com/
