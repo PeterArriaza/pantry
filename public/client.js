@@ -1,5 +1,50 @@
 'use strict';
 
+
+
+$(document).ready(function () {
+    $('#welcomeModal').show();
+    
+    let contentPlacement = $('.nav').position().top + $('.nav').height();
+    $('.welcomeModal').css('margin-top',contentPlacement);
+    $('#login-page').hide();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    // let isshow = localStorage.getItem('isshow');
+    // if (isshow == null) {
+    //     localStorage.setItem('isshow', 1);
+
+        // Show popup here
+//        $('#myWelcomeMessage').show();
+//        $('#closeWelcomeMessage').on('click', function (event) {
+//            showLoginScreen();
+//        });
+    // } else {
+    //     showLoginScreen();
+    // }
+    
+});
+
+$('#navLogin').on('click', function (event) {
+    showLoginScreen();
+});
+
+$('#navSignUp').on('click', function (event) {
+    showSignUpPage();
+})
+
+function showLoginScreen() {
+    $('#welcomeModal').hide();
+    $('#login-page').show();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    $(loginSubmit);
+};
+
 // get values of email and password
 function loginSubmit() {
     $('#login-submit').on('click', function (event) {
@@ -49,37 +94,6 @@ function loginSubmit() {
 
     });
 }
-
-$(document).ready(function () {
-    $('#welcomeModal').show();
-    $('#login-page').hide();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').hide();
-    $('#new-item-page').hide();
-    let isshow = localStorage.getItem('isshow');
-    if (isshow == null) {
-        localStorage.setItem('isshow', 1);
-
-        // Show popup here
-        $('#myWelcomeMessage').show();
-        $('#closeWelcomeMessage').on('click', function (event) {
-            showLoginScreen();
-        });
-    } else {
-        showLoginScreen();
-    }
-});
-
-function showLoginScreen() {
-    $('#welcomeModal').hide();
-    $('#login-page').show();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').hide();
-    $('#new-item-page').hide();
-    $(loginSubmit);
-};
 
 // on #login-page, if checkbox is checked, will toggle 
 // password visibility

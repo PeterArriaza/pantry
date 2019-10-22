@@ -60,14 +60,106 @@ if (require.main === module) {
 }
 
 // =========================== Endpoints ====================================
+
+// create a new user account; first check information is valid
+
 app.post('/users/create', (req, res) => {
     console.log(req.body);
-    let email = req.body.email;
-    let password = req.body.password;
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let pantry = req.body.pantry;
-    password = password.trim();
+    const requiredFields = ['email', 'password', 'firstName', 'lastName'];
+  const missingField = requiredFields.find(field => !(field in req.body));
+
+  if (missingField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Missing field',
+      location: missingField
+    });
+  }
+     
+    const stringFields = ['email', 'password', 'firstName', 'lastName'];
+  const nonStringField = stringFields.find(
+    field => field in req.body && typeof req.body[field] !== 'string');
+
+  if (nonStringField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Incorrect field type: expected string',
+      location: nonStringField
+    });
+  }
+    
+    const explicityTrimmedFields = ['username', 'password'];
+  const nonTrimmedField = explicityTrimmedFields.find(
+    field => req.body[field].trim() !== req.body[field]
+  );
+
+  if (nonTrimmedField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Cannot start or end with whitespace',
+      location: nonTrimmedField
+    });
+  }
+
+  const sizedFields = {
+    username: {
+      min: 1
+    },
+    password: {
+      min: 10,
+      // bcrypt truncates after 72 characters, so let's not give the illusion
+      // of security by storing extra (unused) info
+      max: 72
+    }
+  };
+  const tooSmallField = Object.keys(sizedFields).find(
+    field =>
+      'min' in sizedFields[field] &&
+            req.body[field].trim().length < sizedFields[field].min
+  );
+  const tooLargeField = Object.keys(sizedFields).find(
+    field =>
+      'max' in sizedFields[field] &&
+            req.body[field].trim().length > sizedFields[field].max
+  );
+
+  if (tooSmallField || tooLargeField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: tooSmallField
+        ? `Must be at least ${sizedFields[tooSmallField]
+          .min} characters long`
+        : `Must be at most ${sizedFields[tooLargeField]
+          .max} characters long`,
+      location: tooSmallField || tooLargeField
+    });
+  }
+    
+    let {email, password, firstName, lastName, pantry} = req.body;
+    
+// Username and password come in pre-trimmed, otherwise an 
+// error is thrown before this
+  firstName = firstName.trim();
+  lastName = lastName.trim();
+
+      return User.find({email})
+    .count()
+    .then(count => {
+      if (count > 0) {
+        // There is an existing user with the same username
+        return Promise.reject({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Email already taken',
+          location: 'email'
+        });
+      }
+      });
+    
     bcrypt.genSalt(10, (err, salt) => {
         if (err) {
             return res.status(500).json({
@@ -229,7 +321,7 @@ app.post('/pantry/create', function (req, res) {
 // get user's pantry data
 app.get('/show-pantry/:pantryId', function (req, res) {
     let pantry = req.params.pantryId;
-    console.log(pantry);
+//    console.log(pantry);
     Item.find({
             "pantryId": pantry
         }).then(item => {
@@ -306,7 +398,7 @@ app.put('/update-item/:itemId', function (req, res) {
     Item.findByIdAndUpdate(req.params.itemId, {
         $set: toUpdate
     }).then(item => {
-        console.log(item);
+//        console.log(item);
         res.status(204).end();
     }).catch(err => {
         console.error(err);
@@ -317,7 +409,7 @@ app.put('/update-item/:itemId', function (req, res) {
 });
 
 app.delete('/delete-item/:itemId', (req, res) => {
-    console.log(req.params.itemId);
+//    console.log(req.params.itemId);
     Item
         .findByIdAndRemove(req.params.itemId)
         .then(() => {

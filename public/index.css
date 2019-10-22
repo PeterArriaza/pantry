@@ -8,7 +8,7 @@
 
 * {
     box-sizing: border-box;
-    background-color: #FFF8F1;
+    /* background-color: #FFF8F1; */
     font-family: 'Roboto Mono', monospace;
 }
 
@@ -24,13 +24,106 @@ body {
 }
 
 h1 {
+    display: inline;
     font-size: 2.5em;
 }
 
 main {
     min-height: 500px;
-    flex: 1 0 auto;
+    /* flex: 1 0 auto; */
+    /* padding: 10px; */
+}
+
+.nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    word-wrap: break-word;
+    width: 100%;
+    margin: 0 auto;
+    color: white;
+    background-color: var(--darkbrown);
+    justify-content: space-between;
+    z-index: 999;
+    height: 60px;
+}
+
+.navLinks {
+    list-style: none;
+    display: flex;
+}
+
+.navItem {
+    padding: 5px;
+    margin: 0px 30px 0 30px;
+    display: flex;
+    align-self: center;
+    cursor: pointer;
+}
+
+.navPantry {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 50px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+/* #welcomeModal {
+    margin-top: 60px;
+} */
+
+.welcome {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.welcomeWrapper {
+    position: relative;
+    background-color: rgba(128, 128, 128, 0.8);
+    color: white;
     padding: 10px;
+    width: 50%;
+    align-self: center;
+}
+
+/* .welcomeWrapper > h2 {
+    color: white;
+    opacity: 1;
+} */
+
+.welcome1 > h1 {
+    margin-top: 40px;
+}
+
+.welcome1 > .welcomeWrapper {
+    padding: 40px;
+    background-color: rgba(92, 167, 111, 0.8);
+}
+
+.welcome1 {
+    background-image: url('img/background/annie-spratt-kitchen-tools-on-table.jpg');
+    background-position: 50% 75%;
+    padding: 40px;
+}
+
+.welcome2 {
+    background-image: url('../img/background/katie-smith-veggies-on-table.jpg');
+}
+
+.welcome3 {
+    background-image: url('../img/background/becca-tapert-kitchen.jpg');
+}
+
+.welcome4 {
+    background-image: url('../img/background/maddi-bazzocco-random-groceries.jpg');
+    margin-bottom: 0;
 }
 
 .wrapper {
@@ -45,6 +138,7 @@ footer {
     justify-content: space-between;
     height: auto;
     word-wrap: break-word;
+    bottom: 0;
 }
 
 footer > div {
@@ -295,9 +389,17 @@ label > span {
         width: 80%;
     }
 
-    footer {
-        margin-top: 30px;
+    /* .welcome {
+        height: 50%;
+    }  */
+
+    .welcomeWrapper { 
+        width: 100%;
     }
+  
+    /* footer {
+        margin-top: 30px;
+    } */
 }
 
 

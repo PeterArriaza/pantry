@@ -52,26 +52,23 @@ function loginSubmit() {
 
 $(document).ready(function () {
     $('#welcomeModal').show();
-    
-    let contentPlacement = $('.nav').position().top + $('.nav').height();
-    $('.welcomeModal').css('margin-top',contentPlacement);
     $('#login-page').hide();
     $('#sign-up-page').hide();
     $('#new-pantry-page').hide();
     $('#inventory-page').hide();
     $('#new-item-page').hide();
-    // let isshow = localStorage.getItem('isshow');
-    // if (isshow == null) {
-    //     localStorage.setItem('isshow', 1);
+    let isshow = localStorage.getItem('isshow');
+    if (isshow == null) {
+        localStorage.setItem('isshow', 1);
 
         // Show popup here
         $('#myWelcomeMessage').show();
         $('#closeWelcomeMessage').on('click', function (event) {
             showLoginScreen();
         });
-    // } else {
-    //     showLoginScreen();
-    // }
+    } else {
+        showLoginScreen();
+    }
 });
 
 function showLoginScreen() {
@@ -227,12 +224,16 @@ function signUpSubmit() {
                             $('#loggedInUser').val(result._id);
                             $('#loggedInUserFirstName').val(result.firstName);
                             $('#loggedInUserLastName').val(result.lastName);
+
                             let user = $('#loggedInUser').val();
                             if (pantry != 'create') {
                                 console.log(result);
                                 alert('Thank you for signing up!');
                                 // show existing pantry page that user signed up for
                                 $('#userPantry').val(result.pantry);
+                                console.log(result.pantry);
+                                $('#userPantryName').inner(result.pantry);
+
                                 showInventoryPage(user);
                             } else {
                                 alert('Thank you for signing up! Now please create a new Pantry to keep track of your food items.');
@@ -317,6 +318,7 @@ function newPantrySubmit() {
                     $('#userPantry').val(result._id);
                     addPantryToUser(user, pantryName);
                     showInventoryPage(user);
+                    $('#userPantryName').html(pantryName);
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {

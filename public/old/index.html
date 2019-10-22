@@ -18,38 +18,14 @@
     <input type="hidden" value="" id="emailDuplicated">
     <input type="hidden" value="" id="userPantry">
 
-    <nav class="nav">
-        <div class="navPantry">Pantry</div>
-        <ul class="navLinks">
-            <li class="navItem">Log In</li>
-            <li class="navItem">Sign Up</li>
-        </ul>
-    </nav>
-
     <main role="main" id="welcomeModal" class="wrapper">
-        <!-- <div id="myWelcomeMessage" class="email-form"> -->
-        <div class="welcome welcome1">
-            <div class="welcomeWrapper">
-                <h1>Welcome to Pantry!</h1>
-            </div>
+        <div id="myWelcomeMessage" class="email-form">
+            <h1>Welcome to Pantry!</h1>
+            <p>This app will help you keep track of what food you have in your home - who put it there, when they put it there, how much is left, etc. Users will create a "Pantry", which can be a specific refrigerator, cabinent, shelf, or location that you store food.</p>
+            <p>After you create your Pantry, you will be able to add items, edit them, and remove them when they are gone.</p>
+            <p>To get started tracking your food items, click OK and sign up for an account!</p>
+            <button id="closeWelcomeMessage">OK</button>
         </div>
-        <div class="welcome welcome2">
-            <div class="welcomeWrapper">
-                <h2>This app will help you keep track of what food you have in your home - who put it there, when they put it there, how much is left, etc. Users will create a "Pantry", which can be a specific refrigerator, cabinent, shelf, or location that you store food.</p>
-            </div>
-        </div>
-        <div class="welcome welcome3">
-            <div class="welcomeWrapper">
-                <p>After you create your Pantry, you will be able to add items, edit them, and remove them when they are gone.</p>
-            </div>
-        </div>
-        <div class="welcome welcome4">
-                <div class="welcomeWrapper">
-                        <p>To get started tracking your food items, click sign up above!</p>
-                </div>
-            </div>
-            <!-- <button id="closeWelcomeMessage">OK</button> -->
-        <!-- </div> -->
     </main>
 
     <main role="main" id="login-page" class="wrapper">
@@ -116,7 +92,7 @@
     </main>
 
     <main role="main" id="inventory-page">
-        <h1>Pantry Inventory</h1>
+        <h1><span id="userPantryName"></span> Inventory</h1>
         <div class="inventory-table">
 
             <div class="item-header">
@@ -173,7 +149,7 @@
         <button id="new-item-cancel" class="cancel-button">Cancel</button>
     </main>
 
-    <!-- <footer role="row">
+    <footer role="row">
         <div class="footer-element footer-copy">&copy; 2019 Peter Arriaza</div>
         <div class="footer-element footer-name">Pantry</div>
         <div class="footer-element footer-links">
@@ -182,7 +158,7 @@
             </a>
         </div>
 
-    </footer> -->
+    </footer>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
