@@ -64,23 +64,26 @@ if (require.main === module) {
 // create a new user account; first check information is valid
 
 app.post('/users/create', (req, res) => {
-    console.log(req.body);
-    const requiredFields = ['email', 'password', 'firstName', 'lastName'];
-  const missingField = requiredFields.find(field => !(field in req.body));
+    console.log('user creation attempt');
+//    const requiredFields = ['email', 'password', 'firstName', 'lastName'];
+//  const missingField = requiredFields.find(field => !(field in req.body));
 
-  if (missingField) {
-    return res.status(422).json({
-      code: 422,
-      reason: 'ValidationError',
-      message: 'Missing field',
-      location: missingField
-    });
-  }
+//  if (missingField === 'pantry') {
+//      return;
+//  }
+//    else {  
+//    return res.status(422).json({
+//      code: 422,
+//      reason: 'ValidationError',
+//      message: 'Missing field',
+//      location: missingField
+//    });
+//  }
      
     const stringFields = ['email', 'password', 'firstName', 'lastName'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string');
-
+console.log('checking for non string fields');
   if (nonStringField) {
     return res.status(422).json({
       code: 422,
@@ -90,11 +93,11 @@ app.post('/users/create', (req, res) => {
     });
   }
     
-    const explicityTrimmedFields = ['username', 'password'];
+    const explicityTrimmedFields = ['email', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
-
+console.log('checking for non trimmed field');
   if (nonTrimmedField) {
     return res.status(422).json({
       code: 422,
@@ -105,7 +108,7 @@ app.post('/users/create', (req, res) => {
   }
 
   const sizedFields = {
-    username: {
+    email: {
       min: 1
     },
     password: {
@@ -114,7 +117,7 @@ app.post('/users/create', (req, res) => {
       // of security by storing extra (unused) info
       max: 72
     }
-  };
+  }; 
   const tooSmallField = Object.keys(sizedFields).find(
     field =>
       'min' in sizedFields[field] &&
@@ -125,7 +128,7 @@ app.post('/users/create', (req, res) => {
       'max' in sizedFields[field] &&
             req.body[field].trim().length > sizedFields[field].max
   );
-
+console.log('checking for too small field');
   if (tooSmallField || tooLargeField) {
     return res.status(422).json({
       code: 422,
@@ -146,20 +149,21 @@ app.post('/users/create', (req, res) => {
   firstName = firstName.trim();
   lastName = lastName.trim();
 
-      return User.find({email})
-    .count()
-    .then(count => {
-      if (count > 0) {
-        // There is an existing user with the same username
-        return Promise.reject({
-          code: 422,
-          reason: 'ValidationError',
-          message: 'Email already taken',
-          location: 'email'
-        });
-      }
-      });
-    
+//     NOT NEEDED DUE TO EMAIL VALIDATE IN CLIENT.JS
+//    return User.find({email})
+//    .count()
+//    .then(count => {
+//      if (count > 0) {
+//        // There is an existing user with the same username
+//        return Promise.reject({
+//          code: 422,
+//          reason: 'ValidationError',
+//          message: 'Email already taken',
+//          location: 'email'
+//        });  
+//      }  
+//      });        
+    console.log('salting password...');
     bcrypt.genSalt(10, (err, salt) => {
         if (err) {
             return res.status(500).json({

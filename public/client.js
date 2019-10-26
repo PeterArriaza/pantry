@@ -110,7 +110,6 @@ function populatePantries(pantries) {
     for (let i = 0; i < pantries.length; i++) {
         let pantry = pantries[i];
         let name = pantries[i].pantryName;
-        console.log(name);
         $('#sign-up-pantry').append(
             `<option value="${pantries[i]._id}">${pantries[i].pantryName}</option>`
         );
@@ -127,7 +126,6 @@ function showSignUpPage() {
             contentType: 'application/json'
         })
         .done(function (result) {
-            console.log(result.pantries);
             populatePantries(result.pantries);
         })
         .fail(function (jqXHR, error, errorThrown) {
@@ -163,7 +161,6 @@ function checkDuplicateEmail(inputEmail) {
             contentType: 'application/json'
         })
         .done(function (result) {
-            console.log(result.entries.length);
             $('#emailDuplicated').val(result.entries.length);
             let emailLength = result.entries.length;
             if (emailLength !== 0) {
@@ -205,7 +202,6 @@ function signUpSubmit() {
                 contentType: 'application/json'
             })
             .done(function (users) {
-                console.log(users.entries.length);
                 if (firstName == "") {
                     alert('Please enter first name!');
                 } else if (lastName == "") {
@@ -214,6 +210,8 @@ function signUpSubmit() {
                     alert('Please enter an email');
                 } else if (password == "") {
                     alert('Please enter a password');
+                } else if (password.length < 10) {
+                    alert('Minimum password length is 10 characters');
                 } else if (password !== confirmPassword) {
                     alert('Passwords must match!');
                 } else if (users.entries.length !== 0) {
