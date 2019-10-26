@@ -1,50 +1,5 @@
 'use strict';
 
-
-
-$(document).ready(function () {
-    $('#welcomeModal').show();
-    
-    let contentPlacement = $('.nav').position().top + $('.nav').height();
-    $('.welcomeModal').css('margin-top',contentPlacement);
-    $('#login-page').hide();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').hide();
-    $('#new-item-page').hide();
-    // let isshow = localStorage.getItem('isshow');
-    // if (isshow == null) {
-    //     localStorage.setItem('isshow', 1);
-
-        // Show popup here
-//        $('#myWelcomeMessage').show();
-//        $('#closeWelcomeMessage').on('click', function (event) {
-//            showLoginScreen();
-//        });
-    // } else {
-    //     showLoginScreen();
-    // }
-    
-});
-
-$('#navLogin').on('click', function (event) {
-    showLoginScreen();
-});
-
-$('#navSignUp').on('click', function (event) {
-    showSignUpPage();
-})
-
-function showLoginScreen() {
-    $('#welcomeModal').hide();
-    $('#login-page').show();
-    $('#sign-up-page').hide();
-    $('#new-pantry-page').hide();
-    $('#inventory-page').hide();
-    $('#new-item-page').hide();
-    $(loginSubmit);
-};
-
 // get values of email and password
 function loginSubmit() {
     $('#login-submit').on('click', function (event) {
@@ -95,6 +50,37 @@ function loginSubmit() {
     });
 }
 
+$(document).ready(function () {
+    $('#welcomeModal').show();
+    $('#login-page').hide();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    let isshow = localStorage.getItem('isshow');
+    if (isshow == null) {
+        localStorage.setItem('isshow', 1);
+
+        // Show popup here
+        $('#myWelcomeMessage').show();
+        $('#closeWelcomeMessage').on('click', function (event) {
+            showLoginScreen();
+        });
+    } else {
+        showLoginScreen();
+    }
+});
+
+function showLoginScreen() {
+    $('#welcomeModal').hide();
+    $('#login-page').show();
+    $('#sign-up-page').hide();
+    $('#new-pantry-page').hide();
+    $('#inventory-page').hide();
+    $('#new-item-page').hide();
+    $(loginSubmit);
+};
+
 // on #login-page, if checkbox is checked, will toggle 
 // password visibility
 function togglePasswordVisibility() {
@@ -110,6 +96,7 @@ function populatePantries(pantries) {
     for (let i = 0; i < pantries.length; i++) {
         let pantry = pantries[i];
         let name = pantries[i].pantryName;
+        console.log(name);
         $('#sign-up-pantry').append(
             `<option value="${pantries[i]._id}">${pantries[i].pantryName}</option>`
         );
@@ -126,6 +113,7 @@ function showSignUpPage() {
             contentType: 'application/json'
         })
         .done(function (result) {
+            console.log(result.pantries);
             populatePantries(result.pantries);
         })
         .fail(function (jqXHR, error, errorThrown) {
@@ -161,6 +149,7 @@ function checkDuplicateEmail(inputEmail) {
             contentType: 'application/json'
         })
         .done(function (result) {
+            console.log(result.entries.length);
             $('#emailDuplicated').val(result.entries.length);
             let emailLength = result.entries.length;
             if (emailLength !== 0) {
@@ -202,6 +191,7 @@ function signUpSubmit() {
                 contentType: 'application/json'
             })
             .done(function (users) {
+                console.log(users.entries.length);
                 if (firstName == "") {
                     alert('Please enter first name!');
                 } else if (lastName == "") {
@@ -210,8 +200,6 @@ function signUpSubmit() {
                     alert('Please enter an email');
                 } else if (password == "") {
                     alert('Please enter a password');
-                } else if (password.length < 10) {
-                    alert('Minimum password length is 10 characters');
                 } else if (password !== confirmPassword) {
                     alert('Passwords must match!');
                 } else if (users.entries.length !== 0) {
@@ -236,12 +224,16 @@ function signUpSubmit() {
                             $('#loggedInUser').val(result._id);
                             $('#loggedInUserFirstName').val(result.firstName);
                             $('#loggedInUserLastName').val(result.lastName);
+
                             let user = $('#loggedInUser').val();
                             if (pantry != 'create') {
                                 console.log(result);
                                 alert('Thank you for signing up!');
                                 // show existing pantry page that user signed up for
                                 $('#userPantry').val(result.pantry);
+                                console.log(result.pantry);
+                                $('#userPantryName').inner(result.pantry);
+
                                 showInventoryPage(user);
                             } else {
                                 alert('Thank you for signing up! Now please create a new Pantry to keep track of your food items.');
@@ -326,6 +318,7 @@ function newPantrySubmit() {
                     $('#userPantry').val(result._id);
                     addPantryToUser(user, pantryName);
                     showInventoryPage(user);
+                    $('#userPantryName').html(pantryName);
                 })
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
