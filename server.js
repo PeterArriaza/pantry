@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 
 // =========================== Run/Close Server ==============================
 
-let server;  
+let server;
 
 function runServer(databaseUrl) {
     return new Promise((resolve, reject) => {

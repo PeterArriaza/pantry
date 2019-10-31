@@ -378,17 +378,16 @@ function displayItem(item) {
                 <div class="item-detail item-description">${item.description}</div>
                 <div class="item-detail item-price">${item.price}</div>
                 <div class="item-detail item-added-by">${username}</div>
-                <div class="edit-buttons-row">
-                    <button class="edit edit-items">Edit Item</button>
-                    <button class="edit save-changes">Save Changes</button>
-                    <button class="edit delete-item">- Delete Item</button>
-                </div>
         </div>`);
+//    <div class="edit-buttons-row">
+//                    <button class="edit edit-items">Edit Item</button>
+//                    <button class="edit save-changes">Save Changes</button>
+//                    <button class="edit delete-item">- Delete Item</button>
+//                </div>
 
 }
 
 function showInventoryPage(pantry) {
-    console.log('showInventory page called');
     $('#pantryContent').empty();
     // perform ajax call to get user's inventory
     const itemObject = {
@@ -525,12 +524,22 @@ function addNewItem() {
 
 function editItems() {
     $('.edit-items').on('click', function (event) {
+        let table = document.getElementById('pantryContent');
+   let rows = table.getElementsByClassName('item-row');
+    // gets all descendent of ancestor
+        for (let i = 0; i < 1; i++) {
+            let row = rows[i];
+            console.log(row);
+            let edit = row.getElementsByClassName('edit-buttons-row')[0];
+            edit.style.display = 'none';
+        }
+                    $(this).closest('.edit-buttons-row').show();
         $(this).closest('.item-row').attr('contenteditable', 'true');
         $(this).closest('.item-row').addClass('edit-items-border');
         //        $(this).closest('.edit-buttons-row').attr('display', 'flex');
         $('.edit-items').hide();
         $('.save-changes').hide();
-        $(this).closestz('.item-row').toggleClass('hover').show();
+        $(this).closest('.item-row').toggleClass('hover').show();
         $(this).hide();
         $(this).parent().find('.save-changes').show();
     });

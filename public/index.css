@@ -251,7 +251,7 @@ input[type=submit]:hover {
 
 #history:hover,
 #edit-items-button:hover,
-#new-item-button:hover {
+#new-item-button:hover, .edit:hover {
     background-color: var(--greenHighlight);
 }
 
@@ -345,8 +345,8 @@ input[type=submit]:hover {
     color: var(--darkbrown);
     background-color: var(--white);
     padding: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+/*    margin-right: 5px;*/
+    margin-left: 20px;
     width: 135px;
 }
 
@@ -372,10 +372,10 @@ input[type=submit]:hover {
     margin-left: 20px;
 }
 
-#delete-item-button {
+.delete-item {
     border: 2px solid var(--darkbrown);
     color: var(--darkbrown);
-    background-color: var(--white);
+    background-color: var(--lightbrown);
     padding: 5px;
     width: 135px;
 }
