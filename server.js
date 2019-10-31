@@ -9,7 +9,10 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs')
 const app = express();
-
+const passport = require('passport');
+//const { router: authRouter, localStrategy, jwtStrategy } = require('./auth'); 
+       
+    
 app.use(cors());
 app.use(morgan('common'));
 app.use(bodyParser.json());
@@ -17,13 +20,17 @@ app.use(express.static('public'));
 app.use(express.static('img'));
 mongoose.Promise = global.Promise;
 
+//passport.use(localStrategy);
+//passport.use(jwtStrategy);
+//app.use('/user/login/auth', authRouter);
+
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
 // =========================== Run/Close Server ==============================
 
-let server;
+let server;  
 
 function runServer(databaseUrl) {
     return new Promise((resolve, reject) => {
@@ -161,7 +168,7 @@ console.log('checking for too small field');
 //          message: 'Email already taken',
 //          location: 'email'
 //        });  
-//      }  
+//      }               
 //      });        
     console.log('salting password...');
     bcrypt.genSalt(10, (err, salt) => {

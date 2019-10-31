@@ -4,6 +4,8 @@
     --lightbrown: #E3A465;
     --mediumbrown: #8F5D2A;
     --darkbrown: #502800;
+    --greenHighlight: rgba(92, 167, 111, 0.8);
+    --green: rgb(92, 167, 111);
 }
 
 * {
@@ -45,7 +47,7 @@ main {
     background-color: var(--darkbrown);
     justify-content: space-between;
     z-index: 999;
-    height: 60px;
+    height: 100px;
 }
 
 .navLinks {
@@ -65,8 +67,10 @@ main {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 50px;
-    font-size: 1.25em;
-    font-weight: bold;
+}
+
+.navPantry img {
+    height: 80px;
 }
 
 /* #welcomeModal {
@@ -95,7 +99,7 @@ main {
 
 .wrapper {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 120px; /* equal to height of navbar */
 }
 
 .welcome1 > h1 {
@@ -242,13 +246,13 @@ input[type=number] {
 
 input[type=button]:hover,
 input[type=submit]:hover {
-    background-color: var(--lightbrown);
+    background-color: var(--greenHighlight);
 }
 
 #history:hover,
 #edit-items-button:hover,
 #new-item-button:hover {
-    background-color: var(--lightbrown);
+    background-color: var(--greenHighlight);
 }
 
 .inventory-table {
@@ -268,14 +272,16 @@ input[type=submit]:hover {
 
 .item-row:nth-child(even),
 .item-row:nth-child(even) > * {
-    background-color: var(--lightbrown);
+    background-color: var(--white);
 }
 
+/*
 .item-row:nth-child(odd),
 .item-row:nth-child(odd) > * {
     background-color: var(--mediumbrown);
     color: white;
 }
+*/
 
 /*
 .item-row:nth-child(1),
@@ -288,6 +294,7 @@ input[type=submit]:hover {
 .item-header {
     background-color: var(--white);
     color: black;
+    font-weight: bold;
 }
 
 .item-row,

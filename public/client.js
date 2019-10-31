@@ -37,6 +37,8 @@ $('#navSignUp').on('click', function (event) {
 
 function showLoginScreen() {
     $('#welcomeModal').hide();
+    document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $('#login-page').show();
     $('#sign-up-page').hide();
     $('#new-pantry-page').hide();
@@ -133,6 +135,10 @@ function showSignUpPage() {
             console.log(error);
             console.log(errorThrown);
         });
+    
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
     $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').show();
@@ -263,6 +269,8 @@ function signUpSubmit() {
 }
 
 function showNewPantryPage() {
+    document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').hide();
@@ -394,6 +402,8 @@ function showInventoryPage(pantry) {
         contentType: 'application/json'
     }).done(function (res) {
         console.log(res);
+        document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         $('#login-page').hide();
         $('#sign-up-page').hide();
         $('#new-pantry-page').hide();
@@ -417,6 +427,9 @@ function showInventoryPage(pantry) {
 }
 
 function showNewItemPage() {
+    document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').hide();
