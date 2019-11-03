@@ -17,10 +17,11 @@
     <input type="hidden" value="" id="loggedInUserLastName">
     <input type="hidden" value="" id="emailDuplicated">
     <input type="hidden" value="" id="userPantry">
+    <input type="hidden" value="" id="totalNumberDeletions">
 
     <nav class="nav">
         <div class="navPantry">
-        <img src="img/pantry-logo.png" alt="Pantry App Logo">
+            <img src="img/pantry-logo.png" alt="Pantry App Logo">
         </div>
         <ul class="navLinks">
             <li class="navItem" id="navLogin">Log In</li>
@@ -46,11 +47,11 @@
             </div>
         </div>
         <div class="welcome welcome4">
-                <div class="welcomeWrapper">
-                        <p>To get started tracking your food items, click sign up above!</p>
-                </div>
+            <div class="welcomeWrapper">
+                <p>To get started tracking your food items, click sign up above!</p>
             </div>
-            <!-- <button id="closeWelcomeMessage">OK</button> -->
+        </div>
+        <!-- <button id="closeWelcomeMessage">OK</button> -->
         <!-- </div> -->
     </main>
 
@@ -122,6 +123,9 @@
         <div class="inventory-table">
 
             <div class="item-header">
+                <div class="checkbox-space">
+                    <input type="checkbox" class="header-checkbox">
+                </div>
                 <div class="item-detail item-name">Name</div>
                 <div class="item-detail item-qty">Qty</div>
                 <div class="item-detail item-unit">Units</div>
@@ -148,11 +152,12 @@
         </div>
         <div class="button-row">
             <!--            <button id="delete-item-button">- Delete Items</button>-->
-<!--            <div class="edit-buttons-row">-->
-                    <button class="edit edit-items">Edit Items</button>
-                    <button class="edit save-changes">Save Changes</button>
-                    <button class="edit delete-item">- Delete Items</button>
-<!--                </div>-->
+            <!--            <div class="edit-buttons-row">-->
+            <button class="edit edit-items">Edit Items</button>
+            <button class="edit save-changes">Save Changes</button>
+            <button class="edit cancel-delete">Cancel Delete</button>
+            <button class="edit delete-item">- Delete <span id="numberDeletions">(0)</span> Items</button>
+            <!--                </div>-->
             <button id="new-item-button">+ Add New Item</button>
         </div>
     </main>

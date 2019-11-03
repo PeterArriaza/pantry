@@ -99,7 +99,8 @@ main {
 
 .wrapper {
     text-align: center;
-    margin-top: 120px; /* equal to height of navbar */
+    margin-top: 120px;
+    /* equal to height of navbar */
 }
 
 .welcome1 > h1 {
@@ -251,7 +252,8 @@ input[type=submit]:hover {
 
 #history:hover,
 #edit-items-button:hover,
-#new-item-button:hover, .edit:hover {
+#new-item-button:hover,
+.edit:hover {
     background-color: var(--greenHighlight);
 }
 
@@ -321,9 +323,23 @@ input[type=submit]:hover {
 }
 
 .item-description {
-    width: 35%
+    width: 25%
 }
 
+.checkbox-space {
+    width: 3%;
+}
+
+.checkbox,
+.header-checkbox {
+    display: none;
+}
+
+#numberDeletions {
+    display: none;
+}
+
+/*
 .edit-buttons-row-display {
     display: flex;
     align-self: stretch;
@@ -339,13 +355,14 @@ input[type=submit]:hover {
     display: flex;
     align-self: stretch;
 }
+*/
 
 .edit {
     border: 2px solid var(--darkbrown);
     color: var(--darkbrown);
     background-color: var(--white);
     padding: 5px;
-/*    margin-right: 5px;*/
+    /*    margin-right: 5px;*/
     margin-left: 20px;
     width: 135px;
 }
@@ -380,6 +397,10 @@ input[type=submit]:hover {
     width: 135px;
 }
 
+.cancel-delete {
+    display: none;
+}
+
 label > span {
     color: lightslategray;
 }
@@ -401,10 +422,10 @@ label > span {
         height: 50%;
     }  */
 
-    .welcomeWrapper { 
+    .welcomeWrapper {
         width: 100%;
     }
-  
+
     /* footer {
         margin-top: 30px;
     } */

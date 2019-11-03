@@ -4,9 +4,9 @@
 
 $(document).ready(function () {
     $('#welcomeModal').show();
-    
+
     let contentPlacement = $('.nav').position().top + $('.nav').height();
-    $('.welcomeModal').css('margin-top',contentPlacement);
+    $('.welcomeModal').css('margin-top', contentPlacement);
     $('#login-page').hide();
     $('#sign-up-page').hide();
     $('#new-pantry-page').hide();
@@ -16,15 +16,15 @@ $(document).ready(function () {
     // if (isshow == null) {
     //     localStorage.setItem('isshow', 1);
 
-        // Show popup here
-//        $('#myWelcomeMessage').show();
-//        $('#closeWelcomeMessage').on('click', function (event) {
-//            showLoginScreen();
-//        });
+    // Show popup here
+    //        $('#myWelcomeMessage').show();
+    //        $('#closeWelcomeMessage').on('click', function (event) {
+    //            showLoginScreen();
+    //        });
     // } else {
     //     showLoginScreen();
     // }
-    
+
 });
 
 $('#navLogin').on('click', function (event) {
@@ -38,7 +38,7 @@ $('#navSignUp').on('click', function (event) {
 function showLoginScreen() {
     $('#welcomeModal').hide();
     document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $('#login-page').show();
     $('#sign-up-page').hide();
     $('#new-pantry-page').hide();
@@ -135,9 +135,9 @@ function showSignUpPage() {
             console.log(error);
             console.log(errorThrown);
         });
-    
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
     $('#welcomeModal').hide();
     $('#login-page').hide();
@@ -270,7 +270,7 @@ function signUpSubmit() {
 
 function showNewPantryPage() {
     document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').hide();
@@ -372,6 +372,9 @@ function displayItem(item) {
     $('#pantryContent').append(
         `<div class="item-row" onclick="">
                 <input type="hidden" value="${itemId}" class="itemId">
+<div class="checkbox-space">
+                    <input type="checkbox" class="checkbox">
+                </div>
                 <div class="item-detail item-name">${item.name}</div>
                 <div class="item-detail item-qty">${item.quantity}</div>
                 <div class="item-detail item-unit">${item.units}</div>
@@ -379,11 +382,11 @@ function displayItem(item) {
                 <div class="item-detail item-price">${item.price}</div>
                 <div class="item-detail item-added-by">${username}</div>
         </div>`);
-//    <div class="edit-buttons-row">
-//                    <button class="edit edit-items">Edit Item</button>
-//                    <button class="edit save-changes">Save Changes</button>
-//                    <button class="edit delete-item">- Delete Item</button>
-//                </div>
+    //    <div class="edit-buttons-row">
+    //                    <button class="edit edit-items">Edit Item</button>
+    //                    <button class="edit save-changes">Save Changes</button>
+    //                    <button class="edit delete-item">- Delete Item</button>
+    //                </div>
 
 }
 
@@ -402,7 +405,7 @@ function showInventoryPage(pantry) {
     }).done(function (res) {
         console.log(res);
         document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         $('#login-page').hide();
         $('#sign-up-page').hide();
         $('#new-pantry-page').hide();
@@ -427,8 +430,8 @@ function showInventoryPage(pantry) {
 
 function showNewItemPage() {
     document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $('#welcomeModal').hide();
     $('#login-page').hide();
     $('#sign-up-page').hide();
@@ -524,64 +527,178 @@ function addNewItem() {
 
 function editItems() {
     $('.edit-items').on('click', function (event) {
-        let table = document.getElementById('pantryContent');
-   let rows = table.getElementsByClassName('item-row');
-    // gets all descendent of ancestor
-        for (let i = 0; i < 1; i++) {
-            let row = rows[i];
-            console.log(row);
-            let edit = row.getElementsByClassName('edit-buttons-row')[0];
-            edit.style.display = 'none';
-        }
-                    $(this).closest('.edit-buttons-row').show();
-        $(this).closest('.item-row').attr('contenteditable', 'true');
-        $(this).closest('.item-row').addClass('edit-items-border');
+        //        let table = document.getElementById('pantryContent');
+        //   let rows = table.getElementsByClassName('item-row');
+        //    // gets all descendent of ancestor
+        //        for (let i = 0; i < 1; i++) {
+        //            let row = rows[i];
+        //            console.log(row);
+        //            let edit = row.getElementsByClassName('edit-buttons-row')[0];
+        //            edit.style.display = 'none';
+        //        }
+
+        //        let rows = document.getElementsByClassName('item-row');
+        //     for (let i = 0; i < rows.length-1; i++) {
+        //         let row = rows[i];
+        //        row.attr('contenteditable', 'true');
+        //     }
+        //        $(this).closest('.edit-buttons-row').show();
+        //        $(this).closest('.item-row').attr('contenteditable', 'true');
+        let rows = $('#pantryContent').children();
+        rows.attr('contenteditable', 'true');
+        $('#pantryContent').addClass('edit-items-border');
         //        $(this).closest('.edit-buttons-row').attr('display', 'flex');
         $('.edit-items').hide();
-        $('.save-changes').hide();
-        $(this).closest('.item-row').toggleClass('hover').show();
-        $(this).hide();
-        $(this).parent().find('.save-changes').show();
+        $('.save-changes').show();
+        //        $(this).closest('.item-row').toggleClass('hover').show();
+        //        $(this).hide();
+        //        $(this).parent().find('.save-changes').show();
     });
 }
 
 function saveChanges() {
     $('.save-changes').on('click', function () {
-        $(this).closest('.item-row').attr('contenteditable', 'false');
-        $(this).closest('.item-row').removeClass('edit-items-border');
+        let rows = $('#pantryContent').children();
+        rows.attr('contenteditable', 'false');
+        $('#pantryContent').removeClass('edit-items-border');
         $('.edit-items').show();
         $(this).hide();
 
         //        get values of items row content
-        let itemName = $(this).parent().parent().find('.item-name').text();
-        let quantity = $(this).parent().parent().find('.item-qty').text();
-        let units = $(this).parent().parent().find('.item-unit').text();
-        let description = $(this).parent().parent().find('.item-description').text();
-        let price = $(this).parent().parent().find('.item-price').text();
-        let date = new Date();
+        for (let i = 0; i < rows.length; i++) {
+            let row = rows[i];
+            let itemName = row.getElementsByClassName('item-name')[0].textContent;
+            let quantity = row.getElementsByClassName('item-qty')[0].textContent;
+            let units = row.getElementsByClassName('item-unit')[0].textContent;
+            let description = row.getElementsByClassName('item-description')[0].textContent;
+            let price = row.getElementsByClassName('item-price')[0].textContent;
+            let itemId = row.getElementsByClassName('itemId')[0].value;
+
+            //        let itemName = $(this).parent().parent().find('.item-name').text();
+            //        let quantity = $(this).parent().parent().find('.item-qty').text();
+            //        let units = $(this).parent().parent().find('.item-unit').text();
+            //        let description = $(this).parent().parent().find('.item-description').text();
+            //        let price = $(this).parent().parent().find('.item-price').text();
+            let date = new Date();
+            //        //        let itemId = $(this).parent().parent().find('.itemId').val();
+            //        let itemId = $(this).parent().parent().find('.itemId').val();
+            let pantryId = $('#userPantry').val();
+            //       
+            const newItemObject = {
+                name: itemName,
+                quantity: quantity,
+                units: units,
+                description: description,
+                price: price,
+                updatedTimestamp: date
+            };
+            console.log(newItemObject);
+            $.ajax({
+                    type: 'PUT',
+                    url: '/update-item/' + itemId,
+                    dataType: 'json',
+                    data: JSON.stringify(newItemObject),
+                    contentType: 'application/json'
+                })
+                //if call is succefull
+                .done(function (result) {
+                    //                showInventoryPage(pantryId);
+                })
+                //if the call is failing
+                .fail(function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                });
+        }
+    });
+
+}
+
+function deleteItem() {
+    $('.delete-item').on('click', function () {
         //        let itemId = $(this).parent().parent().find('.itemId').val();
-        let itemId = $(this).parent().parent().find('.itemId').val();
-        //        let pantryId = $('#userPantry').val();
-        console.log(itemId);
-        const newItemObject = {
-            name: itemName,
-            quantity: quantity,
-            units: units,
-            description: description,
-            price: price,
-            updatedTimestamp: date
-        };
-        console.log(newItemObject);
+
+        //        let itemName = $(this).parent().parent().find('.item-name').text();
+        $('.delete-item').addClass('confirmDelete');
+        $('.checkbox').show();
+        $('.edit-items').hide();
+        $('.cancel-delete').show();
+        $('#numberDeletions').show();
+
+        let numberDeletions = $("#pantryContent input[class='checkbox']:checked").length;
+        if (numberDeletions > 0) {
+            $("#numberDeletions").text('(' + numberDeletions + ')');
+        } else {
+            $("#numberDeletions").text(' ');
+        }
+
+
+        function updateCounter() {
+            let num = $("#pantryContent input[class='checkbox']:checked").length;
+            if (num > 0) {
+                $("#numberDeletions").text('(' + num + ')');
+            } else {
+                $("#numberDeletions").text(' ');
+            }
+            $('#totalNumberDeletions').val(num);
+        }
+
+        $("#pantryContent input:checkbox").on("change", function () {
+            updateCounter();
+        });
+
+        confirmDelete();
+
+    });
+
+
+}
+
+function confirmDelete() {
+    $('.confirmDelete').on('click', function () {
+        let numberDeletions = $('#totalNumberDeletions').val();
+        console.log(numberDeletions);
+        if (numberDeletions < 2) {
+            let confirmDeletion = confirm("Are you sure you want to delete this item?");
+            if (confirmDeletion == true) {
+                handleDeleteItem();
+            } else {
+                showInventoryPage($('#userPantry').val());
+            }
+        } else {
+
+            let confirmDeletion = confirm("Are you sure you want to delete these " + numberDeletions + " items?");
+            if (confirmDeletion == true) {
+                handleDeleteItem();
+            } else {
+                showInventoryPage($('#userPantry').val());
+               
+            }
+        }
+         $('.delete-item').removeClass('confirmDelete');
+                $('.checkbox').hide();
+                $('.cancel-delete').hide();
+                $('.edit-items').show();
+                $('#numberDeletions').hide();
+    });
+}
+
+function handleDeleteItem() {
+    let rowsToDelete = $('#pantryContent').find('input:checked').parent().parent();
+
+    for (let i = 0; i < rowsToDelete.length; i++) {
+        let row = rowsToDelete[i];
+        let itemId = row.getElementsByClassName('itemId')[0].value;
         $.ajax({
-                type: 'PUT',
-                url: '/update-item/' + itemId,
+                type: 'DELETE',
+                url: '/delete-item/' + itemId,
                 dataType: 'json',
-                data: JSON.stringify(newItemObject),
                 contentType: 'application/json'
             })
             //if call is succefull
             .done(function (result) {
-                //                showInventoryPage(pantryId);
+                showInventoryPage($('#userPantry').val());
             })
             //if the call is failing
             .fail(function (jqXHR, error, errorThrown) {
@@ -589,42 +706,5 @@ function saveChanges() {
                 console.log(error);
                 console.log(errorThrown);
             });
-
-    });
-}
-
-function deleteItem() {
-    $('.delete-item').on('click', function () {
-        let itemId = $(this).parent().parent().find('.itemId').val();
-
-        let itemName = $(this).parent().parent().find('.item-name').text();
-        console.log(itemId, itemName);
-        let confirmDelete = confirm(`Are you sure you want to delete ${itemName}?`);
-        if (confirmDelete == true) {
-            handleDeleteItem(itemId);
-        } else {
-            showInventoryPage($('#userPantry').val());
-        }
-    });
-}
-
-function handleDeleteItem(itemId) {
-
-    $.ajax({
-            type: 'DELETE',
-            url: '/delete-item/' + itemId,
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-        //if call is succefull
-        .done(function (result) {
-            showInventoryPage($('#userPantry').val());
-        })
-        //if the call is failing
-        .fail(function (jqXHR, error, errorThrown) {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-        });
-
+    }
 }

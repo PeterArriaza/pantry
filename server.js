@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-// =========================== Run/Close Server ==============================
+// =========================== Run/Close Server ==============================  
 
 let server;
 
