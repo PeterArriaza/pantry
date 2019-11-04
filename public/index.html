@@ -61,9 +61,9 @@
         <h3>Don't have an account? <a href="#" onclick="showSignUpPage()">Sign up for one!</a></h3>
 
         <form role="form" id="login-form" class="email-form">
-            <label for="login-email">email:</label>
+            <label for="login-email">email: <span class="formError" id="login-email-error"></span></label>
             <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <label for="login-password">password:</label>
+            <label for="login-password">password: <span class="formError" id="login-password-error"></span></label>
             <input type="password" id="login-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
 
             <input type="checkbox" onclick="togglePasswordVisibility()">

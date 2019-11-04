@@ -227,6 +227,11 @@ input[type=number] {
     margin-right: auto;
 }
 
+.formError p {
+    display: inline;
+    color: red;
+}
+
 .submit-button {
     margin-top: 20px;
     margin-bottom: 50px;

@@ -47,23 +47,36 @@ function showLoginScreen() {
     $(loginSubmit);
 };
 
+function removeLoginError() {
+    $('#login-email').on('keyup', function () {
+        console.log('trying to remove error');
+        $('#login-email-error').empty();
+    });
+    $('#login-password').on('change', function () {
+        $('#login-password-error').empty();
+    });
+}
+
 // get values of email and password
 function loginSubmit() {
     $('#login-submit').on('click', function (event) {
-        console.log('submitted')
         event.preventDefault();
         let email = $('#login-email').val();
         let password = $('#login-password').val();
-        console.log(email, password);
-        $('#login-email').val("");
-        $('#login-password').val("");
+
         // validate login credentials
         if (email == "") {
-            alert('Please input email');
-        } else if (password == "") {
-            alert('Please input password');
+            $('#login-email-error').html(`<p>Please input email </p>`);
+            $(removeLoginError);
+            //            return false; // not sure about this line
+        } else
+        if (password == "") {
+            $('#login-password-error').html(`<p>Please input password </p>`);
+            $(removeLoginError);
         } else {
-            console.log('user validated');
+            $('#login-email').val("");
+            $('#login-password').val("");
+
             const loginUserObject = {
                 email: email,
                 password: password
@@ -78,6 +91,7 @@ function loginSubmit() {
                 //if call is succefull
                 .done(function (result) {
                     console.log(result);
+                    $('#login-email-error').empty();
                     $('#loggedInUser').val(result._id);
                     $('#loggedInUserFirstName').val(result.firstName);
                     $('#loggedInUserLastName').val(result.lastName);
@@ -659,68 +673,67 @@ function deleteItem() {
 function cancelDelete() {
     $('.cancel-delete').on('click', function () {
         $('.delete-item').removeClass('confirmDelete');
-            $('.checkbox').hide();
-            $('.cancel-delete').hide();
-            $('.edit-items').show();
-            $('#numberDeletions').hide();
+        $('.checkbox').hide();
+        $('.cancel-delete').hide();
+        $('.edit-items').show();
+        $('#numberDeletions').hide();
 
-        });
+    });
 
-    }
+}
 
-    function confirmDelete() {
-        $('.confirmDelete').on('click', function () {
-            let numberDeletions = $('#totalNumberDeletions').val();
-            console.log(numberDeletions);
-            if (numberDeletions < 1) {
-                return;
-            }
-            else if (numberDeletions < 2) {
-                let confirmDeletion = confirm("Are you sure you want to delete this item?");
-                if (confirmDeletion == true) {
-                    handleDeleteItem();
-                } else {
-                    showInventoryPage($('#userPantry').val());
-                }
+function confirmDelete() {
+    $('.confirmDelete').on('click', function () {
+        let numberDeletions = $('#totalNumberDeletions').val();
+        console.log(numberDeletions);
+        if (numberDeletions < 1) {
+            return;
+        } else if (numberDeletions < 2) {
+            let confirmDeletion = confirm("Are you sure you want to delete this item?");
+            if (confirmDeletion == true) {
+                handleDeleteItem();
             } else {
-
-                let confirmDeletion = confirm("Are you sure you want to delete these " + numberDeletions + " items?");
-                if (confirmDeletion == true) {
-                    handleDeleteItem();
-                } else {
-                    showInventoryPage($('#userPantry').val());
-
-                }
+                showInventoryPage($('#userPantry').val());
             }
-            $('.delete-item').removeClass('confirmDelete');
-            $('.checkbox').hide();
-            $('.cancel-delete').hide();
-            $('.edit-items').show();
-            $('#numberDeletions').hide();
-        });
-    }
+        } else {
 
-    function handleDeleteItem() {
-        let rowsToDelete = $('#pantryContent').find('input:checked').parent().parent();
+            let confirmDeletion = confirm("Are you sure you want to delete these " + numberDeletions + " items?");
+            if (confirmDeletion == true) {
+                handleDeleteItem();
+            } else {
+                showInventoryPage($('#userPantry').val());
 
-        for (let i = 0; i < rowsToDelete.length; i++) {
-            let row = rowsToDelete[i];
-            let itemId = row.getElementsByClassName('itemId')[0].value;
-            $.ajax({
-                    type: 'DELETE',
-                    url: '/delete-item/' + itemId,
-                    dataType: 'json',
-                    contentType: 'application/json'
-                })
-                //if call is succefull
-                .done(function (result) {
-                    showInventoryPage($('#userPantry').val());
-                })
-                //if the call is failing
-                .fail(function (jqXHR, error, errorThrown) {
-                    console.log(jqXHR);
-                    console.log(error);
-                    console.log(errorThrown);
-                });
+            }
         }
+        $('.delete-item').removeClass('confirmDelete');
+        $('.checkbox').hide();
+        $('.cancel-delete').hide();
+        $('.edit-items').show();
+        $('#numberDeletions').hide();
+    });
+}
+
+function handleDeleteItem() {
+    let rowsToDelete = $('#pantryContent').find('input:checked').parent().parent();
+
+    for (let i = 0; i < rowsToDelete.length; i++) {
+        let row = rowsToDelete[i];
+        let itemId = row.getElementsByClassName('itemId')[0].value;
+        $.ajax({
+                type: 'DELETE',
+                url: '/delete-item/' + itemId,
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done(function (result) {
+                showInventoryPage($('#userPantry').val());
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
     }
+}
