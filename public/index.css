@@ -232,6 +232,10 @@ input[type=number] {
     color: red;
 }
 
+#sign-up-pantry-error, #sign-up-error {
+    display: block;
+}
+
 .submit-button {
     margin-top: 20px;
     margin-bottom: 50px;

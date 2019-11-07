@@ -49,7 +49,6 @@ function showLoginScreen() {
 
 function removeLoginError() {
     $('#login-email').on('keyup', function () {
-        console.log('trying to remove error');
         $('#login-email-error').empty();
     });
     $('#login-password').on('change', function () {
@@ -150,6 +149,8 @@ function showSignUpPage() {
             console.log(errorThrown);
         });
 
+    // set scroll to top of page after scrolling to bottom 
+    // of landing page 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
@@ -184,7 +185,8 @@ function checkDuplicateEmail(inputEmail) {
             $('#emailDuplicated').val(result.entries.length);
             let emailLength = result.entries.length;
             if (emailLength !== 0) {
-                alert('Email is already in use');
+                $('#sign-up-email-error').html(`<p>Email already in use </p>`);
+                $(removeSignUpError);
             };
         })
         .fail(function (jqXHR, error, errorThrown) {
@@ -192,6 +194,35 @@ function checkDuplicateEmail(inputEmail) {
             console.log(error);
             console.log(errorThrown);
         });
+}
+
+function removeSignUpError() {
+    $('#sign-up-error').html(`<p>Please fix errors above before continuing </p>`);
+    
+    $('#sign-up-first-name').on('keyup', function () {
+        $('#sign-up-first-name-error').empty();
+    });
+    
+    $('#sign-up-last-name').on('keyup', function () {
+        $('#sign-up-last-name-error').empty();
+    });
+    $('#sign-up-email').on('keyup', function () {
+        $('#sign-up-email-error').empty();
+    });
+    $('#sign-up-password').on('keyup', function () {
+        $('#sign-up-password-error').empty();
+    });
+    $('#sign-up-confirm-password').on('keyup', function () {
+        $('#sign-up-confirm-password-error').empty();
+    });
+    
+    $('#sign-up-page').on('change', function () {
+        $('#sign-up-error').empty();
+    });
+    
+    $('#sign-up-pantry').on('change', function () {
+        $('#sign-up-pantry-error').empty();
+    });
 }
 
 // get values from new user sign up form
@@ -206,15 +237,14 @@ function signUpSubmit() {
         let confirmPassword = $('#confirm-new-password').val();
         let pantry = $('#sign-up-pantry').val();
         if (pantry == null) {
-            alert('Please create a new pantry or create an existing one');
+            $('#sign-up-pantry-error').html(`<p>Please select an existing pantry or create a new one </p>`);
+            $(removeSignUpError);
             return;
-        };
-        $('#sign-up-first-name').val("");
-        $('#sign-up-last-name').val("");
-        $('#sign-up-email').val("");
-        $('#new-password').val("");
-        $('#confirm-new-password').val("");
-        $('#confirm-new-password').val("");
+        } else if (email === "") {
+ $('#sign-up-email-error').html(`<p>Please enter email </p>`);
+                    $(removeSignUpError);
+            signUpSubmit();
+        }
         $.ajax({
                 type: 'GET',
                 url: `/check-duplicate-email/${email}`,
@@ -222,21 +252,43 @@ function signUpSubmit() {
                 contentType: 'application/json'
             })
             .done(function (users) {
+            let errors = false;
                 if (firstName == "") {
-                    alert('Please enter first name!');
-                } else if (lastName == "") {
-                    alert('Please enter last name!');
-                } else if (email == "") {
-                    alert('Please enter an email');
-                } else if (password == "") {
-                    alert('Please enter a password');
-                } else if (password.length < 10) {
-                    alert('Minimum password length is 10 characters');
-                } else if (password !== confirmPassword) {
-                    alert('Passwords must match!');
-                } else if (users.entries.length !== 0) {
-                    alert('Email is already in use');
-                } else {
+                    $('#sign-up-first-name-error').html(`<p>Please enter first name </p>`);
+                    $(removeSignUpError);
+                    errors = true;
+                };  if (lastName == "") {
+                    $('#sign-up-last-name-error').html(`<p>Please enter last name </p>`);
+                    $(removeSignUpError);
+                    errors = true;
+                } ; if (password == "") {
+                    $('#sign-up-password-error').html(`<p>Please enter password </p>`);
+                    $(removeSignUpError);
+                    errors = true;
+                };  if (password.length < 10) {
+                    $('#sign-up-password-error').html(`<p>Please enter password of at least 10 characters </p>`);
+                    $(removeSignUpError);
+                    errors = true;
+                };  if (password !== confirmPassword) {
+                    $('#sign-up-confirm-password-error').html(`<p>Passwords must match!</p>`);
+                    $(removeSignUpError);
+                    errors = true;
+                };  if (users.entries.length !== 0) {
+                    $('#sign-up-email-error').html(`<p>Email address already in use</p>`);
+                    $(removeSignUpError);
+                    errors = true;
+                }; 
+            console.log(errors);
+            if (errors) {
+                signUpSubmit();
+                return;
+            } else {
+                    $('#sign-up-first-name').val("");
+                    $('#sign-up-last-name').val("");
+                    $('#sign-up-email').val("");
+                    $('#new-password').val("");
+                    $('#confirm-new-password').val("");
+                    $('#confirm-new-password').val("");
                     const newUserObject = {
                         email: email,
                         password: password,

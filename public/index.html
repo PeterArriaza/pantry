@@ -81,24 +81,30 @@
         <h1>Welcome to Pantry!</h1>
         <h2>New Account Sign Up</h2>
         <form role="sign-up-first-name" action="#" class="email-form">
-            <label for="first name">first name:</label>
+            <label for="first name">first name:<span class="formError" id="sign-up-first-name-error"></span></label>
             <input type="text" id="sign-up-first-name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')">
-            <label for="sign-up-last-name">last name:</label>
+
+            <label for="sign-up-last-name">last name:<span class="formError" id="sign-up-last-name-error"></span></label>
             <input type="text" id="sign-up-last-name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')">
-            <label for="sign-up-email">email:</label>
+
+            <label for="sign-up-email">email:<span class="formError" id="sign-up-email-error"></span></label>
             <input type="email" id="sign-up-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <label for="new-password">password: (10 character minimum)</label>
+
+            <label for="new-password">password: (10 character minimum) <span class="formError" id="sign-up-password-error"></span></label>
             <input type="password" id="new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
-            <label for="confirm-new-password">confirm password:</label>
+
+            <label for="confirm-new-password">confirm password:<span class="formError" id="sign-up-confirm-password-error"></span></label>
             <input type="password" id="confirm-new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
             <span id='password-validation-message'></span>
-            <p>If you would like to join an existing Pantry, select the name of the Pantry below. Otherwise, please select to create a new pantry.</p>
+            <p>If you would like to join an existing Pantry, select the name of the Pantry below. Otherwise, please select to create a new pantry.</p><span class="formError" id="sign-up-pantry-error"></span>
             <!--            <input type="text" id="sign-up-pantry" value="My House">-->
             <select id="sign-up-pantry">
                 <option value="create">Create New Pantry</option>
                 <option value="select" selected disabled>Select Existing Pantry</option>
             </select>
+            <span class="formError" id="sign-up-error"></span>
             <input type="submit" id="sign-up-submit" class="submit-button" value="Sign Up">
+
         </form>
     </main>
 
