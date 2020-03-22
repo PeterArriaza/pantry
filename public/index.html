@@ -1,147 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Pantry</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400"
+      rel="stylesheet"
+    />
     <link href="index.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<body>
-
-    <input type="hidden" value="" id="loggedInUser">
-    <input type="hidden" value="" id="loggedInUserFirstName">
-    <input type="hidden" value="" id="loggedInUserLastName">
-    <input type="hidden" value="" id="emailDuplicated">
-    <input type="hidden" value="" id="userPantry">
-    <input type="hidden" value="" id="totalNumberDeletions">
+  <body>
+    <input type="hidden" value="" id="loggedInUser" />
+    <input type="hidden" value="" id="loggedInUserFirstName" />
+    <input type="hidden" value="" id="loggedInUserLastName" />
+    <input type="hidden" value="" id="emailDuplicated" />
+    <input type="hidden" value="" id="userPantry" />
+    <input type="hidden" value="" id="totalNumberDeletions" />
 
     <nav class="nav">
-        <div class="navPantry">
-            <img src="img/pantry-logo.png" alt="Pantry App Logo">
-        </div>
-        <ul class="navLinks">
-            <li class="navItem" id="navLogin">Log In</li>
-            <li class="navItem" id="navSignUp">Sign Up</li>
-        </ul>
+      <div class="navPantry">
+        <a href="/"><img src="img/pantry-logo.png" alt="Pantry App Logo"/></a>
+      </div>
+      <ul class="navLinks">
+        <li class="navItem" id="navLogin">Log In</li>
+        <li class="navItem" id="navSignUp">Sign Up</li>
+      </ul>
     </nav>
 
     <main role="main" id="welcomeModal" class="wrapper">
-        <!-- <div id="myWelcomeMessage" class="email-form"> -->
-        <div class="welcome welcome1">
-            <div class="welcomeWrapper">
-                <h1>Welcome to Pantry!</h1>
-            </div>
+      <!-- <div id="myWelcomeMessage" class="email-form"> -->
+      <div class="welcome welcome1">
+        <div class="welcomeWrapper">
+          <h1>Welcome to Pantry!</h1>
         </div>
-        <div class="welcome welcome2">
-            <div class="welcomeWrapper">
-                <p>This app will help you keep track of what food you have in your home - who put it there, when they put it there, how much is left, etc. Users will create a "Pantry", which can be a specific refrigerator, cabinent, shelf, or location that you store food.</p>
-            </div>
+      </div>
+      <div class="welcome welcome2">
+        <div class="welcomeWrapper">
+          <p>
+            This app will help you keep track of what food you have in your home
+            - who put it there, when they put it there, how much is left, etc.
+            Users will create a "Pantry", which can be a specific refrigerator,
+            cabinent, shelf, or location that you store food.
+          </p>
         </div>
-        <div class="welcome welcome3">
-            <div class="welcomeWrapper">
-                <p>After you create your Pantry, you will be able to add items, edit them, and remove them when they are gone.</p>
-            </div>
+      </div>
+      <div class="welcome welcome3">
+        <div class="welcomeWrapper">
+          <p>
+            After you create your Pantry, you will be able to add items, edit
+            them, and remove them when they are gone.
+          </p>
         </div>
-        <div class="welcome welcome4">
-            <div class="welcomeWrapper">
-                <p>To get started tracking your food items, click sign up above!</p>
-            </div>
+      </div>
+      <div class="welcome welcome4">
+        <div class="welcomeWrapper">
+          <p>To get started tracking your food items, click sign up above!</p>
         </div>
-        <!-- <button id="closeWelcomeMessage">OK</button> -->
-        <!-- </div> -->
+      </div>
+      <!-- <button id="closeWelcomeMessage">OK</button> -->
+      <!-- </div> -->
     </main>
 
     <main role="main" id="login-page" class="wrapper">
-        <h1>Welcome to Pantry!</h1>
-        <h2>Pantry is a food management system that tracks the food items in your household.</h2>
-        <h3>Don't have an account? <a href="#" onclick="showSignUpPage()">Sign up for one!</a></h3>
+      <h1>Welcome to Pantry!</h1>
+      <h2>
+        Pantry is a food management system that tracks the food items in your
+        household.
+      </h2>
+      <h3>
+        Don't have an account?
+        <a href="#" onclick="showSignUpPage()">Sign up for one!</a>
+      </h3>
 
-        <form role="form" id="login-form" class="email-form">
-            <label for="login-email">email: <span class="formError" id="login-email-error"></span></label>
-            <input type="email" id="login-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
-            <label for="login-password">password: <span class="formError" id="login-password-error"></span></label>
-            <input type="password" id="login-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+      <form role="form" id="login-form" class="email-form">
+        <label for="login-email"
+          >email: <span class="formError" id="login-email-error"></span
+        ></label>
+        <input
+          type="email"
+          id="login-email"
+          required
+          oninvalid="this.setCustomValidity('Email is required.')"
+          oninput="this.setCustomValidity('')"
+        />
+        <label for="login-password"
+          >password: <span class="formError" id="login-password-error"></span
+        ></label>
+        <input
+          type="password"
+          id="login-password"
+          required
+          oninvalid="this.setCustomValidity('Password is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <input type="checkbox" onclick="togglePasswordVisibility()">
-            <label for="checkbox">Show Password</label>
+        <input type="checkbox" onclick="togglePasswordVisibility()" />
+        <label for="checkbox">Show Password</label>
 
-            <input type="submit" id="login-submit" class="submit-button" value="Login">
-        </form>
+        <input
+          type="submit"
+          id="login-submit"
+          class="submit-button"
+          value="Login"
+        />
+      </form>
 
-        <h2 id="tryout">Not sure if you want to sign up just yet? <a href="#" onclick="showInventoryPage()">Try out Pantry</a> with a mock account!</h2>
+      <h2 id="tryout">
+        Not sure if you want to sign up just yet?
+        <a href="#" onclick="showInventoryPage()">Try out Pantry</a> with a mock
+        account!
+      </h2>
     </main>
 
     <!-- console.log not working in validateUser and sign up page required fields not working -->
 
     <main role="main" id="sign-up-page" class="wrapper">
-        <h1>Welcome to Pantry!</h1>
-        <h2>New Account Sign Up</h2>
-        <form role="sign-up-first-name" action="#" class="email-form">
-            <label for="first name">first name:<span class="formError" id="sign-up-first-name-error"></span></label>
-            <input type="text" id="sign-up-first-name" required oninvalid="this.setCustomValidity('First Name is required.')" oninput="this.setCustomValidity('')">
+      <h1>Welcome to Pantry!</h1>
+      <h2>New Account Sign Up</h2>
+      <form role="sign-up-first-name" action="#" class="email-form">
+        <label for="first name"
+          >first name:<span
+            class="formError"
+            id="sign-up-first-name-error"
+          ></span
+        ></label>
+        <input
+          type="text"
+          id="sign-up-first-name"
+          required
+          oninvalid="this.setCustomValidity('First Name is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <label for="sign-up-last-name">last name:<span class="formError" id="sign-up-last-name-error"></span></label>
-            <input type="text" id="sign-up-last-name" required oninvalid="this.setCustomValidity('Last Name is required.')" oninput="this.setCustomValidity('')">
+        <label for="sign-up-last-name"
+          >last name:<span class="formError" id="sign-up-last-name-error"></span
+        ></label>
+        <input
+          type="text"
+          id="sign-up-last-name"
+          required
+          oninvalid="this.setCustomValidity('Last Name is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <label for="sign-up-email">email:<span class="formError" id="sign-up-email-error"></span></label>
-            <input type="email" id="sign-up-email" required oninvalid="this.setCustomValidity('Email is required.')" oninput="this.setCustomValidity('')">
+        <label for="sign-up-email"
+          >email:<span class="formError" id="sign-up-email-error"></span
+        ></label>
+        <input
+          type="email"
+          id="sign-up-email"
+          required
+          oninvalid="this.setCustomValidity('Email is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <label for="new-password">password: (10 character minimum) <span class="formError" id="sign-up-password-error"></span></label>
-            <input type="password" id="new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
+        <label for="new-password"
+          >password: (10 character minimum)
+          <span class="formError" id="sign-up-password-error"></span
+        ></label>
+        <input
+          type="password"
+          id="new-password"
+          required
+          oninvalid="this.setCustomValidity('Password is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <label for="confirm-new-password">confirm password:<span class="formError" id="sign-up-confirm-password-error"></span></label>
-            <input type="password" id="confirm-new-password" required oninvalid="this.setCustomValidity('Password is required.')" oninput="this.setCustomValidity('')">
-            <span id='password-validation-message'></span>
-            <p>If you would like to join an existing Pantry, select the name of the Pantry below. Otherwise, please select to create a new pantry.</p><span class="formError" id="sign-up-pantry-error"></span>
-            <!--            <input type="text" id="sign-up-pantry" value="My House">-->
-            <select id="sign-up-pantry">
-                <option value="create">Create New Pantry</option>
-                <option value="select" selected disabled>Select Existing Pantry</option>
-            </select>
-            <span class="formError" id="sign-up-error"></span>
-            <input type="submit" id="sign-up-submit" class="submit-button" value="Sign Up">
-
-        </form>
+        <label for="confirm-new-password"
+          >confirm password:<span
+            class="formError"
+            id="sign-up-confirm-password-error"
+          ></span
+        ></label>
+        <input
+          type="password"
+          id="confirm-new-password"
+          required
+          oninvalid="this.setCustomValidity('Password is required.')"
+          oninput="this.setCustomValidity('')"
+        />
+        <span id="password-validation-message"></span>
+        <p>
+          If you would like to join an existing Pantry, select the name of the
+          Pantry below. Otherwise, please select to create a new pantry.
+        </p>
+        <span class="formError" id="sign-up-pantry-error"></span>
+        <!--            <input type="text" id="sign-up-pantry" value="My House">-->
+        <select id="sign-up-pantry">
+          <option value="create">Create New Pantry</option>
+          <option value="select" selected disabled
+            >Select Existing Pantry</option
+          >
+        </select>
+        <span class="formError" id="sign-up-error"></span>
+        <input
+          type="submit"
+          id="sign-up-submit"
+          class="submit-button"
+          value="Sign Up"
+        />
+      </form>
     </main>
 
     <main role="main" id="new-pantry-page" class="wrapper">
-        <h1>Add a new Pantry</h1>
-        <h2>We just need a few details!</h2>
-        <form role="form" action="#" class="email-form">
-            <label for="name-of-pantry">name of pantry:</label>
-            <input type="text" id="name-of-pantry" required oninvalid="this.setCustomValidity('Name of Pantry is required.')" oninput="this.setCustomValidity('')">
+      <h1>Add a new Pantry</h1>
+      <h2>We just need a few details!</h2>
+      <form role="form" action="#" class="email-form">
+        <label for="name-of-pantry">name of pantry:</label>
+        <input
+          type="text"
+          id="name-of-pantry"
+          required
+          oninvalid="this.setCustomValidity('Name of Pantry is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <!--
+        <!--
             <p>Add other members to Pantry? (optional)</p>
             <label for="other-members">member email:</label>
             <input type="email" id="other-members" multiple>
 -->
-            <input type="submit" id="new-pantry-submit" class="submit-button" value="Create Pantry">
-        </form>
+        <input
+          type="submit"
+          id="new-pantry-submit"
+          class="submit-button"
+          value="Create Pantry"
+        />
+      </form>
     </main>
 
     <main role="main" id="inventory-page">
-        <h1>Pantry Inventory</h1>
-        <div class="inventory-table">
+      <h1>Pantry Inventory</h1>
+      <div class="inventory-table">
+        <div class="item-header">
+          <div class="checkbox-space">
+            <input type="checkbox" class="header-checkbox" />
+          </div>
+          <div class="item-detail item-name">Name</div>
+          <div class="item-detail item-qty">Qty</div>
+          <div class="item-detail item-unit">Units</div>
+          <div class="item-detail item-description">Description</div>
+          <div class="item-detail item-price">Price</div>
+          <div class="item-detail item-added-by">Added By</div>
+        </div>
+        <div id="pantryContent"></div>
 
-            <div class="item-header">
-                <div class="checkbox-space">
-                    <input type="checkbox" class="header-checkbox">
-                </div>
-                <div class="item-detail item-name">Name</div>
-                <div class="item-detail item-qty">Qty</div>
-                <div class="item-detail item-unit">Units</div>
-                <div class="item-detail item-description">Description</div>
-                <div class="item-detail item-price">Price</div>
-                <div class="item-detail item-added-by">Added By</div>
-            </div>
-            <div id="pantryContent"></div>
-
-            <!--
+        <!--
     <div class="item-row">
                 <div class="item-detail item-name">Parmesean reggiano</div>
                 <div class="item-detail item-qty">12</div>
@@ -155,40 +267,65 @@
                 </div>
             </div>
 -->
-        </div>
-        <div class="button-row">
-            <!--            <button id="delete-item-button">- Delete Items</button>-->
-            <!--            <div class="edit-buttons-row">-->
-            <button class="edit edit-items">Edit Items</button>
-            <button class="edit save-changes">Save Changes</button>
-            <button class="edit cancel-delete">Cancel Delete</button>
-            <button class="edit delete-item">- Delete <span id="numberDeletions">(0)</span> Items</button>
-            <!--                </div>-->
-            <button id="new-item-button">+ Add New Item</button>
-        </div>
+      </div>
+      <div class="button-row">
+        <!--            <button id="delete-item-button">- Delete Items</button>-->
+        <!--            <div class="edit-buttons-row">-->
+        <button class="edit edit-items">Edit Items</button>
+        <button class="edit save-changes">Save Changes</button>
+        <button class="edit cancel-delete">Cancel Delete</button>
+        <button class="edit delete-item">
+          - Delete <span id="numberDeletions">(0)</span> Items
+        </button>
+        <!--                </div>-->
+        <button id="new-item-button">+ Add New Item</button>
+      </div>
     </main>
 
     <main role="main" id="new-item-page" class="wrapper">
-        <h1>Add a New Item</h1>
-        <form role="form" action="#" class="email-form">
-            <label for="new-item-name">item name <span>(required)</span></label>
-            <span class="error" id="itemNameError"></span>
-            <input type="text" id="new-item-name" required oninvalid="this.setCustomValidity('Item Name is required.')" oninput="this.setCustomValidity('')">
+      <h1>Add a New Item</h1>
+      <form role="form" action="#" class="email-form">
+        <label for="new-item-name">item name <span>(required)</span></label>
+        <span class="error" id="itemNameError"></span>
+        <input
+          type="text"
+          id="new-item-name"
+          required
+          oninvalid="this.setCustomValidity('Item Name is required.')"
+          oninput="this.setCustomValidity('')"
+        />
 
-            <label for="new-item-quantity">quantity <span>(required)</span></label>
-            <span class="error" id="qtyNameError"></span>
-            <input type="number" id="new-item-quantity" required oninvalid="this.setCustomValidity('Quantity is required.')" oninput="this.setCustomValidity('')">
-            <label for="new-item-units">units <span>(required)</span></label>
-            <span class="error" id="unitsError"></span>
+        <label for="new-item-quantity">quantity <span>(required)</span></label>
+        <span class="error" id="qtyNameError"></span>
+        <input
+          type="number"
+          id="new-item-quantity"
+          required
+          oninvalid="this.setCustomValidity('Quantity is required.')"
+          oninput="this.setCustomValidity('')"
+        />
+        <label for="new-item-units">units <span>(required)</span></label>
+        <span class="error" id="unitsError"></span>
 
-            <input type="text" id="new-item-units" required oninvalid="this.setCustomValidity('Units is required.')" oninput="this.setCustomValidity('')">
-            <label for="new-item-description">description:</label>
-            <input type="text" id="new-item-description">
-            <label for="new-item-price">price:</label>
-            <input type="text" id="new-item-price">
-            <input type="submit" id="new-item-submit" class="submit-button" value="Add New Item">
-        </form>
-        <button id="new-item-cancel" class="cancel-button">Cancel</button>
+        <input
+          type="text"
+          id="new-item-units"
+          required
+          oninvalid="this.setCustomValidity('Units is required.')"
+          oninput="this.setCustomValidity('')"
+        />
+        <label for="new-item-description">description:</label>
+        <input type="text" id="new-item-description" />
+        <label for="new-item-price">price:</label>
+        <input type="text" id="new-item-price" />
+        <input
+          type="submit"
+          id="new-item-submit"
+          class="submit-button"
+          value="Add New Item"
+        />
+      </form>
+      <button id="new-item-cancel" class="cancel-button">Cancel</button>
     </main>
 
     <!-- <footer role="row">
@@ -201,9 +338,12 @@
         </div>
 
     </footer> -->
-</body>
+  </body>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="client.js" type="text/javascript" charset="utf-8"></script>
-
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="client.js" type="text/javascript" charset="utf-8"></script>
 </html>
